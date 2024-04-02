@@ -1,0 +1,44 @@
+POST http://localhost:3000/register/submit
+Content-Type: application/json
+
+{
+    "email": "duh-@gmail.com",
+    "password": "1234--",
+    "name":"Thommy",
+    "lastName":"l"
+}
+
+###
+POST http://localhost:3000/login/loginUser
+Content-Type: application/json
+
+{
+    "email": "duh-@gmail.com",
+    "password": "1234--"
+}
+
+
+###
+GET http://localhost:3000/
+
+###
+PATCH  http://localhost:3000/workout/saveWorkout
+Content-Type: application/json
+
+{
+    "workoutName": "pushups",
+    "exercises":[
+        {
+            "exerciseName":"Push Ups",
+            "numberOfSers":3,
+            "reps":[3,3,3]
+        },
+        {
+            "exerciseName":"Bench Press",
+            "numberOfSers":4,
+            "reps":[3,4,5],
+            "weights":[20,20,25]
+        }
+    ],
+    "calendarDay":["monday", "wednesday", "friday"]
+}

@@ -1,20 +1,7 @@
-import mongoose, { Document, Model, Schema } from "mongoose";
-import { IWorkout } from "../../interfaces/IWorkout";
+import mongoose, { Model, Schema } from "mongoose";
+import {IUserMongoose} from "../../interfaces/IUser";
 
-interface UserModel extends Document{
-    name:string,
-    lastName: string,
-    email: string,
-    pasword: string,
-    age: number,
-    height: number,
-    workouts: IWorkout[],
-    activityLog: Map<string, number>,
-    weeklyCalendar: Map<string, IWorkout>,
-    workoutHistory: Map<string, IWorkout>
-}
-
-const UserSchema:Schema = new mongoose.Schema<UserModel>(
+const UserSchema:Schema = new mongoose.Schema<IUserMongoose>(
     {
         name:{
             type: String,
@@ -30,7 +17,7 @@ const UserSchema:Schema = new mongoose.Schema<UserModel>(
             min: 5,
             unique: true
         },
-        pasword:{
+        password:{
             type: String,
             require: true,
             min: 5,
@@ -68,12 +55,14 @@ const UserSchema:Schema = new mongoose.Schema<UserModel>(
 UserSchema.set('toJSON', {
     transform: (_prev, current) =>
     {
-        current.id = current._id;
+        delete current._id;
+        delete current.password;
         delete current._id;
         delete current.__v;
+        delete current.email;
     }
 });
 
-const User:Model<UserModel> = mongoose.model<UserModel>("User",UserSchema);
+const User:Model<IUserMongoose> = mongoose.model<IUserMongoose>("User",UserSchema);
 
 export default User;
