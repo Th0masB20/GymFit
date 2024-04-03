@@ -29,6 +29,9 @@ const ErrorHandler: ErrorRequestHandler = (error: any, _req: Request, res: Respo
     if (error.message == 'workout exists') {
         return res.status(400).send('This Workout Already Exists');
     }
+    if (error.message == 'day occupied') {
+        return res.status(400).send('One or more days are occupied with an existing workout');
+    }
 
     next(error);
 }

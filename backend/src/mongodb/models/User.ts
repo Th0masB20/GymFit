@@ -41,7 +41,7 @@ const UserSchema: Schema = new mongoose.Schema<IUserMongoose>(
         },
         weeklyCalendar: {
             type: Map,
-            of: Object,
+            of: String,
             require: true,
         },
         workoutHistory: {

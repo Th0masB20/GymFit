@@ -10,7 +10,7 @@ export interface IUser {
     height?: number,
     workouts: IWorkout[],
     activityLog: number[],
-    weeklyCalendar: Map<string, IWorkout>,
+    weeklyCalendar: Map<string, string>,
     workoutHistory: Map<string, IWorkout>
 }
 

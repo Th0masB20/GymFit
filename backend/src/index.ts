@@ -8,9 +8,7 @@ import ErrorHandler from "./utilities/ErrorHandler";
 import loginRouter from "./routes/LoginRoute";
 import authorize from "./utilities/ValidateUser";
 import mainUserRoutes from './routes/ApiRoutes';
-import saveWorkoutRoute from './routes/SaveWorkoutRoute';
-import finishWorkoutRoute from "./routes/FinishWorkout";
-import editWorkoutRoute from "./routes/EditWorkout";
+import workoutRoute from './routes/WorkoutRoutes';
 
 dotenv.config();
 const app = express();
@@ -34,8 +32,6 @@ mongoose.connect(connectionString).then(() => {
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/', authorize, mainUserRoutes);
-app.use('/workout/saveWorkout', authorize, saveWorkoutRoute);
-app.use('/finishWorkout', authorize, finishWorkoutRoute);
-app.use('/editWorkout', authorize, editWorkoutRoute);
+app.use('/workout', authorize, workoutRoute);
 
 app.use(ErrorHandler);

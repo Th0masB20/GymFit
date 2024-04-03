@@ -4,7 +4,7 @@ interface IExercise {
     exerciseName: string,
     numberOfSets: number,
     reps: number[],
-    weights?: number[],
+    weights: number[],
 }
 
 export function isExerciseCorrect(obj: IExercise): boolean {
@@ -12,6 +12,7 @@ export function isExerciseCorrect(obj: IExercise): boolean {
     if (!obj.exerciseName) return false;
     if (!obj.numberOfSets) return false;
     if (!obj.reps) return false;
+    if (!obj.weights) return false;
 
     return true;
 }
