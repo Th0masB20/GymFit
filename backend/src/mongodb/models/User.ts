@@ -1,60 +1,59 @@
 import mongoose, { Model, Schema } from "mongoose";
-import {IUserMongoose} from "../../interfaces/IUser";
+import { IUserMongoose } from "../../interfaces/IUser";
 
-const UserSchema:Schema = new mongoose.Schema<IUserMongoose>(
+const UserSchema: Schema = new mongoose.Schema<IUserMongoose>(
     {
-        name:{
+        name: {
             type: String,
             require: true,
         },
-        lastName:{
+        lastName: {
             type: String,
-            require:true,
+            require: true,
         },
-        email:{
+        email: {
             type: String,
             require: true,
             min: 5,
             unique: true
         },
-        password:{
+        password: {
             type: String,
             require: true,
             min: 5,
         },
-        age:{
+        age: {
             type: Number,
             require: true,
         },
-        height:{
+        height: {
             type: Number,
             require: true,
         },
-        workouts:{
-            type:[Object],
+        workouts: {
+            type: [Object],
             require: true,
         },
-        activityLog:{
-            type: Map,
+        activityLog: {
+            type: [Number],
             of: Number,
             require: true,
         },
-        weeklyCalendar:{
+        weeklyCalendar: {
             type: Map,
             of: Object,
             require: true,
         },
-        workoutHistory:{
+        workoutHistory: {
             type: Map,
             of: Object,
             require: true,
         }
-    }   
+    }
 );
 
 UserSchema.set('toJSON', {
-    transform: (_prev, current) =>
-    {
+    transform: (_prev, current) => {
         delete current._id;
         delete current.password;
         delete current._id;
@@ -63,6 +62,6 @@ UserSchema.set('toJSON', {
     }
 });
 
-const User:Model<IUserMongoose> = mongoose.model<IUserMongoose>("User",UserSchema);
+const User: Model<IUserMongoose> = mongoose.model<IUserMongoose>("User", UserSchema);
 
 export default User;

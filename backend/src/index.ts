@@ -8,7 +8,9 @@ import ErrorHandler from "./utilities/ErrorHandler";
 import loginRouter from "./routes/LoginRoute";
 import authorize from "./utilities/ValidateUser";
 import mainUserRoutes from './routes/ApiRoutes';
-import saveWorkoutRoute from './routes/SaveWorkoutRoute'; 
+import saveWorkoutRoute from './routes/SaveWorkoutRoute';
+import finishWorkoutRoute from "./routes/FinishWorkout";
+import editWorkoutRoute from "./routes/EditWorkout";
 
 dotenv.config();
 const app = express();
@@ -19,19 +21,21 @@ app.use(cookieParser());
 app.use(express.static('pageDist'));
 
 const connectionString: string = `mongodb+srv://ThomasB20:${process.env.PASSWORD}@gymtracker.fv3h94k.mongodb.net/GymTracker?retryWrites=true&w=majority&appName=GymTracker`
-const PORT:number = 3000;
+const PORT: number = 3000;
 
-mongoose.connect(connectionString).then(()=>{
+mongoose.connect(connectionString).then(() => {
     app.listen(PORT, () => console.log('running'));
-}).catch(
-    () =>
-    {
+}
+).catch(
+    () => {
         console.log("an error occured with connection: try again");
     }
 )
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/', authorize, mainUserRoutes);
-app.use('/workout/saveWorkout', authorize, saveWorkoutRoute)
+app.use('/workout/saveWorkout', authorize, saveWorkoutRoute);
+app.use('/finishWorkout', authorize, finishWorkoutRoute);
+app.use('/editWorkout', authorize, editWorkoutRoute);
 
 app.use(ErrorHandler);

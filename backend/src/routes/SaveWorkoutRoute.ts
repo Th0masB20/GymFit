@@ -5,25 +5,25 @@ import { IWorkout, isWorkoutCorrect } from '../interfaces/IWorkout';
 
 const saveWorkoutRoute = express.Router();
 
-saveWorkoutRoute.patch('/', async (req:Request, res:Response, next:NextFunction) =>
-{
-    const request:IReqVerification = req as IReqVerification;
-    const newWorkoutJson:IWorkout = req.body as IWorkout;
-    try
-    {
+saveWorkoutRoute.post('/', async (req: Request, res: Response, next: NextFunction) => {
+    const request: IReqVerification = req as IReqVerification;
+    const newWorkoutJson: IWorkout = req.body as IWorkout;
+    try {
         const user = await User.findById(request.token.id);
-        if(!user) throw new Error('user DNE');
+        if (!user) throw new Error('user DNE');
 
-        if(!isWorkoutCorrect(newWorkoutJson))
-        {
+        if (!isWorkoutCorrect(newWorkoutJson)) {
             throw new Error('incorrect workout format');
         }
 
+        for (let workouts of user.workouts) {
+            if (workouts.workoutName === newWorkoutJson.workoutName) {
+                throw new Error('workout exists');
+            }
+        }
         user.workouts.push(newWorkoutJson);
-        for(let weekday of newWorkoutJson.calendarDay)
-        {
-            if(!user.weeklyCalendar.has(weekday))
-            {
+        for (let weekday of newWorkoutJson.calendarDay) {
+            if (!user.weeklyCalendar.has(weekday)) {
                 user.weeklyCalendar.set(weekday, newWorkoutJson);
                 continue;
             }
@@ -32,8 +32,7 @@ saveWorkoutRoute.patch('/', async (req:Request, res:Response, next:NextFunction)
         await user.save();
         res.send('Workout added Successfully');
     }
-    catch(error)
-    {
+    catch (error) {
         next(error);
     }
 });
