@@ -1,7 +1,6 @@
 import { NextFunction, Response, Request, ErrorRequestHandler } from "express";
 
 const ErrorHandler: ErrorRequestHandler = (error: any, _req: Request, res: Response, next: NextFunction) => {
-    console.log('in here: ' + error.message);
     if (error.message == 'wrong inputs') {
         return res.status(400).send('Please fill out all fields');
     }
@@ -31,6 +30,9 @@ const ErrorHandler: ErrorRequestHandler = (error: any, _req: Request, res: Respo
     }
     if (error.message == 'day occupied') {
         return res.status(400).send('One or more days are occupied with an existing workout');
+    }
+    if (error.message == 'workout not found') {
+        return res.status(400).send('This workout does not exist');
     }
 
     next(error);

@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { IReqVerification } from '../interfaces/IAuthorization';
-import User from '../mongodb/models/User';
+import User from '../models/User';
 import { IWorkout, IWorkoutStartFinish, isWorkoutCorrect } from '../interfaces/IWorkout';
 
 const workoutRoute = express.Router();
@@ -34,7 +34,7 @@ workoutRoute.post('/saveWorkout', async (req: Request, res: Response, next: Next
         }
 
         await user.save();
-        res.send('Workout added Successfully');
+        res.status(200).json(user);
     }
     catch (error) {
         next(error);
@@ -61,7 +61,7 @@ workoutRoute.post('/finishWorkout', async (req: Request, res: Response, next: Ne
         }
 
         await user.save();
-        res.status(200).send('Finished Workout');
+        res.status(200).json(user);
     }
     catch (error) {
         next(error);
@@ -86,34 +86,64 @@ workoutRoute.patch('/:name/updateWorkout', async (req: Request, res: Response, n
         }
 
         await user.save();
-        res.send('User Successfully Updated');
+        res.status(200).json(user);
     }
     catch (error) {
         next(error);
     }
 })
 
-workoutRoute.get('/:name', async (req: Request, res: Response, next: NextFunction) => {
+workoutRoute.get('/:workoutName', async (req: Request, res: Response, next: NextFunction) => {
     const request: IReqVerification = req as IReqVerification;
-    const params: { name: string } = req.params as { name: string };
+    const params: { workoutName: string } = req.params as { workoutName: string };
     try {
         const user = await User.findById(request.token.id);
         if (!user) throw new Error('user DNE');
         let theWorkout: IWorkout | null = null;
 
         for (let workout of user.workouts) {
-            if (workout.workoutName == params.name) {
+            if (workout.workoutName == params.workoutName) {
                 theWorkout = workout;
                 break;
             }
         }
 
-        res.send(theWorkout);
+        res.status(200).json(theWorkout);
 
     } catch (error) {
         next(error);
     }
-})
+});
 
+workoutRoute.delete('/:workoutName/deleteWorkout', async (req: Request, res: Response, next: NextFunction) => {
+    const request: IReqVerification = req as IReqVerification;
+    const params: { workoutName: string } = req.params as { workoutName: string };
+
+    try {
+        const user = await User.findById(request.token.id);
+        if (!user) throw new Error('user DNE');
+
+        for (let i = 0; i < user.workouts.length; i++) {
+            if (user.workouts[i].workoutName == params.workoutName) {
+                for (let days of user.workouts[i].calendarDay) {
+                    user.weeklyCalendar.delete(days);
+                }
+                user.workouts.splice(i, 1);
+                break;
+            }
+
+            if (i == user.workouts.length) {
+                throw new Error('workout not found');
+            }
+        }
+
+        await user.save();
+        res.status(200).json(user);
+
+    }
+    catch (error) {
+        next(error);
+    }
+});
 
 export default workoutRoute;

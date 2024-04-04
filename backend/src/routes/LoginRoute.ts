@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import ILogin, { isLoginCorrect } from '../interfaces/ILogin';
-import User from '../mongodb/models/User';
+import User from '../models/User';
 
 const loginRouter = express.Router();
 
