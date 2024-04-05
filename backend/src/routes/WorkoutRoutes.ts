@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { IReqVerification } from '../interfaces/IAuthorization';
-import User from '../models/User';
+import User from '../mongodb/models/User';
 import { IWorkout, IWorkoutStartFinish, isWorkoutCorrect } from '../interfaces/IWorkout';
 
 const workoutRoute = express.Router();

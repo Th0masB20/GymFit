@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express'
 import { IReqVerification } from '../interfaces/IAuthorization';
-import User from '../models/User';
+import User from '../mongodb/models/User';
 
 const mainUserRoutes = express.Router();
 

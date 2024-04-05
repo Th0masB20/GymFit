@@ -2,7 +2,7 @@ import express, { Router, Request, Response, NextFunction } from "express";
 import { IRegisterReqest, isRegisterCorrect } from "../interfaces/IRegiesterRequest";
 import { IUser } from "../interfaces/IUser";
 import bcrypt from 'bcrypt';
-import User from "../models/User";
+import User from "../mongodb/models/User";
 
 const registerRouter: Router = express.Router();
 
