@@ -28,8 +28,4 @@ mainUserRoutes.get('/getCalendar', async (req: Request, res: Response, next: Nex
     }
 });
 
-
-
-
-
 export default mainUserRoutes;

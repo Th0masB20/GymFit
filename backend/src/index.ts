@@ -31,7 +31,7 @@ mongoose.connect(connectionString).then(() => {
 )
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
-app.use('/', authorize, mainUserRoutes);
+app.use('/home', authorize, mainUserRoutes);
 app.use('/workout', authorize, workoutRoute);
 
 app.use(ErrorHandler);
