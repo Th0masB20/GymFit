@@ -12,10 +12,7 @@ const NavBar = (): React.ReactElement => {
           </NavLink>
         </li>
         <li className="pl-8">
-          <NavLink
-            to="/log in"
-            className="box-border bg-gradient-to-r from-third to-main w-auto h-auto p-1 px-4 rounded-full text-white font-bold z-10"
-          >
+          <NavLink to="/login" className="loginButton">
             Log In
           </NavLink>
         </li>
@@ -28,7 +25,7 @@ const Header = (): React.ReactElement => {
   return (
     <header className="header">
       <NavBar />
-      <div className="box-border absolute h-56 top-[20%] left-40 after:absolute after:bg-inherit after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:bg-gray-400 after:w-72 after:h-80 after:rounded-full after:blur-3xl flex flex-col justify-between items-center">
+      <div className="headerWords">
         <p className="box-border text-4xl text-center w-52 z-10 text-white font-semibold">
           Easiest Way to track your Fitness Journey
         </p>
@@ -46,17 +43,15 @@ const Header = (): React.ReactElement => {
 const About = (): React.ReactElement => {
   return (
     <div className="flex flex-col items-center bg-soft-1 w-6/12 mx-auto h-96 mt-24 mb-24 p-8 rounded-3xl">
-      <h2 className="text-3xl font-semibold pb-10">About</h2>
-      <p>We strive to make workout tracking as easy and seamless as possible</p>
-      <p>We allow users to:</p>
-      <ul className="inline-block">
-        <li className="text-center text-accent text-lg">
-          Create Custome Workouts
-        </li>
-        <li className="text-center text-accent text-lg">
-          Set a workout schedule
-        </li>
-        <li className="text-center text-accent text-lg">
+      <h2 className="text-3xl font-semibold pb-5 underline">About</h2>
+      <p className="text-xl text-center">
+        We strive to make workout tracking as easy and seamless as possible
+      </p>
+      <p className="text-xl text-center">We allow users to:</p>
+      <ul className="inline-block pt-2 pb-2 font-">
+        <li className="listItem">Create Custome Workouts</li>
+        <li className="listItem">Set a workout schedule</li>
+        <li className="listItem">
           Set rerminders for days and time of workout
         </li>
       </ul>

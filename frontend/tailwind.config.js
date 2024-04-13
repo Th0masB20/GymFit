@@ -7,6 +7,7 @@ export default {
       backgroundImage: {
         headerFullBackground:
           "linear-gradient(to bottom, rgba(0,0,0,0) 80%, rgba(255,255,255,1)), url('./src/imagesTracker/karsten-winegeart-0Wra5YYVQJE-unsplash.jpg')",
+        loginBackground: "url('./src/imagesTracker/People working out.jpg')",
       },
       backgroundPosition: {
         "center-center": "center 60%",
