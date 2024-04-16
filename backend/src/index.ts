@@ -16,7 +16,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static('pageDist'));
+app.use(express.static('./dist'));
 
 const connectionString: string = `mongodb+srv://ThomasB20:${process.env.PASSWORD}@gymtracker.fv3h94k.mongodb.net/GymTracker?retryWrites=true&w=majority&appName=GymTracker`
 const PORT: number = 3000;

@@ -32,7 +32,7 @@ registerRouter.post('/submit', async (req: Request<{}, {}, IRegisterReqest>, res
         const newUser = new User<IUser>(newUserObject);
         await newUser.save();
 
-        res.send("Successfully Saved");
+        res.json({ message: "Successfully Saved" });
     }
     catch (error) {
         next(error);

@@ -18,10 +18,18 @@
   @apply box-border absolute h-56 top-[20%] left-40 after:absolute after:bg-inherit after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:bg-gray-400 after:w-72 after:h-80 after:rounded-full after:blur-3xl flex flex-col justify-between items-center;
 }
 
-.loginButton {
+.mainLoginButton {
   @apply box-border bg-gradient-to-r from-third to-main w-auto h-auto p-1 px-4 rounded-full text-white font-bold z-10;
 }
 
 .listItem {
   @apply text-center text-accent text-xl;
+}
+
+.LoginInput {
+  @apply w-72 h-7 bg-gray-300 opacity-80 rounded-full pl-2;
+}
+
+.loginButton {
+  @apply relative w-40 h-9 bg-main flex justify-center items-center text-white text-xl font-semibold mt-8 after:w-24 after:h-24 after:bg-third after:rounded-full after:absolute overflow-hidden z-10 after:blur-xl after:-z-10 border-third border-2 border-opacity-50;
 }

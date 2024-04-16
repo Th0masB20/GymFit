@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainPage from "./component/MainPage";
-import LoginPage from "./component/LoginPage";
+import SigninPage from "./component/LoginFormPage";
+import RegisterPage from "./component/RegisterPage";
+import InfoFormPage from "./component/InfoPage";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +13,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: <SigninPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
+  },
+  {
+    path: "/info",
+    element: <InfoFormPage />,
   },
 ]);
 

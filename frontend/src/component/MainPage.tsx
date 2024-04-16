@@ -12,7 +12,7 @@ const NavBar = (): React.ReactElement => {
           </NavLink>
         </li>
         <li className="pl-8">
-          <NavLink to="/login" className="loginButton">
+          <NavLink to="/login" className="mainLoginButton">
             Log In
           </NavLink>
         </li>

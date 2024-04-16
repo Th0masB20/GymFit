@@ -29,7 +29,7 @@ loginRouter.post('/loginUser', async (req: Request<{}, {}, ILogin>, res: Respons
             sameSite: 'strict',
             httpOnly: true
         });
-        res.send('Successfully Signed In');
+        res.json({ message: 'Successfully Signed In' });
     }
     catch (error) {
         next(error);
