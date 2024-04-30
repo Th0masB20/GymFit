@@ -1,19 +1,17 @@
 import { JwtPayload } from "jsonwebtoken";
-import {Request} from 'express';
+import { Request } from 'express';
 
 //for cookies
-export interface ICookieTicket extends Request
-{
-    tick:string;
+export interface ICookieTicket extends Request {
+    ticket: string;
 }
 
 //for jwt.verify return 
-export interface IUserToken extends JwtPayload
-{
-    id:string;
+export interface IUserToken extends JwtPayload {
+    id: string;
 }
 
 //for req.token 
-export interface IReqVerification extends Request{
+export interface IReqVerification extends Request {
     token: IUserToken;
 }

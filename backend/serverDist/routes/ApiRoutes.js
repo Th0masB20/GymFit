@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const User_1 = __importDefault(require("../mongodb/models/User"));
+// import { IUserAgeWeight } from '../interfaces/IUser';
 const mainUserRoutes = express_1.default.Router();
 mainUserRoutes.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const request = req;
@@ -34,6 +35,19 @@ mainUserRoutes.get('/getCalendar', (req, res, next) => __awaiter(void 0, void 0,
         if (!user)
             throw new Error('User DNE');
         res.json(user.weeklyCalendar);
+    }
+    catch (error) {
+        next(error);
+    }
+}));
+mainUserRoutes.put('/updateUser', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const request = req;
+    const reqBody = req.body;
+    try {
+        const user = yield User_1.default.findOneAndUpdate({ _id: request.token.id }, { age: reqBody.age, height: reqBody.height }, { new: true });
+        if (!user)
+            throw new Error('update user fail');
+        res.status(200).send();
     }
     catch (error) {
         next(error);

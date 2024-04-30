@@ -5,6 +5,8 @@ import MainPage from "./component/MainPage";
 import SigninPage from "./component/LoginFormPage";
 import RegisterPage from "./component/RegisterPage";
 import InfoFormPage from "./component/InfoPage";
+import HomePage from "./component/HomePage";
+import ErrorPage from "./component/404";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,14 @@ const router = createBrowserRouter([
   {
     path: "/info",
     element: <InfoFormPage />,
+  },
+  {
+    path: "/home",
+    element: <HomePage />,
+  },
+  {
+    path: "/404",
+    element: <ErrorPage />,
   },
 ]);
 

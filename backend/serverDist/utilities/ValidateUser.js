@@ -17,7 +17,7 @@ function authorize(req, _res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const token = req.cookies;
         try {
-            const validation = jsonwebtoken_1.default.verify(token.tick, process.env.SECRET_STRING);
+            const validation = jsonwebtoken_1.default.verify(token.ticket, process.env.SECRET_STRING);
             req.token = validation;
             next();
         }

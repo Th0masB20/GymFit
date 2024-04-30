@@ -34,6 +34,9 @@ const ErrorHandler: ErrorRequestHandler = (error: any, _req: Request, res: Respo
     if (error.message == 'workout not found') {
         return res.status(400).json({ error: 'This workout does not exist' });
     }
+    if (error.message == 'update user fail') {
+        return res.status(400).json({ error: 'User could not be updated' });
+    }
 
     next(error);
 }

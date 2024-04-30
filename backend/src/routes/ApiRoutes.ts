@@ -1,6 +1,8 @@
 import express, { NextFunction, Request, Response } from 'express'
 import { IReqVerification } from '../interfaces/IAuthorization';
 import User from '../mongodb/models/User';
+import { IUserAgeWeight } from '../interfaces/IUser';
+// import { IUserAgeWeight } from '../interfaces/IUser';
 
 const mainUserRoutes = express.Router();
 
@@ -27,5 +29,18 @@ mainUserRoutes.get('/getCalendar', async (req: Request, res: Response, next: Nex
         next(error);
     }
 });
+
+mainUserRoutes.put('/updateUser', async (req: Request, res: Response, next: NextFunction) => {
+    const request: IReqVerification = req as IReqVerification;
+    const reqBody: IUserAgeWeight = req.body;
+    try {
+        const user = await User.findOneAndUpdate({ _id: request.token.id }, { age: reqBody.age, height: reqBody.height }, { new: true });
+        if (!user) throw new Error('update user fail');
+        res.status(200).send();
+    }
+    catch (error) {
+        next(error);
+    }
+})
 
 export default mainUserRoutes;

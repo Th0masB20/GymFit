@@ -31,5 +31,9 @@
 }
 
 .loginButton {
-  @apply relative w-40 h-9 bg-main flex justify-center items-center text-white text-xl font-semibold mt-8 after:w-24 after:h-24 after:bg-third after:rounded-full after:absolute overflow-hidden z-10 after:blur-xl after:-z-10 border-third border-2 border-opacity-50;
+  @apply relative w-40 h-9 bg-main flex justify-center items-center text-white text-xl font-semibold mt-4 after:w-24 after:h-24 after:bg-third after:rounded-full after:absolute overflow-hidden z-10 after:blur-xl after:-z-10 border-third border-2 border-opacity-50;
+}
+
+.nextButton {
+  @apply relative w-24 h-8 bg-main flex justify-center items-center text-white text-xl font-semibold mt-8 after:w-10 after:h-24 after:bg-third after:rounded-full after:absolute overflow-hidden z-10 after:blur-xl after:-z-10 border-third border-2 border-opacity-50;
 }

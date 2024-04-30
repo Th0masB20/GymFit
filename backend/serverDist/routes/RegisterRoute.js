@@ -32,15 +32,16 @@ registerRouter.post('/submit', (req, res, next) => __awaiter(void 0, void 0, voi
             lastName: payload.lastName,
             email: payload.email,
             password: hashPassword,
+            age: undefined,
+            height: undefined,
             workouts: [],
             activityLog: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             weeklyCalendar: new Map(),
             workoutHistory: new Map(),
         };
-        newUserObject.activityLog;
         const newUser = new User_1.default(newUserObject);
         yield newUser.save();
-        res.send("Successfully Saved");
+        res.json({ message: "Successfully Saved" });
     }
     catch (error) {
         next(error);

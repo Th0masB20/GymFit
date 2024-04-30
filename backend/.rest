@@ -19,7 +19,16 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:3000/
+GET http://localhost:3000/home
+
+###
+PUT http://localhost:3000/home/updateUser
+Content-Type: application/json
+
+{
+    "age":"40"
+}
+
 
 ###
 POST  http://localhost:3000/workout/saveWorkout

@@ -22,13 +22,14 @@ registerRouter.post('/submit', async (req: Request<{}, {}, IRegisterReqest>, res
             lastName: payload.lastName,
             email: payload.email,
             password: hashPassword,
+            age: undefined,
+            height: undefined,
             workouts: [],
             activityLog: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             weeklyCalendar: new Map(),
             workoutHistory: new Map(),
         }
 
-        newUserObject.activityLog
         const newUser = new User<IUser>(newUserObject);
         await newUser.save();
 

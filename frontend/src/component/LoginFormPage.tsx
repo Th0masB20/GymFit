@@ -3,7 +3,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 interface errorResconse {
-  response: { data: string };
+  response: { data: errorObject };
+}
+
+interface errorObject {
+  error: string;
 }
 
 const SigninPage = (): React.ReactElement => {
@@ -17,6 +21,7 @@ const SigninPage = (): React.ReactElement => {
 const SignIn = (): React.ReactElement => {
   const [emailInput, inputEmail] = useState("");
   const [passwordInput, inputPassword] = useState("");
+  const [error, setError] = useState<errorObject>();
   const nav = useNavigate();
 
   const onchangePassword = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -29,22 +34,33 @@ const SignIn = (): React.ReactElement => {
 
   const logInRequest = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setError(undefined);
     try {
       const response = await axios.post(
         "http://localhost:3000/login/loginUser",
         {
           email: emailInput,
           password: passwordInput,
+        },
+        {
+          headers: { Accept: "application/json" },
+          withCredentials: true,
         }
       );
       if (response.status == 200) {
-        nav("/main");
+        nav("/home");
       }
     } catch (error) {
-      console.log((error as errorResconse).response.data);
+      setError((error as errorResconse).response.data);
     }
   };
 
+  const displayError = (errorLog: errorObject): React.ReactElement => {
+    console.log(errorLog.error);
+    return (
+      <p className="w-60 text-center self-center mt-2">{errorLog.error}</p>
+    );
+  };
   return (
     <div className="flex flex-col justify-center">
       <p className="my-4 font-semibold pl-1">Log In</p>
@@ -60,6 +76,7 @@ const SignIn = (): React.ReactElement => {
         onChange={onchangePassword}
         value={passwordInput}
       />
+      {error != undefined ? displayError(error) : null}
       <button className="self-center loginButton" onClick={logInRequest}>
         Log In
       </button>

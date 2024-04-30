@@ -23,13 +23,14 @@ loginRouter.post('/loginUser', async (req: Request<{}, {}, ILogin>, res: Respons
             throw new Error('incorrect password');
         }
 
-        const ticket = await jwt.sign({ id: user.id }, process.env.SECRET_STRING as jwt.Secret, { expiresIn: '1m' });
-        res.cookie('tick', ticket, {
+        const ticket = await jwt.sign({ id: user.id }, process.env.SECRET_STRING as jwt.Secret, { expiresIn: '1h' });
+        res.cookie('ticket', ticket, {
             maxAge: 1000 * 60 * 60,
             sameSite: 'strict',
-            httpOnly: true
+            httpOnly: true,
+            secure: true,
         });
-        res.json({ message: 'Successfully Signed In' });
+        res.status(200).json({ message: 'Successfully Signed In' });
     }
     catch (error) {
         next(error);

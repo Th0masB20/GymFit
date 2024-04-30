@@ -34,7 +34,12 @@ const RegisterForm = (): React.ReactElement => {
         rObject
       );
       if (response.status == 200) {
-        nav("/info");
+        setTimeout(() => nav("/logIn"), 2000);
+        return (
+          <div className="w-screen h-screen flex flex-col justify-center items-center">
+            <p className="text-2xl font-bold">Register Successful</p>
+          </div>
+        );
       }
     } catch (error) {
       const errorResponse = (error as errorResconse).response.data;
