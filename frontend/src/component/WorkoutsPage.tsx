@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import IUser from "../interfaces/IUser";
 import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const HomePage = (): React.ReactElement => {
+const WorkoutsPage = (): React.ReactElement => {
   const [user, setUser] = useState<IUser>();
   const nav = useNavigate();
   useEffect(() => {
@@ -13,11 +13,6 @@ const HomePage = (): React.ReactElement => {
           withCredentials: true,
         });
         setUser(userResponse.data as IUser);
-        if (
-          (userResponse.data as IUser).age == undefined ||
-          (userResponse.data as IUser).height == undefined
-        )
-          nav("/info");
       } catch (error) {
         nav("/404");
       }
@@ -27,9 +22,7 @@ const HomePage = (): React.ReactElement => {
   if (user == undefined) return <div></div>;
   return (
     <main className="relative w-screen h-screen">
-      <h1 className="text-center text-2xl">
-        Welcome, {user.name} {user.lastName}
-      </h1>
+      <h1 className="text-center text-2xl">Workouts</h1>
       <div className="w-screen h-1 bg-main float-right" />
       <SideBar />
       <MainBody user={user} />
@@ -56,23 +49,14 @@ const SideBar = (): React.ReactElement => {
 };
 
 const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
-  if (user.workouts.length == 0) {
-    return (
-      <div className="absolute flex flex-col justify-center items-center w-80 h-48 bg-gradient-to-r from-main to-fourth rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <p className="text-center text-xl w-44">
-          Start By Creating Your Workout Routine
-        </p>
-
-        <NavLink
-          to="/workouts"
-          className="w-8 h-8 bg-black rounded-full mt-3 hover:cursor-pointer hover:scale-110 flex justify-center items-center"
-        >
-          <div className="w-5 h-5 bg-WhiteAddSign bg-cover" />
-        </NavLink>
-      </div>
-    );
-  }
-  return <div></div>;
+  return (
+    <NavLink
+      to="/workouts/create"
+      className="absolute flex flex-col justify-center items-center w-80 h-10 bg-main rounded-lg -bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 hover:scale-110"
+    >
+      <p className="text-center text-xl w-44"> Create Workout </p>
+    </NavLink>
+  );
 };
 
-export default HomePage;
+export default WorkoutsPage;

@@ -1,5 +1,6 @@
-interface IExercise {
+export interface IExercise {
   exerciseName: string;
+  exerciseDescription: string;
   numberOfSets: number;
   reps: number[];
   weights: number[];
@@ -9,7 +10,7 @@ interface IWorkoutStartFinish extends IWorkout {
   time: number;
 }
 
-interface IWorkout {
+export interface IWorkout {
   workoutName: string;
   exercises: IExercise[];
   calendarDay: string[];

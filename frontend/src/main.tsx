@@ -7,6 +7,8 @@ import RegisterPage from "./component/RegisterPage";
 import InfoFormPage from "./component/InfoPage";
 import HomePage from "./component/HomePage";
 import ErrorPage from "./component/404";
+import WorkoutsPage from "./component/WorkoutsPage";
+import CreateWorkout from "./component/CreateWorkoutPage";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <HomePage />,
+  },
+  {
+    path: "/workouts",
+    element: <WorkoutsPage />,
+  },
+  {
+    path: "/workouts/create",
+    element: <CreateWorkout />,
   },
   {
     path: "/404",
