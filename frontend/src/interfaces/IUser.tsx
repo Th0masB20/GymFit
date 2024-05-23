@@ -30,4 +30,14 @@ interface IUser {
   workoutHistory: Map<string, IWorkout>;
 }
 
+export interface ICalendarBool {
+  Monday: boolean;
+  Tuesday: boolean;
+  Wednesday: boolean;
+  Thursday: boolean;
+  Friday: boolean;
+  Saturday: boolean;
+  Sunday: boolean;
+}
+
 export default IUser;

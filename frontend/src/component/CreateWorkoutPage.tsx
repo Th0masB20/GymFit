@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import IUser, { IExercise } from "../interfaces/IUser";
+import IUser, { ICalendarBool, IExercise, IWorkout } from "../interfaces/IUser";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ExerciseRequestData } from "../interfaces/ICacheExercises";
@@ -14,6 +14,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
   const [displayExerciseSearch, showSearch] = useState<boolean>(false);
 
   const nav = useNavigate();
+  //gets user
   useEffect(() => {
     async function getData() {
       try {
@@ -28,6 +29,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
     getData();
   }, [nav]);
 
+  //gets workouts from api and cachesThem
   useEffect(() => {
     const getExercises = async () => {
       const options = {
@@ -53,6 +55,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
     getExercises();
   }, [cachedExercises, populateCache]);
 
+  //hitting esc
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => {
       if (e.key == "Escape") {
@@ -68,15 +71,33 @@ const CreateWorkoutPage = (): React.ReactElement => {
     setWorkoutName(e.target.value);
   };
 
+  //hit enter when typing workout name
   const hitEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == "Enter") {
       e.currentTarget.blur();
     }
   };
 
+  const saveWorkout = async () => {
+    const exerciseJson: IWorkout = {
+      workoutName,
+      exercises,
+      calendarDay: Array.from(workoutDays),
+      previousWorkout: {},
+    };
+
+    await axios.post(
+      "http://localhost:3000/workout/saveWorkout",
+      exerciseJson,
+      { withCredentials: true }
+    );
+
+    nav("/workouts");
+  };
+
   if (user == undefined) return <div></div>;
   return (
-    <main className="relative w-screen h-screen">
+    <main className="relative w-full h-auto">
       <input
         className="text-center text-2xl m-auto block focus:outline-none"
         placeholder="Workout Name"
@@ -86,7 +107,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
         onKeyDown={hitEnter}
         value={workoutName}
       />
-      <div className="w-screen h-1 bg-main float-right" />
+      <div className="w-full h-1 bg-main float-right" />
       <button
         className="flex flex-col justify-center items-center w-80 h-10 bg-main rounded-lg mt-5 m-auto hover:scale-110"
         onClick={() => showSearch(true)}
@@ -94,7 +115,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
         Add Exercise
       </button>
 
-      <div className="w-full h-auto flex justify-center items-center flex-wrap">
+      <div className="w-fit h-auto grid grid-cols-3 m-auto mb-32">
         {exercises.map((currentExercise, i) => {
           return (
             <DisplayedExercise
@@ -110,12 +131,24 @@ const CreateWorkoutPage = (): React.ReactElement => {
         <SetWorkoutDays
           setWorkoutDays={setWorkoutDays}
           workoutDays={workoutDays}
+          user={user}
         />
-        <div className="bg-[rgba(255,255,255,0.7)] w-full h-20 flex justify-center items-center">
+        <div className="bg-footer-background w-full h-20 flex justify-center items-center">
           <button className="w-52 h-10 bg-second rounded-lg hover:scale-110 mr-2">
             Delete Workout
           </button>
-          <button className="w-52 h-10 bg-main rounded-lg hover:scale-110 ml-2">
+          <button
+            className={
+              "w-52 h-10 bg-main rounded-lg ml-2 " +
+              (!workoutName || exercises.length == 0 || workoutDays.size == 0
+                ? " opacity-30"
+                : "hover:scale-110")
+            }
+            onClick={saveWorkout}
+            disabled={
+              !workoutName || exercises.length == 0 || workoutDays.size == 0
+            }
+          >
             Save Workout
           </button>
         </div>
@@ -134,9 +167,11 @@ const CreateWorkoutPage = (): React.ReactElement => {
 const SetWorkoutDays = ({
   setWorkoutDays,
   workoutDays,
+  user,
 }: {
   setWorkoutDays: React.Dispatch<React.SetStateAction<Set<string>>>;
   workoutDays: Set<string>;
+  user: IUser;
 }): React.ReactElement => {
   const [selected, setSelected] = useState<boolean[]>([
     false,
@@ -147,6 +182,10 @@ const SetWorkoutDays = ({
     false,
     false,
   ]);
+
+  const weeklyCalendar: ICalendarBool =
+    user.weeklyCalendar as object as ICalendarBool;
+
   const setRemoveDay = (dayIndex: number) => {
     switch (dayIndex) {
       case 0: {
@@ -255,87 +294,115 @@ const SetWorkoutDays = ({
 
   return (
     <div className="flex flex-col justify-center items-center w-80 h-20">
-      <button className="bg-main w-24 h-7 mb-2 rounded-lg hover:scale-110">
+      <div className="bg-main w-24 h-6 mb-2 rounded-lg text-center">
         Set Days
-      </button>
+      </div>
       <div className="w-full h-9 bg-second rounded-lg flex items-center justify-center">
         <ul className="inline">
           <li className="inline-block">
-            <p
+            <button
               className={
-                "hover:cursor-pointer hover:scale-110 text-lg text-center w-8 h-7 mx-1 " +
-                (selected[0] ? "bg-main rounded-full" : "")
+                "calendarWorkoutCreationText " +
+                (selected[0] ? "calendarTextSelected" : "") +
+                (!weeklyCalendar["Monday"]
+                  ? " calendarDayAvailable"
+                  : " calendarDayTaken")
               }
               onClick={() => setRemoveDay(0)}
+              disabled={weeklyCalendar["Monday"]}
             >
               M
-            </p>
+            </button>
           </li>
           <li className="inline-block">
-            <p
+            <button
               className={
-                "hover:cursor-pointer hover:scale-110 text-lg text-center w-8 h-7 mx-1 " +
-                (selected[1] ? "bg-main rounded-full" : "")
+                "calendarWorkoutCreationText " +
+                (selected[1] ? "calendarTextSelected" : "") +
+                (!weeklyCalendar["Tuesday"]
+                  ? " calendarDayAvailable"
+                  : " calendarDayTaken")
               }
               onClick={() => setRemoveDay(1)}
+              disabled={weeklyCalendar["Tuesday"]}
             >
               T
-            </p>
+            </button>
           </li>
           <li className="inline-block">
-            <p
+            <button
               className={
-                "hover:cursor-pointer hover:scale-110 text-lg text-center w-8 h-7 mx-1 " +
-                (selected[2] ? "bg-main rounded-full" : "")
+                "calendarWorkoutCreationText " +
+                (selected[2] ? "calendarTextSelected" : "") +
+                (!weeklyCalendar["Wednesday"]
+                  ? " calendarDayAvailable"
+                  : " calendarDayTaken")
               }
               onClick={() => setRemoveDay(2)}
+              disabled={weeklyCalendar["Wednesday"]}
             >
               W
-            </p>
+            </button>
           </li>
           <li className="inline-block">
-            <p
+            <button
               className={
-                "hover:cursor-pointer hover:scale-110 text-lg text-center w-8 h-7 mx-1 " +
-                (selected[3] ? "bg-main rounded-full" : "")
+                "calendarWorkoutCreationText " +
+                (selected[3] ? "calendarTextSelected" : "") +
+                (!weeklyCalendar["Thursday"]
+                  ? " calendarDayAvailable"
+                  : " calendarDayTaken")
               }
               onClick={() => setRemoveDay(3)}
+              disabled={weeklyCalendar["Thursday"]}
             >
               TH
-            </p>
+            </button>
           </li>
           <li className="inline-block">
-            <p
+            <button
               className={
-                "hover:cursor-pointer hover:scale-110 text-lg text-center w-8 h-7 mx-1 " +
-                (selected[4] ? "bg-main rounded-full" : "")
+                "calendarWorkoutCreationText " +
+                (selected[4] ? "calendarTextSelected" : "") +
+                (!weeklyCalendar["Friday"]
+                  ? " calendarDayAvailable"
+                  : " calendarDayTaken")
               }
               onClick={() => setRemoveDay(4)}
+              disabled={weeklyCalendar["Friday"]}
             >
               F
-            </p>
+            </button>
           </li>
           <li className="inline-block">
-            <p
+            <button
               className={
-                "hover:cursor-pointer hover:scale-110 text-lg text-center w-8 h-7 mx-1 " +
-                (selected[5] ? "bg-main rounded-full" : "")
+                "calendarWorkoutCreationText " +
+                (selected[5] ? "calendarTextSelected" : "") +
+                (!weeklyCalendar["Saturday"]
+                  ? " calendarDayAvailable"
+                  : " calendarDayTaken")
               }
               onClick={() => setRemoveDay(5)}
+              disabled={weeklyCalendar["Saturday"]}
             >
               S
-            </p>
+            </button>
           </li>
           <li className="inline-block">
-            <p
+            <button
               className={
-                "hover:cursor-pointer hover:scale-110 text-lg text-center w-8 h-7 mx-1 " +
-                (selected[6] ? "bg-main rounded-full" : "")
+                "calendarWorkoutCreationText " +
+                (selected[6] ? "calendarTextSelected" : "") +
+                (!weeklyCalendar["Sunday"]
+                  ? " calendarDayAvailable"
+                  : " calendarDayTaken")
               }
               onClick={() => setRemoveDay(6)}
+              disabled={weeklyCalendar["Sunday"]}
             >
               S
-            </p>
+            </button>
           </li>
         </ul>
       </div>
@@ -393,7 +460,7 @@ const WorkoutSearch = ({
     });
   };
   return (
-    <div className="absolute top-0 w-screen h-screen bg-[rgba(0,0,0,0.6)] flex justify-center items-center">
+    <div className="absolute top-0 w-full h-full bg-[rgba(0,0,0,0.6)] flex justify-center items-center">
       <div className="w-[600px] h-[550px] bg-second rounded-3xl flex flex-col items-center">
         <input
           className="w-96 h-8 bg-gray-200 rounded-full focus:outline-none pl-2 mt-4"

@@ -12,8 +12,6 @@ function isWorkoutCorrect(obj) {
         return false;
     if (!obj.exercises)
         return false;
-    if (!obj.previousWorkout)
-        return false;
     for (let exercises of obj.exercises) {
         if (!(0, IExercise_1.isExerciseCorrect)(exercises)) {
             return false;

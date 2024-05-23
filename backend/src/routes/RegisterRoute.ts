@@ -3,6 +3,7 @@ import { IRegisterReqest, isRegisterCorrect } from "../interfaces/IRegiesterRequ
 import { IUser } from "../interfaces/IUser";
 import bcrypt from 'bcrypt';
 import User from "../mongodb/models/User";
+import { IWorkout } from "../interfaces/IWorkout";
 
 const registerRouter: Router = express.Router();
 
@@ -26,8 +27,8 @@ registerRouter.post('/submit', async (req: Request<{}, {}, IRegisterReqest>, res
             height: undefined,
             workouts: [],
             activityLog: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            weeklyCalendar: new Map(),
-            workoutHistory: new Map(),
+            weeklyCalendar: new Map<string, string>(),
+            workoutHistory: new Map<string, IWorkout>(),
         }
 
         const newUser = new User<IUser>(newUserObject);

@@ -72,7 +72,7 @@ const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
       </div>
     );
   }
-  return <div></div>;
+  return <></>;
 };
 
 export default HomePage;

@@ -17,7 +17,6 @@ export function isWorkoutCorrect(obj: IWorkout): boolean {
     if (!obj.workoutName) return false;
     if (!obj.calendarDay) return false;
     if (!obj.exercises) return false;
-    if (!obj.previousWorkout) return false;
     for (let exercises of obj.exercises) {
         if (!isExerciseCorrect(exercises)) {
             return false;

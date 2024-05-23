@@ -37,3 +37,23 @@
 .nextButton {
   @apply relative w-24 h-8 bg-main flex justify-center items-center text-white text-xl font-semibold mt-8 after:w-10 after:h-24 after:bg-third after:rounded-full after:absolute overflow-hidden z-10 after:blur-xl after:-z-10 border-third border-2 border-opacity-50;
 }
+
+.calendarText {
+  @apply text-center w-6 h-6 mx-1;
+}
+
+.calendarWorkoutCreationText {
+  @apply text-lg text-center w-8 h-7 mx-1;
+}
+
+.calendarTextSelected {
+  @apply bg-main rounded-full;
+}
+
+.calendarDayAvailable {
+  @apply hover:cursor-pointer hover:scale-110;
+}
+
+.calendarDayTaken {
+  @apply opacity-30 cursor-auto;
+}

@@ -25,6 +25,7 @@ export default {
         "soft-2": "#F57FFF",
         "soft-3": "#F8CEFF",
         accent: "#F84A92",
+        "footer-background": "rgba(255,255,255,0.7)",
       },
     },
     animation: {
