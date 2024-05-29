@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import IUser from "../interfaces/IUser";
+import IUser from "../../interfaces/IUser";
 import { NavLink, useNavigate } from "react-router-dom";
+import HomePageData from "./HomePageData";
 
 const HomePage = (): React.ReactElement => {
   const [user, setUser] = useState<IUser>();
@@ -72,7 +73,7 @@ const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
       </div>
     );
   }
-  return <></>;
+  return <HomePageData user={user} />;
 };
 
 export default HomePage;

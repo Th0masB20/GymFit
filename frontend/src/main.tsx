@@ -5,7 +5,7 @@ import MainPage from "./component/MainPage";
 import SigninPage from "./component/LoginFormPage";
 import RegisterPage from "./component/RegisterPage";
 import InfoFormPage from "./component/InfoPage";
-import HomePage from "./component/HomePage";
+import HomePage from "./component/homePage/HomePage";
 import ErrorPage from "./component/404";
 import WorkoutsPage from "./component/WorkoutsPage";
 import CreateWorkout from "./component/CreateWorkoutPage";
