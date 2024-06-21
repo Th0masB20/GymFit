@@ -10,8 +10,8 @@ export interface IUser {
     height: number | undefined,
     workouts: IWorkout[],
     activityLog: number[],
-    weeklyCalendar: Map<string, string>,
-    workoutHistory: Map<string, IWorkout>
+    weeklyCalendar: { [key: string]: string },
+    workoutHistory: { [key: string]: IWorkout }
 }
 
 export interface IUserAgeWeight extends Request {

@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import MainPage from "./component/MainPage";
-import SigninPage from "./component/LoginFormPage";
-import RegisterPage from "./component/RegisterPage";
-import InfoFormPage from "./component/InfoPage";
-import HomePage from "./component/homePage/HomePage";
-import ErrorPage from "./component/404";
-import WorkoutsPage from "./component/WorkoutsPage";
-import CreateWorkout from "./component/CreateWorkoutPage";
+import MainPage from "./Pages/PublicMainPage";
+import SigninPage from "./Pages/LoginFormPage";
+import RegisterPage from "./Pages/RegisterPage";
+import InfoFormPage from "./Pages/InfoPage";
+import HomePage from "./Pages/HomePage";
+import ErrorPage from "./Pages/404";
+import WorkoutsPage from "./Pages/WorkoutsPage";
+import CreateWorkout from "./Pages/CreateWorkoutPage";
 
 const router = createBrowserRouter([
   {

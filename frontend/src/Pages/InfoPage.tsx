@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import IUser from "../interfaces/IUser";
+import IUser from "../../interfaces/IUser";
 
 type setAgeProp = {
   setAge: React.Dispatch<React.SetStateAction<number | undefined>>;
@@ -193,7 +193,7 @@ const FinishForm = ({ age, height }: ageHeightProp): React.ReactElement => {
       }
     }
     update();
-  }, []);
+  }, [age, height, nav]);
   const goToMainPage = () => {
     setTimeout(() => nav("/home"), 1500);
   };

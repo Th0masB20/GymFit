@@ -1,0 +1,35 @@
+import React, { useEffect, useState } from "react";
+import IUser from "../interfaces/IUser";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import SideBar from "../component/SideBar";
+import { MainBody } from "../component/Workout Page Components/Body";
+
+const WorkoutsPage = (): React.ReactElement => {
+  const [user, setUser] = useState<IUser>();
+  const nav = useNavigate();
+  useEffect(() => {
+    async function getData() {
+      try {
+        const userResponse = await axios.get("http://localhost:3000/home/", {
+          withCredentials: true,
+        });
+        setUser(userResponse.data as IUser);
+      } catch (error) {
+        nav("/404");
+      }
+    }
+    getData();
+  }, [nav]);
+  if (user == undefined) return <div></div>;
+  return (
+    <main className="relative w-full h-full">
+      <h1 className="text-center text-2xl ml-20">Workouts</h1>
+      <div className="w-full h-1 bg-main float-right" />
+      <SideBar />
+      <MainBody user={user} />
+    </main>
+  );
+};
+
+export default WorkoutsPage;
