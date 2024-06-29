@@ -3,11 +3,23 @@ import { WorkoutDays } from "./WorkoutDaysComponent";
 
 export const WorkoutCard = ({
   workout,
+  index,
+  setSelectedIndex,
+  selectedIndex,
 }: {
   workout: IWorkout;
+  index: number;
+  setSelectedIndex: React.Dispatch<React.SetStateAction<number | undefined>>;
+  selectedIndex: number | undefined;
 }): React.ReactElement => {
   return (
-    <div className="m-auto w-80 h-80 bg-fourth rounded-3xl flex flex-col items-center">
+    <div
+      className={
+        "m-auto w-80 h-80 bg-fourth rounded-3xl flex flex-col items-center hover:cursor-pointer hover:scale-105 transition-all " +
+        (selectedIndex == index ? "border-2   border-black" : "")
+      }
+      onClick={() => setSelectedIndex(index)}
+    >
       <p className="text-center underline text-2xl mt-10">
         {workout.workoutName}
       </p>

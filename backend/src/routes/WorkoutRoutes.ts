@@ -24,8 +24,8 @@ workoutRoute.post('/saveWorkout', async (req: Request, res: Response, next: Next
 
         user.workouts.push(newWorkoutJson);
         for (let weekday of newWorkoutJson.calendarDay) {
-            if (!user.weeklyCalendar.has(weekday)) {
-                user.weeklyCalendar.set(weekday, newWorkoutJson.workoutName);
+            if (!user.weeklyCalendar[weekday]) {
+                user.weeklyCalendar[weekday] = newWorkoutJson.workoutName;
                 continue;
             }
             else {
@@ -50,7 +50,7 @@ workoutRoute.post('/finishWorkout', async (req: Request, res: Response, next: Ne
         if (!user) throw new Error('user DNE');
         const d = new Date();
         //finish workout has time attribute
-        user.workoutHistory.set(`${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`, finishWorkoutJson as IWorkout);
+        user.workoutHistory[`${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`] = finishWorkoutJson as IWorkout;
         user.activityLog[d.getMonth()] += 1;
 
         for (let i = 0; i < user.workouts.length; i++) {
@@ -126,7 +126,7 @@ workoutRoute.delete('/:workoutName/deleteWorkout', async (req: Request, res: Res
         for (let i = 0; i < user.workouts.length; i++) {
             if (user.workouts[i].workoutName == params.workoutName) {
                 for (let days of user.workouts[i].calendarDay) {
-                    user.weeklyCalendar.delete(days);
+                    delete user.weeklyCalendar[days];
                 }
                 user.workouts.splice(i, 1);
                 break;

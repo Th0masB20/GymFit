@@ -5,7 +5,7 @@ import axios from "axios";
 import { ExerciseRequestData } from "../interfaces/ICacheExercises";
 import { WorkoutSearch } from "../component/Create Workout Components/WorkoutSearchComponent";
 import { SetWorkoutDays } from "../component/Create Workout Components/SetWorkoutDaysComponent";
-import { WorkoutExerciseCard } from "../component/Create Workout Components/WoroutExerciseCardComponent";
+import { WorkoutExerciseCard } from "../component/Create Workout Components/WorkoutExerciseCardComponent";
 
 const CreateWorkoutPage = (): React.ReactElement => {
   const [user, setUser] = useState<IUser>();
@@ -89,13 +89,13 @@ const CreateWorkoutPage = (): React.ReactElement => {
       previousWorkout: {},
     };
 
-    await axios.post(
+    const response = await axios.post(
       "http://localhost:3000/workout/saveWorkout",
       exerciseJson,
       { withCredentials: true }
     );
 
-    nav("/workouts");
+    if (response.status == 200) nav("/workouts");
   };
 
   if (user == undefined) return <div></div>;

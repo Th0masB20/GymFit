@@ -6,15 +6,17 @@ export interface IExercise {
   weights: number[];
 }
 
-interface IWorkoutStartFinish extends IWorkout {
-  time: number;
-}
-
 export interface IWorkout {
   workoutName: string;
   exercises: IExercise[];
   calendarDay: string[];
   previousWorkout: IWorkoutStartFinish | object;
+}
+
+export interface IWorkoutStartFinish extends IWorkout {
+  seconds: number;
+  minutes: number;
+  hours: number;
 }
 
 interface IUser {

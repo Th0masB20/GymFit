@@ -9,7 +9,9 @@ export interface IWorkout {
 }
 
 export interface IWorkoutStartFinish extends IWorkout {
-    time: number;
+    seconds: number;
+    minutes: number;
+    hours: number
 }
 
 export function isWorkoutCorrect(obj: IWorkout): boolean {

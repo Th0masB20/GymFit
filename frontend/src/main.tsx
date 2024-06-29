@@ -9,6 +9,7 @@ import HomePage from "./Pages/HomePage";
 import ErrorPage from "./Pages/404";
 import WorkoutsPage from "./Pages/WorkoutsPage";
 import CreateWorkout from "./Pages/CreateWorkoutPage";
+import StartWorkout from "./Pages/StartWorkout";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "/404",
     element: <ErrorPage />,
+  },
+  {
+    path: "/workouts/:workoutName/startworkout",
+    element: <StartWorkout />,
   },
 ]);
 
