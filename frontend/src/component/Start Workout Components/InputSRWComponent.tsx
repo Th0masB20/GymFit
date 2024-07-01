@@ -14,16 +14,18 @@ const InputSRWComponent = ({
   >;
   currentWorkout: IWorkout;
 }): React.ReactElement => {
-  const repStartVal = currentWorkout.previousWorkout
-    ? (currentWorkout.previousWorkout as IWorkoutStartFinish).exercises[
-        exerciseIndex
-      ].reps[setIndex]
-    : currentWorkout.exercises[exerciseIndex].reps[setIndex];
-  const weightStartVal = currentWorkout.previousWorkout
-    ? (currentWorkout.previousWorkout as IWorkoutStartFinish).exercises[
-        exerciseIndex
-      ].weights[setIndex]
-    : currentWorkout.exercises[exerciseIndex].weights[setIndex];
+  const repStartVal =
+    Object.keys(currentWorkout.previousWorkout).length != 0
+      ? (currentWorkout.previousWorkout as IWorkoutStartFinish).exercises[
+          exerciseIndex
+        ].reps[setIndex]
+      : currentWorkout.exercises[exerciseIndex].reps[setIndex];
+  const weightStartVal =
+    Object.keys(currentWorkout.previousWorkout).length != 0
+      ? (currentWorkout.previousWorkout as IWorkoutStartFinish).exercises[
+          exerciseIndex
+        ].weights[setIndex]
+      : currentWorkout.exercises[exerciseIndex].weights[setIndex];
   const [repNumber, setRepNumber] = useState<number>();
   const [weightNumber, setWeightNumber] = useState<number>();
 
@@ -83,13 +85,13 @@ const InputSRWComponent = ({
           className="w-14 rounded-full bg-soft-1 text-center"
           onChange={onRepNumberInput}
           value={repNumber}
-          placeholder={repStartVal.toString()}
+          placeholder={repStartVal ? repStartVal.toString() : "0"}
         />
         <input
           className="w-14 rounded-full bg-soft-1 text-center"
           onChange={onWeightNumberInput}
           value={weightNumber}
-          placeholder={weightStartVal.toString()}
+          placeholder={weightStartVal ? weightStartVal.toString() : "0"}
         />
       </div>
     </>

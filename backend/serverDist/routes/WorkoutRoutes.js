@@ -33,8 +33,10 @@ workoutRoute.post('/saveWorkout', (req, res, next) => __awaiter(void 0, void 0, 
         }
         user.workouts.push(newWorkoutJson);
         for (let weekday of newWorkoutJson.calendarDay) {
-            if (!user.weeklyCalendar.has(weekday)) {
-                user.weeklyCalendar.set(weekday, newWorkoutJson.workoutName);
+            if (!user.weeklyCalendar[weekday]) {
+                const calendar = Object.assign({}, user.weeklyCalendar);
+                calendar[weekday] = newWorkoutJson.workoutName;
+                user.weeklyCalendar = calendar;
                 continue;
             }
             else {
@@ -56,15 +58,22 @@ workoutRoute.post('/finishWorkout', (req, res, next) => __awaiter(void 0, void 0
         if (!user)
             throw new Error('user DNE');
         const d = new Date();
-        //finish workout has time attribute
-        user.workoutHistory.set(`${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`, finishWorkoutJson);
-        user.activityLog[d.getMonth()] += 1;
         for (let i = 0; i < user.workouts.length; i++) {
             if (user.workouts[i].workoutName == finishWorkoutJson.workoutName) {
                 user.workouts[i] = Object.assign(Object.assign({}, user.workouts[i]), { previousWorkout: finishWorkoutJson });
                 break;
             }
         }
+        //finish workout has time attribute
+        const history = Object.assign({}, user.workoutHistory);
+        if (!history[`${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`])
+            history[`${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`] = [];
+        else {
+            history[`${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`].push(finishWorkoutJson);
+        }
+        user.workoutHistory = {};
+        user.workoutHistory = history;
+        user.activityLog[d.getMonth()] += 1;
         yield user.save();
         res.status(200).json(user);
     }
@@ -76,6 +85,7 @@ workoutRoute.patch('/:name/updateWorkout', (req, res, next) => __awaiter(void 0,
     const param = req.params;
     const request = req;
     const updatedWorkout = req.body;
+    console.log('in here');
     try {
         const user = yield User_1.default.findById(request.token.id);
         if (!user)
@@ -86,6 +96,29 @@ workoutRoute.patch('/:name/updateWorkout', (req, res, next) => __awaiter(void 0,
                 break;
             }
         }
+        const calendar = Object.assign({}, user.weeklyCalendar);
+        console.log(updatedWorkout.calendarDay);
+        //add new entries
+        for (let weekday of updatedWorkout.calendarDay) {
+            if (!calendar[weekday]) {
+                calendar[weekday] = updatedWorkout.workoutName;
+                continue;
+            }
+            else {
+                continue;
+            }
+        }
+        //remove days not in the new callendar
+        for (let weekday in calendar) {
+            if (calendar[weekday] == updatedWorkout.workoutName) {
+                if (!updatedWorkout.calendarDay.includes(weekday)) {
+                    calendar[weekday] = '';
+                    continue;
+                }
+            }
+        }
+        user.weeklyCalendar = calendar;
+        console.log(user.weeklyCalendar);
         yield user.save();
         res.status(200).json(user);
     }
@@ -123,7 +156,7 @@ workoutRoute.delete('/:workoutName/deleteWorkout', (req, res, next) => __awaiter
         for (let i = 0; i < user.workouts.length; i++) {
             if (user.workouts[i].workoutName == params.workoutName) {
                 for (let days of user.workouts[i].calendarDay) {
-                    user.weeklyCalendar.delete(days);
+                    delete user.weeklyCalendar[days];
                 }
                 user.workouts.splice(i, 1);
                 break;
@@ -132,6 +165,22 @@ workoutRoute.delete('/:workoutName/deleteWorkout', (req, res, next) => __awaiter
                 throw new Error('workout not found');
             }
         }
+        yield user.save();
+        res.status(200).json(user);
+    }
+    catch (error) {
+        next(error);
+    }
+}));
+//body is the IWorkoutStartFinish
+workoutRoute.patch('/updatePreviousWorkout', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const verRequest = req;
+    try {
+        const user = yield User_1.default.findById(verRequest.token.id);
+        if (!user)
+            throw new Error('user DNE');
+        const userFinishedWorkout = req.body;
+        user.previousWorkout = Object.assign({}, userFinishedWorkout);
         yield user.save();
         res.status(200).json(user);
     }

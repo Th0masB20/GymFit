@@ -1,28 +1,35 @@
-import { useState } from "react";
-import IUser, { ICalendarBool } from "../../interfaces/IUser";
+import { useEffect, useState } from "react";
+import IUser from "../../interfaces/IUser";
 
-export const SetWorkoutDays = ({
+export const EditSetWorkoutDays = ({
   setWorkoutDays,
   workoutDays,
+  workoutName,
   user,
 }: {
   setWorkoutDays: React.Dispatch<React.SetStateAction<Set<string>>>;
   workoutDays: Set<string>;
+  workoutName: string;
   user: IUser;
 }): React.ReactElement => {
-  const [selected, setSelected] = useState<boolean[]>([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [selected, setSelected] = useState<boolean[]>([]);
+  useEffect(() => {
+    const startingArray = [
+      workoutDays.has("Monday"),
+      workoutDays.has("Tuesday"),
+      workoutDays.has("Wednesday"),
+      workoutDays.has("Thursday"),
+      workoutDays.has("Friday"),
+      workoutDays.has("Saturday"),
+      workoutDays.has("Sunday"),
+    ];
+    console.log(workoutDays);
+    setSelected(startingArray);
+  }, [workoutDays]);
 
-  const weeklyCalendar: ICalendarBool =
-    user.weeklyCalendar as object as ICalendarBool;
-  console.log(weeklyCalendar);
+  const weeklyCalendar = user.weeklyCalendar;
+  console.log(selected);
+
   const setRemoveDay = (dayIndex: number) => {
     switch (dayIndex) {
       case 0: {
@@ -141,12 +148,16 @@ export const SetWorkoutDays = ({
               className={
                 "calendarWorkoutCreationText " +
                 (selected[0] ? "calendarTextSelected" : "") +
-                (!weeklyCalendar["Monday"]
+                (!weeklyCalendar["Monday"] ||
+                weeklyCalendar["Monday"] == `${workoutName}`
                   ? " calendarDayAvailable"
                   : " calendarDayTaken")
               }
               onClick={() => setRemoveDay(0)}
-              disabled={weeklyCalendar["Monday"]}
+              disabled={Boolean(
+                weeklyCalendar["Monday"] &&
+                  weeklyCalendar["Monday"] != `${workoutName}`
+              )}
             >
               M
             </button>
@@ -156,12 +167,16 @@ export const SetWorkoutDays = ({
               className={
                 "calendarWorkoutCreationText " +
                 (selected[1] ? "calendarTextSelected" : "") +
-                (!weeklyCalendar["Tuesday"]
+                (!weeklyCalendar["Tuesday"] ||
+                weeklyCalendar["Tuesday"] == `${workoutName}`
                   ? " calendarDayAvailable"
                   : " calendarDayTaken")
               }
               onClick={() => setRemoveDay(1)}
-              disabled={weeklyCalendar["Tuesday"]}
+              disabled={Boolean(
+                weeklyCalendar["Tuesday"] &&
+                  weeklyCalendar["Tuesday"] != `${workoutName}`
+              )}
             >
               T
             </button>
@@ -171,12 +186,16 @@ export const SetWorkoutDays = ({
               className={
                 "calendarWorkoutCreationText " +
                 (selected[2] ? "calendarTextSelected" : "") +
-                (!weeklyCalendar["Wednesday"]
+                (!weeklyCalendar["Wednesday"] ||
+                weeklyCalendar["Wednesday"] == `${workoutName}`
                   ? " calendarDayAvailable"
                   : " calendarDayTaken")
               }
               onClick={() => setRemoveDay(2)}
-              disabled={weeklyCalendar["Wednesday"]}
+              disabled={Boolean(
+                weeklyCalendar["Wednesday"] &&
+                  weeklyCalendar["Wednesday"] != `${workoutName}`
+              )}
             >
               W
             </button>
@@ -186,12 +205,16 @@ export const SetWorkoutDays = ({
               className={
                 "calendarWorkoutCreationText " +
                 (selected[3] ? "calendarTextSelected" : "") +
-                (!weeklyCalendar["Thursday"]
+                (!weeklyCalendar["Thursday"] ||
+                weeklyCalendar["Thursday"] == `${workoutName}`
                   ? " calendarDayAvailable"
                   : " calendarDayTaken")
               }
               onClick={() => setRemoveDay(3)}
-              disabled={weeklyCalendar["Thursday"]}
+              disabled={Boolean(
+                weeklyCalendar["Thursday"] &&
+                  weeklyCalendar["Thursday"] != `${workoutName}`
+              )}
             >
               TH
             </button>
@@ -201,12 +224,16 @@ export const SetWorkoutDays = ({
               className={
                 "calendarWorkoutCreationText " +
                 (selected[4] ? "calendarTextSelected" : "") +
-                (!weeklyCalendar["Friday"]
+                (!weeklyCalendar["Friday"] ||
+                weeklyCalendar["Friday"] == `${workoutName}`
                   ? " calendarDayAvailable"
                   : " calendarDayTaken")
               }
               onClick={() => setRemoveDay(4)}
-              disabled={weeklyCalendar["Friday"]}
+              disabled={Boolean(
+                weeklyCalendar["Friday"] &&
+                  weeklyCalendar["Friday"] != `${workoutName}`
+              )}
             >
               F
             </button>
@@ -216,12 +243,16 @@ export const SetWorkoutDays = ({
               className={
                 "calendarWorkoutCreationText " +
                 (selected[5] ? "calendarTextSelected" : "") +
-                (!weeklyCalendar["Saturday"]
+                (!weeklyCalendar["Saturday"] ||
+                weeklyCalendar["Saturday"] == `${workoutName}`
                   ? " calendarDayAvailable"
                   : " calendarDayTaken")
               }
               onClick={() => setRemoveDay(5)}
-              disabled={weeklyCalendar["Saturday"]}
+              disabled={Boolean(
+                weeklyCalendar["Saturday"] &&
+                  weeklyCalendar["Saturday"] != `${workoutName}`
+              )}
             >
               S
             </button>
@@ -231,12 +262,16 @@ export const SetWorkoutDays = ({
               className={
                 "calendarWorkoutCreationText " +
                 (selected[6] ? "calendarTextSelected" : "") +
-                (!weeklyCalendar["Sunday"]
+                (!weeklyCalendar["Sunday"] ||
+                weeklyCalendar["Sunday"] == `${workoutName}`
                   ? " calendarDayAvailable"
                   : " calendarDayTaken")
               }
               onClick={() => setRemoveDay(6)}
-              disabled={weeklyCalendar["Sunday"]}
+              disabled={Boolean(
+                weeklyCalendar["Sunday"] &&
+                  weeklyCalendar["Sunday"] != `${workoutName}`
+              )}
             >
               S
             </button>

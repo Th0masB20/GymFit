@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import { IWorkout } from "./IWorkout"
+import { IWorkout, IWorkoutStartFinish } from "./IWorkout"
 
 export interface IUser {
     name: string,
@@ -11,7 +11,8 @@ export interface IUser {
     workouts: IWorkout[],
     activityLog: number[],
     weeklyCalendar: { [key: string]: string },
-    workoutHistory: { [key: string]: IWorkout }
+    workoutHistory: { [key: string]: IWorkoutStartFinish[] },
+    previousWorkout: IWorkoutStartFinish | undefined
 }
 
 export interface IUserAgeWeight extends Request {

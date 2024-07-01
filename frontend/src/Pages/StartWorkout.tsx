@@ -53,11 +53,6 @@ const StartWorkout = (): React.ReactElement => {
       hours,
     };
 
-    const updatedWorkout: IWorkout = {
-      ...workout,
-      previousWorkout: finishedWorkoutJson,
-    };
-
     try {
       const saveFinishedResponse = await axios.post(
         "http://localhost:3000/workout/finishWorkout",
@@ -67,23 +62,26 @@ const StartWorkout = (): React.ReactElement => {
         }
       );
 
-      const updateLastWorkout = await axios.patch(
-        `http://localhost:3000/workout/${currentWorkout.workoutName}/updateWorkout`,
-        updatedWorkout,
+      const updateUsersLastWorkout = await axios.patch(
+        `http://localhost:3000/workout/updatePreviousWorkout`,
+        finishedWorkoutJson,
         {
           withCredentials: true,
         }
       );
-      if (saveFinishedResponse.status == 200 && updateLastWorkout.status == 200)
+      if (
+        saveFinishedResponse.status == 200 &&
+        updateUsersLastWorkout.status == 200
+      ) {
+        console.log(user?.workoutHistory);
         nav("/workout");
-      else {
+      } else {
         console.log(saveFinishedResponse.statusText);
         throw Error(saveFinishedResponse.statusText);
       }
     } catch (error) {
       nav("/404");
     }
-    console.log(finishedWorkoutJson, "\n", updatedWorkout);
     nav("/workouts");
   }
 
@@ -98,7 +96,7 @@ const StartWorkout = (): React.ReactElement => {
   return (
     <main>
       <TimerComponent timerProps={props} />
-      <div className="w-10/12 h-auto flex justify-center flex-wrap m-auto">
+      <div className="w-10/12 h-auto flex justify-center flex-wrap m-auto mb-20">
         {newWorkoutInstanse.exercises.map((currentExercise, i) => {
           return (
             <StartWorkoutExerciseCard

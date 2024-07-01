@@ -19,6 +19,7 @@ const User_1 = __importDefault(require("../mongodb/models/User"));
 const registerRouter = express_1.default.Router();
 registerRouter.post('/submit', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
+    console.log(payload);
     try {
         if (!(0, IRegiesterRequest_1.isRegisterCorrect)(payload)) {
             throw new Error('wrong inputs');
@@ -36,8 +37,9 @@ registerRouter.post('/submit', (req, res, next) => __awaiter(void 0, void 0, voi
             height: undefined,
             workouts: [],
             activityLog: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            weeklyCalendar: new Map(),
-            workoutHistory: new Map(),
+            weeklyCalendar: { 'Monday': '', 'Tuesday': '', 'Wednesday': '', 'Thursday': '', 'Friday': '', 'Saturday': '', 'Sunday': '' },
+            workoutHistory: {},
+            previousWorkout: {}
         };
         const newUser = new User_1.default(newUserObject);
         yield newUser.save();

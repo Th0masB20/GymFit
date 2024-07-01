@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import IUser, { IExercise, IWorkout } from "../interfaces/IUser";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { ExerciseRequestData } from "../interfaces/ICacheExercises";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import { WorkoutSearch } from "../component/Create Workout Components/WorkoutSearchComponent";
-import { SetWorkoutDays } from "../component/Create Workout Components/SetWorkoutDaysComponent";
-import { WorkoutExerciseCard } from "../component/Create Workout Components/WorkoutExerciseCardComponent";
+import { EditWorkoutExerciseCard } from "../component/Edit Workout Components/UpdateWorkoutExerciseCard";
+import { EditSetWorkoutDays } from "../component/Edit Workout Components/EditSetWorkoutDays";
 
-const CreateWorkoutPage = (): React.ReactElement => {
+const EditWorkout = (): React.ReactElement => {
+  const nav = useNavigate();
+  const { workoutN } = useParams();
+
   const [user, setUser] = useState<IUser>();
+  const [workout, setWorkout] = useState<IWorkout>();
   const [workoutName, setWorkoutName] = useState<string>("");
-  const [cachedExercises, populateCache] = useState<ExerciseRequestData[]>();
+  const [cachedExercises, populateCache] = useState<ExerciseRequestData[]>([]);
   const [exercises, setWorkoutExercises] = useState<IExercise[]>([]);
   const [workoutDays, setWorkoutDays] = useState<Set<string>>(new Set());
 
   const [displayExerciseSearch, showSearch] = useState<boolean>(false);
 
-  const nav = useNavigate();
   //gets user
   useEffect(() => {
     async function getData() {
@@ -70,6 +73,21 @@ const CreateWorkoutPage = (): React.ReactElement => {
     return () => window.removeEventListener("keydown", onEsc);
   }, []);
 
+  useEffect(() => {
+    if (user && workoutN) {
+      const theWorkout = user.workouts.find(
+        (workout) => workout.workoutName == workoutN
+      );
+      if (theWorkout == undefined) {
+        return;
+      }
+      setWorkout(theWorkout);
+      setWorkoutName(workoutN);
+      setWorkoutExercises(theWorkout.exercises);
+      setWorkoutDays(new Set(theWorkout.calendarDay));
+    }
+  }, [user, workoutN]);
+
   const changeWorkoutName = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setWorkoutName(e.target.value);
   };
@@ -82,15 +100,16 @@ const CreateWorkoutPage = (): React.ReactElement => {
   };
 
   const saveWorkout = async () => {
+    if (!workoutName || !exercises) return;
     const exerciseJson: IWorkout = {
       workoutName,
       exercises,
       calendarDay: Array.from(workoutDays),
       previousWorkout: {},
     };
-
-    const response = await axios.post(
-      "http://localhost:3000/workout/saveWorkout",
+    console.log(exerciseJson.calendarDay);
+    const response = await axios.patch(
+      `http://localhost:3000/workout/${workout?.workoutName}/updateWorkout/`,
       exerciseJson,
       { withCredentials: true }
     );
@@ -99,15 +118,18 @@ const CreateWorkoutPage = (): React.ReactElement => {
     else nav("/404");
   };
 
-  if (user == undefined) return <div></div>;
+  if (!exercises || !user) {
+    return <div></div>;
+  }
+
   return (
     <main className="relative w-full h-screen mb-80">
       <input
         className="text-center text-2xl m-auto block focus:outline-none"
-        placeholder="Workout Name"
+        placeholder={workoutName}
         onChange={changeWorkoutName}
         onFocus={(e) => (e.target.placeholder = "")}
-        onBlur={(e) => (e.target.placeholder = "Workout Name")}
+        onBlur={(e) => (e.target.placeholder = `${workoutName}`)}
         onKeyDown={hitEnter}
         value={workoutName}
       />
@@ -122,7 +144,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
       <div className="w-fit h-fit grid grid-cols-3 m-auto mb-32">
         {exercises.map((currentExercise, i) => {
           return (
-            <WorkoutExerciseCard
+            <EditWorkoutExerciseCard
               currentExercise={currentExercise}
               exerciseIndex={i}
               setWorkoutExercises={setWorkoutExercises}
@@ -132,9 +154,10 @@ const CreateWorkoutPage = (): React.ReactElement => {
         })}
       </div>
       <div className="fixed bottom-0 w-full flex flex-col justify-center items-center">
-        <SetWorkoutDays
+        <EditSetWorkoutDays
           setWorkoutDays={setWorkoutDays}
           workoutDays={workoutDays}
+          workoutName={workoutName}
           user={user}
         />
         <div className="bg-footer-background w-full h-20 flex justify-center items-center">
@@ -168,4 +191,4 @@ const CreateWorkoutPage = (): React.ReactElement => {
   );
 };
 
-export default CreateWorkoutPage;
+export default EditWorkout;

@@ -3,12 +3,13 @@ import { IRegisterReqest, isRegisterCorrect } from "../interfaces/IRegiesterRequ
 import { IUser } from "../interfaces/IUser";
 import bcrypt from 'bcrypt';
 import User from "../mongodb/models/User";
-import { IWorkout } from "../interfaces/IWorkout";
+import { IWorkoutStartFinish } from "../interfaces/IWorkout";
 
 const registerRouter: Router = express.Router();
 
 registerRouter.post('/submit', async (req: Request<{}, {}, IRegisterReqest>, res: Response, next: NextFunction) => {
     const payload: IRegisterReqest = req.body;
+    console.log(payload)
     try {
         if (!isRegisterCorrect(payload)) {
             throw new Error('wrong inputs');
@@ -27,8 +28,9 @@ registerRouter.post('/submit', async (req: Request<{}, {}, IRegisterReqest>, res
             height: undefined,
             workouts: [],
             activityLog: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            weeklyCalendar: new Map<string, string>(),
-            workoutHistory: new Map<string, IWorkout>(),
+            weeklyCalendar: { 'Monday': '', 'Tuesday': '', 'Wednesday': '', 'Thursday': '', 'Friday': '', 'Saturday': '', 'Sunday': '' },
+            workoutHistory: {},
+            previousWorkout: {} as IWorkoutStartFinish
         }
 
         const newUser = new User<IUser>(newUserObject);

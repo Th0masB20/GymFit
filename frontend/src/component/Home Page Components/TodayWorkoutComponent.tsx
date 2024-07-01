@@ -6,18 +6,18 @@ export const TodayWorkout = ({ user }: UserProp): React.ReactElement => {
 
   useEffect(() => {
     const dateArray = [
+      "Sunday",
       "Monday",
       "Tuesday",
       "Wednesday",
       "Thursday",
       "Friday",
       "Saturday",
-      "Sunday",
     ];
     setTodayExercise("");
     if (!user) return;
     const todayIndex = new Date().getDay();
-    console.log(typeof user.weeklyCalendar);
+    console.log(todayIndex);
     const exerciseName = user.weeklyCalendar[dateArray[todayIndex]];
     if (exerciseName) {
       setTodayExercise(exerciseName);

@@ -42,15 +42,20 @@ const UserSchema = new mongoose_1.default.Schema({
         require: true,
     },
     weeklyCalendar: {
-        type: Map,
-        of: String,
+        type: Object,
         require: true,
     },
     workoutHistory: {
-        type: Map,
-        of: Object,
+        type: Object,
+        of: Array,
         require: true,
+    },
+    previousWorkout: {
+        type: Object,
+        required: true,
     }
+}, {
+    minimize: false
 });
 UserSchema.set('toJSON', {
     transform: (_prev, current) => {

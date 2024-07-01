@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IExercise } from "../../interfaces/IUser";
-import { SetRepWeightComponent } from "./SetRepWeightComponent";
+import { SetRepWeightComponent } from "../Create Workout Components/SetRepWeightComponent";
 
-export const WorkoutExerciseCard = ({
+export const EditWorkoutExerciseCard = ({
   currentExercise,
   setWorkoutExercises,
   exerciseIndex,
@@ -12,6 +12,26 @@ export const WorkoutExerciseCard = ({
   setWorkoutExercises: React.Dispatch<React.SetStateAction<IExercise[]>>;
 }): React.ReactElement => {
   const [setArray, addToSetArry] = useState<React.ReactElement[]>();
+
+  useEffect(() => {
+    function createSets() {
+      const setArray: React.ReactElement[] = [];
+      for (let i = 0; i < currentExercise.numberOfSets; i++) {
+        setArray.push(
+          <SetRepWeightComponent
+            setIndex={i}
+            exerciseIndex={exerciseIndex}
+            setWorkoutExercises={setWorkoutExercises}
+            key={i + 10000000}
+          />
+        );
+      }
+
+      addToSetArry(setArray);
+    }
+
+    createSets();
+  }, []);
 
   const createSet = () => {
     currentExercise.numberOfSets++;

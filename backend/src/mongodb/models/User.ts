@@ -40,15 +40,21 @@ const UserSchema: Schema = new mongoose.Schema<IUserMongoose>(
             require: true,
         },
         weeklyCalendar: {
-            type: Map,
-            of: String,
+            type: Object,
             require: true,
         },
         workoutHistory: {
-            type: Map,
-            of: Object,
+            type: Object,
+            of: Array,
             require: true,
+        },
+        previousWorkout: {
+            type: Object,
+            required: true,
         }
+    },
+    {
+        minimize: false
     }
 );
 

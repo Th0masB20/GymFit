@@ -24,12 +24,13 @@ interface IUser {
   lastName: string;
   email: string;
   password: string;
-  age?: number;
-  height?: number;
+  age: number | undefined;
+  height: number | undefined;
   workouts: IWorkout[];
   activityLog: number[];
   weeklyCalendar: { [key: string]: string };
-  workoutHistory: { [key: string]: IWorkout };
+  workoutHistory: { [key: string]: [IWorkout] };
+  previousWorkout: IWorkoutStartFinish;
 }
 
 export interface ICalendarBool {

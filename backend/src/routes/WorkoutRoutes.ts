@@ -25,7 +25,9 @@ workoutRoute.post('/saveWorkout', async (req: Request, res: Response, next: Next
         user.workouts.push(newWorkoutJson);
         for (let weekday of newWorkoutJson.calendarDay) {
             if (!user.weeklyCalendar[weekday]) {
-                user.weeklyCalendar[weekday] = newWorkoutJson.workoutName;
+                const calendar = { ...user.weeklyCalendar };
+                calendar[weekday] = newWorkoutJson.workoutName;
+                user.weeklyCalendar = calendar;
                 continue;
             }
             else {
@@ -49,9 +51,6 @@ workoutRoute.post('/finishWorkout', async (req: Request, res: Response, next: Ne
         const user = await User.findById(request.token.id);
         if (!user) throw new Error('user DNE');
         const d = new Date();
-        //finish workout has time attribute
-        user.workoutHistory[`${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`] = finishWorkoutJson as IWorkout;
-        user.activityLog[d.getMonth()] += 1;
 
         for (let i = 0; i < user.workouts.length; i++) {
             if (user.workouts[i].workoutName == finishWorkoutJson.workoutName) {
@@ -59,6 +58,18 @@ workoutRoute.post('/finishWorkout', async (req: Request, res: Response, next: Ne
                 break;
             }
         }
+
+        //finish workout has time attribute
+        const history = { ...user.workoutHistory }
+        if (!history[`${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`])
+            history[`${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`] = []
+        else {
+            history[`${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`].push(finishWorkoutJson)
+        }
+
+        user.workoutHistory = {};
+        user.workoutHistory = history
+        user.activityLog[d.getMonth()] += 1;
 
         await user.save();
         res.status(200).json(user);
@@ -73,7 +84,7 @@ workoutRoute.patch('/:name/updateWorkout', async (req: Request, res: Response, n
     const param: { name: string } = req.params as { name: string };
     const request: IReqVerification = req as IReqVerification;
     const updatedWorkout: IWorkout = req.body as IWorkout;
-
+    console.log('in here')
     try {
         const user = await User.findById(request.token.id);
         if (!user) throw new Error('user DNE');
@@ -85,6 +96,31 @@ workoutRoute.patch('/:name/updateWorkout', async (req: Request, res: Response, n
             }
         }
 
+        const calendar = { ...user.weeklyCalendar };
+        console.log(updatedWorkout.calendarDay)
+        //add new entries
+        for (let weekday of updatedWorkout.calendarDay) {
+            if (!calendar[weekday]) {
+                calendar[weekday] = updatedWorkout.workoutName;
+                continue;
+            }
+            else {
+                continue
+            }
+        }
+
+        //remove days not in the new callendar
+        for (let weekday in calendar) {
+            if (calendar[weekday] == updatedWorkout.workoutName) {
+                if (!updatedWorkout.calendarDay.includes(weekday)) {
+                    calendar[weekday] = ''
+                    continue;
+                }
+            }
+        }
+        user.weeklyCalendar = calendar;
+
+        console.log(user.weeklyCalendar)
         await user.save();
         res.status(200).json(user);
     }
@@ -145,5 +181,22 @@ workoutRoute.delete('/:workoutName/deleteWorkout', async (req: Request, res: Res
         next(error);
     }
 });
+
+//body is the IWorkoutStartFinish
+workoutRoute.patch('/updatePreviousWorkout', async (req: Request, res: Response, next: NextFunction) => {
+    const verRequest: IReqVerification = req as IReqVerification
+    try {
+        const user = await User.findById(verRequest.token.id);
+        if (!user) throw new Error('user DNE');
+        const userFinishedWorkout: IWorkoutStartFinish = req.body as IWorkoutStartFinish;
+
+        user.previousWorkout = { ...userFinishedWorkout };
+        await user.save();
+        res.status(200).json(user)
+    }
+    catch (error) {
+        next(error)
+    }
+})
 
 export default workoutRoute;
