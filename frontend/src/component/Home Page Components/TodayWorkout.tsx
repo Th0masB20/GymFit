@@ -26,7 +26,9 @@ export const TodayWorkout = ({ user }: UserProp): React.ReactElement => {
   return (
     <div className="flex flex-col justify-center items-center w-60 h-48 rounded-2xl bg-gradient-to-r from-main to-second">
       <p className="text-center underline pb-5">Today's Exercise</p>
-      <p className="text-center text-lg font-bold">{todayExercise}</p>
+      <p className="text-center text-lg font-bold">
+        {todayExercise ? todayExercise : "No Workout For Today"}
+      </p>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { IExercise, IWorkout } from "../../interfaces/IUser";
-import InputSRWComponent from "./InputSRWComponent";
+import InputSRWComponent from "./InputSRW";
 
 export const StartWorkoutExerciseCard = ({
   currentExercise,

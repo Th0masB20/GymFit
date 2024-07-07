@@ -10,7 +10,7 @@ export const WeeklySchedule = ({ user }: UserProp): React.ReactElement => {
         current.concat(
           <div className="flex flex-col justify-center items-center w-24 h-28 mx-3 bg-soft-3 rounded-2xl">
             <p className="underline mb-4">{weekDay}</p>
-            {user.weeklyCalendar ? (
+            {user.weeklyCalendar[weekDay] ? (
               <p>{user.weeklyCalendar[weekDay]}</p>
             ) : (
               <p>Rest</p>

@@ -29,7 +29,7 @@ export const WorkoutCard = ({
       </p>
       <div className="flex flex-col align-center my-5 h-36">
         {workout.exercises.map((exercises, i) => {
-          if (i >= 4) return;
+          if (i >= 2) return;
           return (
             <>
               <p key={i} className="mt-1 w-52 text-lg text-left">
@@ -38,7 +38,7 @@ export const WorkoutCard = ({
             </>
           );
         })}
-        {workout.exercises.length > 4 ? (
+        {workout.exercises.length >= 3 ? (
           <p className="text-center font-semibold">view more...</p>
         ) : null}
       </div>

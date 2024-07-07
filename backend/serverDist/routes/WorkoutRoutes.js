@@ -97,7 +97,6 @@ workoutRoute.patch('/:name/updateWorkout', (req, res, next) => __awaiter(void 0,
             }
         }
         const calendar = Object.assign({}, user.weeklyCalendar);
-        console.log(updatedWorkout.calendarDay);
         //add new entries
         for (let weekday of updatedWorkout.calendarDay) {
             if (!calendar[weekday]) {
@@ -118,7 +117,6 @@ workoutRoute.patch('/:name/updateWorkout', (req, res, next) => __awaiter(void 0,
             }
         }
         user.weeklyCalendar = calendar;
-        console.log(user.weeklyCalendar);
         yield user.save();
         res.status(200).json(user);
     }

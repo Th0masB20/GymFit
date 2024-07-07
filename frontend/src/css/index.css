@@ -57,3 +57,29 @@
 .calendarDayTaken {
   @apply opacity-30 cursor-auto;
 }
+
+.setRepText {
+  @apply text-xs;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  height: 4px !important;
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

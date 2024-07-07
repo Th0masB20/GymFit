@@ -1,5 +1,5 @@
 import UserProp from "../../interfaces/UserProp";
-import { MonthlyActivityBar } from "./MonthlyActivityBarComponent";
+import { MonthlyActivityBar } from "./MonthlyActivityBar";
 
 export const ActivityLog = ({ user }: UserProp): React.ReactElement => {
   return (

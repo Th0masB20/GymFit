@@ -100,8 +100,16 @@ const CreateWorkoutPage = (): React.ReactElement => {
   };
 
   if (user == undefined) return <div></div>;
+  console.log(displayExerciseSearch ? "" : "h-full");
   return (
-    <main className="relative w-full h-screen mb-80">
+    <main
+      className={
+        "relative w-full " +
+        (displayExerciseSearch
+          ? "h-screen mb-0 overflow-hidden"
+          : "h-full mb-32")
+      }
+    >
       <input
         className="text-center text-2xl m-auto block focus:outline-none"
         placeholder="Workout Name"
@@ -119,7 +127,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
         Add Exercise
       </button>
 
-      <div className="w-fit h-fit grid grid-cols-3 m-auto mb-32">
+      <div className="w-fit h-fit grid grid-cols-3 mx-auto">
         {exercises.map((currentExercise, i) => {
           return (
             <WorkoutExerciseCard

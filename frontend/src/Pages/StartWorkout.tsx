@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { StartWorkoutExerciseCard } from "../component/Start Workout Components/StartWorkoutExerciseCards";
 import FinishWorkoutButton from "../component/Start Workout Components/FinishWorkoutButton";
-import TimerComponent from "../component/Start Workout Components/TimerComponent";
+import TimerComponent from "../component/Start Workout Components/Timer";
 import ITimerComponent from "../interfaces/ITimerComponent";
 
 const StartWorkout = (): React.ReactElement => {
