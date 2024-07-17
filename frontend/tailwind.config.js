@@ -34,6 +34,14 @@ export default {
     keyframes: {
       fadeIn: { "0%": { opacity: "0" }, "100%": { opacity: "1" } },
     },
+
+    screens: {
+      lg: { max: "1200px" },
+      md: { max: "1000px" },
+
+      sm: { max: "900px" },
+      xs: { max: "800px" },
+    },
   },
   plugins: [],
 };

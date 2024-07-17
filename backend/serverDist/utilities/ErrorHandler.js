@@ -11,7 +11,7 @@ const ErrorHandler = (error, _req, res, next) => {
         return res.status(400).json({ error: 'Password already exists, enter a new Password' });
     }
     if (error.message == 'incorrect login') {
-        return res.status(400).json({ error: 'Incorrect Login, try again' });
+        return res.status(400).json({ error: 'Username or Password is empty, try again' });
     }
     if (error.message == 'incorrect password') {
         return res.status(400).json({ error: 'Incorrect password, try again' });

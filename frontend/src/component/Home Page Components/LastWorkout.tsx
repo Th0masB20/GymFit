@@ -3,7 +3,14 @@ import ExerciseDetails from "./ExerciseDetails";
 
 const LastWorkoutStats = ({ user }: UserProp): React.ReactElement => {
   return (
-    <div className="flex flex-col items-center ml-10 w-96 h-80 bg-gradient-to-r from-main to-second rounded-3xl overflow-y-auto">
+    <div
+      className="flex flex-col items-center ml-10 w-96 h-80 bg-gradient-to-r from-main to-second rounded-3xl overflow-y-auto
+      lg:w-80 
+      md:w-72
+      xs:h-60
+      xs:ml-0
+      xs:mt-5"
+    >
       <p className="underline font-bold pt-4">Last Workout Stats</p>
       <DisplayLastWorkout user={user} />
     </div>
@@ -19,7 +26,7 @@ const DisplayLastWorkout = ({ user }: UserProp): React.ReactElement => {
     );
   }
   return (
-    <section>
+    <section className="w-full flex flex-col items-center">
       {user.previousWorkout.exercises.map((exercise) => {
         return <ExerciseDetails exercise={exercise} />;
       })}

@@ -32,8 +32,14 @@ const SignIn = (): React.ReactElement => {
     inputEmail(e.target.value);
   };
 
-  const logInRequest = async (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const pressedEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == "Enter") {
+      logInRequest();
+    }
+  };
+
+  const logInRequest = async (e?: React.FormEvent<HTMLButtonElement>) => {
+    if (e) e.preventDefault();
     setError(undefined);
     try {
       const response = await axios.post(
@@ -69,12 +75,14 @@ const SignIn = (): React.ReactElement => {
         placeholder="Email"
         onChange={onchangeEmail}
         value={emailInput}
+        onKeyDown={pressedEnter}
       />
       <input
         className="LoginInput"
         placeholder="Password"
         onChange={onchangePassword}
         value={passwordInput}
+        onKeyDown={pressedEnter}
       />
       {error != undefined ? displayError(error) : null}
       <button className="self-center loginButton" onClick={logInRequest}>

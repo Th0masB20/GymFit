@@ -6,12 +6,12 @@ import { ActivityLog } from "../component/Home Page Components/ActivityLog";
 import LastWorkoutStats from "../component/Home Page Components/LastWorkout";
 const HomePageData = ({ user }: UserProp): React.ReactElement => {
   return (
-    <section className="ml-20 w-fit h-fit flex flex-col justify-start">
-      <div className="flex justify-start items-center w-full h-auto ml-10 mt-6">
+    <section className="ml-[7.5rem] xs:mx-auto w-fit h-fit flex flex-col justify-start">
+      <div className="flex justify-start md:justify-center items-center w-full h-auto mt-6 ">
         <TodayWorkout user={user} />
         <WeeklySchedule user={user} />
       </div>
-      <div className="flex justify-between items-center ml-10 mt-6">
+      <div className="flex justify-between items-center mt-6 xs:flex-col">
         <ActivityLog user={user} />
         <LastWorkoutStats user={user} />
       </div>

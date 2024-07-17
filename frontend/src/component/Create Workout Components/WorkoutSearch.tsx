@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ExerciseRequestData } from "../../interfaces/ICacheExercises";
 import { IExercise } from "../../interfaces/IUser";
-import { ExerciseComponent } from "./ExerciseComponent";
+import { ExerciseComponent } from "./Exercise";
 
 export const WorkoutSearch = ({
   cachedExercises,

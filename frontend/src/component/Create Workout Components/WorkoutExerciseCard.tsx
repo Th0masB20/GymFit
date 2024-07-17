@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { IExercise } from "../../interfaces/IUser";
-import { SetRepWeightComponent } from "./SetRepWeightComponent";
+import { SetRepWeightComponent } from "./SetRepWeight";
 
 export const WorkoutExerciseCard = ({
   currentExercise,

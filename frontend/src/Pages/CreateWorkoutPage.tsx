@@ -3,9 +3,9 @@ import IUser, { IExercise, IWorkout } from "../interfaces/IUser";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ExerciseRequestData } from "../interfaces/ICacheExercises";
-import { WorkoutSearch } from "../component/Create Workout Components/WorkoutSearchComponent";
-import { SetWorkoutDays } from "../component/Create Workout Components/SetWorkoutDaysComponent";
-import { WorkoutExerciseCard } from "../component/Create Workout Components/WorkoutExerciseCardComponent";
+import { WorkoutSearch } from "../component/Create Workout Components/WorkoutSearch";
+import { SetWorkoutDays } from "../component/Create Workout Components/SetWorkoutDays";
+import { WorkoutExerciseCard } from "../component/Create Workout Components/WorkoutExerciseCard";
 
 const CreateWorkoutPage = (): React.ReactElement => {
   const [user, setUser] = useState<IUser>();

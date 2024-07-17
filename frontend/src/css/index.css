@@ -23,7 +23,7 @@
 }
 
 .listItem {
-  @apply text-center text-accent text-xl;
+  @apply text-center text-accent text-xl md:text-lg;
 }
 
 .LoginInput {

@@ -11,7 +11,7 @@ const ExerciseDetails = ({
   return (
     <div
       className={
-        "w-72 bg-white flex flex-col items-center rounded-xl my-3 hover:cursor-pointer hover:scale-105 transition-all duration-300 " +
+        "w-10/12 bg-white flex flex-col items-center rounded-xl my-3 hover:cursor-pointer hover:scale-105 transition-all duration-300 " +
         (selected
           ? "min-h-32 h-auto justify-start"
           : "min-h-10 h-auto justify-center")

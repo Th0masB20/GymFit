@@ -41,11 +41,26 @@ export const MonthlyActivityBar = ({
   function getFillPercentage(i: number) {
     return user.activityLog[i] / 40;
   }
-
+  console.log(getFillPercentage(index) + "%");
   return (
-    <div className="flex flex-col items-center justify-center mx-3">
-      <div className="w-7 h-60 bg-second rounded-md">
-        <div className={`w-full h-[${getFillPercentage(index)}] bg-main`} />
+    <div className="flex flex-col items-center justify-center">
+      {/* This is the activity log bar */}
+      <div
+        className="w-7 h-60 bg-second rounded-md relative mx-3 
+      lg:mx-2 
+      lg:w-5 
+      md:w-4 
+      sm:w-3
+      xs:w-2
+      xs:h-40"
+      >
+        <div
+          className={
+            "w-[80%] bg-main rounded-t-md mx-auto absolute bottom-0 left-[50%] translate-x-[-50%]"
+          }
+          style={{ height: `${getFillPercentage(index) * 100}%` }}
+        />
+        <p className="lg:hidden">{user.activityLog[index]}</p>
       </div>
       <p className="font-semibold">{getMonthLetter(index)}</p>
     </div>

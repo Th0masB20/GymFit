@@ -29,7 +29,7 @@ const HomePage = (): React.ReactElement => {
   if (user == undefined) return <div></div>;
   return (
     <main className="relative w-screen h-screen">
-      <h1 className="text-center text-2xl">
+      <h1 className="text-center text-2xl ml-20">
         Welcome, {user.name} {user.lastName}
       </h1>
       <div className="w-screen h-1 bg-main float-right" />
@@ -56,7 +56,13 @@ const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
       </div>
     );
   }
-  return <HomePageData user={user} />;
+  return (
+    <>
+      <div className="xs:ml-20">
+        <HomePageData user={user} />;
+      </div>
+    </>
+  );
 };
 
 export default HomePage;

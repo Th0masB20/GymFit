@@ -42,20 +42,20 @@ const Header = (): React.ReactElement => {
 
 const About = (): React.ReactElement => {
   return (
-    <div className="flex flex-col items-center bg-soft-1 w-6/12 mx-auto h-96 mt-24 mb-24 p-8 rounded-3xl">
+    <div className="flex flex-col items-center bg-soft-1 w-6/12 mx-auto h-96 mt-24 mb-24 p-8 rounded-3xl min-w-96">
       <h2 className="text-3xl font-semibold pb-5 underline">About</h2>
-      <p className="text-xl text-center">
+      <p className="text-xl text-center md:text-lg">
         We strive to make workout tracking as easy and seamless as possible
       </p>
-      <p className="text-xl text-center">We allow users to:</p>
-      <ul className="inline-block pt-2 pb-2 font-">
+      <p className="text-xl text-center md:text-lg">We allow users to:</p>
+      <ul className="inline-block pt-2 pb-2">
         <li className="listItem">Create Custome Workouts</li>
         <li className="listItem">Set a workout schedule</li>
         <li className="listItem">
           Set rerminders for days and time of workout
         </li>
       </ul>
-      <p className="text-2xl text-center mt-5 font-semibold">
+      <p className="text-2xl text-center mt-5 font-semibold md:text-lg md:mt-0">
         Select From a huge list of exercises or create your own exercise.
       </p>
     </div>

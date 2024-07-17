@@ -38,8 +38,8 @@ export const WorkoutDays = ({
   }, []);
 
   return (
-    <div className="w-10/12 h-9 bg-second rounded-lg flex items-center justify-center">
-      <ul className="text-md">
+    <div className="w-11/12 h-9 bg-second rounded-lg flex items-center justify-center">
+      <ul className="text-md text-nowrap md:text-sm">
         <li className="inline-block">
           <p
             className={

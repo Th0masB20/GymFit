@@ -3,7 +3,7 @@ import IUser, { IExercise, IWorkout } from "../interfaces/IUser";
 import { ExerciseRequestData } from "../interfaces/ICacheExercises";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { WorkoutSearch } from "../component/Create Workout Components/WorkoutSearchComponent";
+import { WorkoutSearch } from "../component/Create Workout Components/WorkoutSearch";
 import { EditWorkoutExerciseCard } from "../component/Edit Workout Components/UpdateWorkoutExerciseCard";
 import { EditSetWorkoutDays } from "../component/Edit Workout Components/EditSetWorkoutDays";
 
