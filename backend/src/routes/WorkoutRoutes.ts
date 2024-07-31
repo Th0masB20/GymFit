@@ -2,6 +2,9 @@ import express, { Request, Response, NextFunction } from 'express';
 import { IReqVerification } from '../interfaces/IAuthorization';
 import User from '../mongodb/models/User';
 import { IWorkout, IWorkoutStartFinish, isWorkoutCorrect } from '../interfaces/IWorkout';
+import { ICalendarWorkoutName, IMonthName, INumberedWeekCalendar, IWeekDay, IWeeklyCalendar } from '../interfaces/ICalendar';
+import { createMonthlyCalendar, createNumberedWeeklyCalendar } from '../utilities/CreateMonthlyCalendar';
+import moment from 'moment';
 
 const workoutRoute = express.Router();
 
@@ -24,16 +27,19 @@ workoutRoute.post('/saveWorkout', async (req: Request, res: Response, next: Next
 
         user.workouts.push(newWorkoutJson);
         for (let weekday of newWorkoutJson.calendarDay) {
-            if (!user.weeklyCalendar[weekday]) {
-                const calendar = { ...user.weeklyCalendar };
-                calendar[weekday] = newWorkoutJson.workoutName;
-                user.weeklyCalendar = calendar;
+            if (!user.generalWeeklyCalendar[weekday]) {
+                const calendar = { ...user.generalWeeklyCalendar };
+                calendar[weekday] = { ...calendar[weekday], workoutName: newWorkoutJson.workoutName };
+                user.generalWeeklyCalendar = calendar;
                 continue;
             }
             else {
                 throw new Error('day occupied');
             }
         }
+
+        user.monthlyCalendar = createMonthlyCalendar(user.generalWeeklyCalendar);
+        user.yearWeeklyCalendar = createNumberedWeeklyCalendar(user.generalWeeklyCalendar);
 
         await user.save();
         res.status(200).json(user);
@@ -84,7 +90,6 @@ workoutRoute.patch('/:name/updateWorkout', async (req: Request, res: Response, n
     const param: { name: string } = req.params as { name: string };
     const request: IReqVerification = req as IReqVerification;
     const updatedWorkout: IWorkout = req.body as IWorkout;
-    console.log('in here')
     try {
         const user = await User.findById(request.token.id);
         if (!user) throw new Error('user DNE');
@@ -96,11 +101,11 @@ workoutRoute.patch('/:name/updateWorkout', async (req: Request, res: Response, n
             }
         }
 
-        const calendar = { ...user.weeklyCalendar };
+        const calendar = { ...user.generalWeeklyCalendar };
         //add new entries
         for (let weekday of updatedWorkout.calendarDay) {
             if (!calendar[weekday]) {
-                calendar[weekday] = updatedWorkout.workoutName;
+                calendar[weekday] = { ...calendar[weekday] as ICalendarWorkoutName, workoutName: updatedWorkout.workoutName };
                 continue;
             }
             else {
@@ -110,20 +115,72 @@ workoutRoute.patch('/:name/updateWorkout', async (req: Request, res: Response, n
 
         //remove days not in the new callendar
         for (let weekday in calendar) {
-            if (calendar[weekday] == updatedWorkout.workoutName) {
-                if (!updatedWorkout.calendarDay.includes(weekday)) {
-                    calendar[weekday] = ''
+            if (calendar[weekday as IWeekDay].workoutName == updatedWorkout.workoutName) {
+                if (!updatedWorkout.calendarDay.includes(weekday as IWeekDay)) {
+                    calendar[weekday as IWeekDay] = { ...calendar[weekday as IWeekDay], workoutName: '' };
                     continue;
                 }
             }
         }
-        user.weeklyCalendar = calendar;
+        user.generalWeeklyCalendar = calendar;
+        //if you want a repeated workout routine
+        user.monthlyCalendar = createMonthlyCalendar(calendar);
+        user.yearWeeklyCalendar = createNumberedWeeklyCalendar(calendar);
         await user.save();
         res.status(200).json(user);
     }
     catch (error) {
         next(error);
     }
+})
+
+workoutRoute.patch('/updateSpecificWorkoutDate/:year-:month-:date', async (req: Request, res: Response, next: NextFunction) => {
+    const request: IReqVerification = req as IReqVerification;
+    const params: { year: string, month: string, date: string } = req.params as { year: string, month: string, date: string };
+    const body: { name: string } = req.body as { name: string };
+
+    const monthIndex: IMonthName[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const days: IWeekDay[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+    try {
+        const user = await User.findById(request.token.id);
+        if (!user) throw new Error('user DNE');
+        const monthNumber = Number(params.month);
+        const dateNumber = Number(params.date);
+        const yearNumber = Number(params.year)
+        if (!monthNumber || !dateNumber || !yearNumber) throw new Error('user DNE');
+        const month = monthIndex[monthNumber - 1]
+        //{name: workoutName, updated: true}
+        const newWorkout: ICalendarWorkoutName = { ...user.monthlyCalendar[month][dateNumber] };
+        newWorkout.updated = true;
+        newWorkout.workoutName = body.name;
+
+        // {3: workoutObject }
+        const newMonthlyObject = { ...user.monthlyCalendar[month] };
+        newMonthlyObject[dateNumber] = newWorkout;
+
+        const newCalendar = { ...user.monthlyCalendar };
+        newCalendar[month] = newMonthlyObject
+        user.monthlyCalendar = newCalendar;
+
+
+        const weekWhichIsUpdated = moment().year(yearNumber).month(monthNumber - 1).date(dateNumber).week()
+        const weekdayIndex = moment().year(yearNumber).month(monthNumber - 1).date(dateNumber).weekday();
+
+        const newWeek: IWeeklyCalendar = { ...user.yearWeeklyCalendar[weekWhichIsUpdated] }
+        newWeek[days[weekdayIndex]] = newWorkout;
+
+        const newWeeklyCalendar: INumberedWeekCalendar = { ...user.yearWeeklyCalendar };
+        newWeeklyCalendar[weekWhichIsUpdated] = newWeek;
+
+        user.yearWeeklyCalendar = newWeeklyCalendar
+        await user.save();
+    }
+    catch (error) {
+        next(error);
+    }
+
+    res.json("Yep");
 })
 
 workoutRoute.get('/:workoutName', async (req: Request, res: Response, next: NextFunction) => {
@@ -159,7 +216,7 @@ workoutRoute.delete('/:workoutName/deleteWorkout', async (req: Request, res: Res
         for (let i = 0; i < user.workouts.length; i++) {
             if (user.workouts[i].workoutName == params.workoutName) {
                 for (let days of user.workouts[i].calendarDay) {
-                    delete user.weeklyCalendar[days];
+                    delete user.generalWeeklyCalendar[days];
                 }
                 user.workouts.splice(i, 1);
                 break;

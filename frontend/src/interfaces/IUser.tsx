@@ -1,3 +1,9 @@
+import ICalendar, {
+  INumberedWeekCalendar,
+  IWeeklyCalendar,
+  IWorkoutHistry,
+} from "./ICalendar";
+
 export interface IExercise {
   exerciseName: string;
   exerciseDescription: string;
@@ -28,19 +34,12 @@ interface IUser {
   height: number | undefined;
   workouts: IWorkout[];
   activityLog: number[];
-  weeklyCalendar: { [key: string]: string };
-  workoutHistory: { [key: string]: [IWorkout] };
-  previousWorkout: IWorkoutStartFinish;
-}
-
-export interface ICalendarBool {
-  Monday: boolean;
-  Tuesday: boolean;
-  Wednesday: boolean;
-  Thursday: boolean;
-  Friday: boolean;
-  Saturday: boolean;
-  Sunday: boolean;
+  generalWeeklyCalendar: IWeeklyCalendar;
+  entireWeekCalendar: INumberedWeekCalendar;
+  //monthName : {day:workoutName}
+  monthlyCalendar: ICalendar;
+  workoutHistory: IWorkoutHistry;
+  previousWorkout: IWorkoutStartFinish | undefined;
 }
 
 export default IUser;

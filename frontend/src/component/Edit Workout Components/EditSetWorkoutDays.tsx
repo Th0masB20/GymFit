@@ -27,7 +27,7 @@ export const EditSetWorkoutDays = ({
     setSelected(startingArray);
   }, [workoutDays]);
 
-  const weeklyCalendar = user.weeklyCalendar;
+  const weeklyCalendar = user.generalWeeklyCalendar;
   console.log(selected);
 
   const setRemoveDay = (dayIndex: number) => {

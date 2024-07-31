@@ -11,6 +11,7 @@ import WorkoutsPage from "./Pages/WorkoutsPage";
 import CreateWorkout from "./Pages/CreateWorkoutPage";
 import StartWorkout from "./Pages/StartWorkout";
 import EditWorkout from "./Pages/EditWorkout";
+import CalendarPage from "./Pages/CalendarPage";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: "/workouts/:workoutName/startworkout",
     element: <StartWorkout />,
+  },
+  {
+    path: "/calendar",
+    element: <CalendarPage />,
   },
 ]);
 

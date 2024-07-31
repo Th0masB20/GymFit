@@ -1,5 +1,6 @@
 import { useState } from "react";
-import IUser, { ICalendarBool } from "../../interfaces/IUser";
+import IUser from "../../interfaces/IUser";
+import { ICalendarBool } from "../../interfaces/ICalendar";
 
 export const SetWorkoutDays = ({
   setWorkoutDays,
@@ -21,7 +22,7 @@ export const SetWorkoutDays = ({
   ]);
 
   const weeklyCalendar: ICalendarBool =
-    user.weeklyCalendar as object as ICalendarBool;
+    user.generalWeeklyCalendar as object as ICalendarBool;
   console.log(weeklyCalendar);
   const setRemoveDay = (dayIndex: number) => {
     switch (dayIndex) {

@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
-import IUser, { IExercise } from "../interfaces/IUser";
+import IUser, { IExercise, IWorkout } from "../interfaces/IUser";
 import { ExerciseRequestData } from "../interfaces/ICacheExercises";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { WorkoutExerciseCard } from "../component/Create Workout Components/WorkoutExerciseCard";
+import { SetWorkoutDays } from "../component/Create Workout Components/SetWorkoutDays";
+import { WorkoutSearch } from "../component/Create Workout Components/WorkoutSearch";
 
 export const EditWorkout = (): React.ReactElement => {
   const [user, setUser] = useState<IUser>();

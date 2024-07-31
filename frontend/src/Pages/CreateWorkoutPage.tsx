@@ -100,7 +100,6 @@ const CreateWorkoutPage = (): React.ReactElement => {
   };
 
   if (user == undefined) return <div></div>;
-  console.log(displayExerciseSearch ? "" : "h-full");
   return (
     <main
       className={

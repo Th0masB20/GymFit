@@ -1,10 +1,11 @@
 import { isObjectEmpty } from "../utilities/utilityFunctions";
+import { IWeekDay } from "./ICalendar";
 import IExercise, { isExerciseCorrect } from "./IExercise";
 
 export interface IWorkout {
     workoutName: string,
     exercises: IExercise[],
-    calendarDay: string[],
+    calendarDay: IWeekDay[],
     previousWorkout: IWorkoutStartFinish | {}
 }
 

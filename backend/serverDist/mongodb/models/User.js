@@ -41,7 +41,15 @@ const UserSchema = new mongoose_1.default.Schema({
         of: Number,
         require: true,
     },
-    weeklyCalendar: {
+    generalWeeklyCalendar: {
+        type: Object,
+        require: true,
+    },
+    yearWeeklyCalendar: {
+        type: Object,
+        require: true,
+    },
+    monthlyCalendar: {
         type: Object,
         require: true,
     },

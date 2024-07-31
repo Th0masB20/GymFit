@@ -5,13 +5,13 @@ import { NavLink } from "react-router-dom";
 const NavBar = (): React.ReactElement => {
   return (
     <nav className="absolute right-0 bg-[rgba(255,255,255,0.3)] h-10 flex flex-col justify-center w-96">
-      <ul className="z-10 flex justify-end">
+      <ul className="z-10 flex justify-end mr-5">
         <li>
           <NavLink to="/about" className="text-white font-semibold">
             About
           </NavLink>
         </li>
-        <li className="pl-8">
+        <li className="pl-8 hover:scale-110 transition-all">
           <NavLink to="/login" className="mainLoginButton">
             Log In
           </NavLink>
@@ -31,7 +31,7 @@ const Header = (): React.ReactElement => {
         </p>
         <NavLink
           to="/register"
-          className="box-border bg-gradient-to-r from-third to-main w-auto h-auto p-2 rounded-full text-white font-bold z-10"
+          className="box-border bg-gradient-to-r from-third to-main w-auto h-auto p-2 rounded-full text-white font-bold z-10 hover:scale-105 transition-all"
         >
           Start Up Today
         </NavLink>

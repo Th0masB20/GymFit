@@ -1,5 +1,6 @@
 import { Document } from "mongoose";
 import { IWorkout, IWorkoutStartFinish } from "./IWorkout"
+import ICalendar, { IWeeklyCalendar, IWorkoutHistry, INumberedWeekCalendar } from "./ICalendar";
 
 export interface IUser {
     name: string,
@@ -10,10 +11,14 @@ export interface IUser {
     height: number | undefined,
     workouts: IWorkout[],
     activityLog: number[],
-    weeklyCalendar: { [key: string]: string },
-    workoutHistory: { [key: string]: IWorkoutStartFinish[] },
+    generalWeeklyCalendar: IWeeklyCalendar,
+    yearWeeklyCalendar: INumberedWeekCalendar
+    //monthName : {day:workoutName}
+    monthlyCalendar: ICalendar
+    workoutHistory: IWorkoutHistry,
     previousWorkout: IWorkoutStartFinish | undefined
 }
+
 
 export interface IUserAgeWeight extends Request {
     age: number,

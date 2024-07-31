@@ -18,9 +18,9 @@ const LastWorkoutStats = ({ user }: UserProp): React.ReactElement => {
 };
 
 const DisplayLastWorkout = ({ user }: UserProp): React.ReactElement => {
-  if (!user.previousWorkout) {
+  if (!user.previousWorkout || !user.previousWorkout.exercises) {
     return (
-      <div className="w-10 h-12">
+      <div className="w-5/12 h-auto p-10 m-auto rounded-xl text-center bg-white">
         <p>Start Your First Workout</p>
       </div>
     );

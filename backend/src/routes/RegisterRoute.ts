@@ -4,6 +4,8 @@ import { IUser } from "../interfaces/IUser";
 import bcrypt from 'bcrypt';
 import User from "../mongodb/models/User";
 import { IWorkoutStartFinish } from "../interfaces/IWorkout";
+import { ICalendarWorkoutName, IWeeklyCalendar, IWorkoutHistry } from "../interfaces/ICalendar";
+import { createMonthlyCalendar, createNumberedWeeklyCalendar } from "../utilities/CreateMonthlyCalendar";
 
 const registerRouter: Router = express.Router();
 
@@ -19,6 +21,8 @@ registerRouter.post('/submit', async (req: Request<{}, {}, IRegisterReqest>, res
         }
 
         const hashPassword = await bcrypt.hash(payload.password, 10);
+        const initialWorkout: ICalendarWorkoutName = { workoutName: '', updated: false };
+        const initialWeeklyCalendar: IWeeklyCalendar = { 'Monday': initialWorkout, 'Tuesday': initialWorkout, 'Wednesday': initialWorkout, 'Thursday': initialWorkout, 'Friday': initialWorkout, 'Saturday': initialWorkout, 'Sunday': initialWorkout }
         const newUserObject: IUser = {
             name: payload.name,
             lastName: payload.lastName,
@@ -28,8 +32,10 @@ registerRouter.post('/submit', async (req: Request<{}, {}, IRegisterReqest>, res
             height: undefined,
             workouts: [],
             activityLog: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            weeklyCalendar: { 'Monday': '', 'Tuesday': '', 'Wednesday': '', 'Thursday': '', 'Friday': '', 'Saturday': '', 'Sunday': '' },
-            workoutHistory: {},
+            generalWeeklyCalendar: initialWeeklyCalendar,
+            yearWeeklyCalendar: createNumberedWeeklyCalendar(initialWeeklyCalendar),
+            monthlyCalendar: createMonthlyCalendar(initialWeeklyCalendar),
+            workoutHistory: {} as IWorkoutHistry,
             previousWorkout: {} as IWorkoutStartFinish
         }
 

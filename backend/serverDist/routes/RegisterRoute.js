@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 const IRegiesterRequest_1 = require("../interfaces/IRegiesterRequest");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const User_1 = __importDefault(require("../mongodb/models/User"));
+const CreateMonthlyCalendar_1 = require("../utilities/CreateMonthlyCalendar");
 const registerRouter = express_1.default.Router();
 registerRouter.post('/submit', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
@@ -28,6 +29,8 @@ registerRouter.post('/submit', (req, res, next) => __awaiter(void 0, void 0, voi
             throw new Error('existing email');
         }
         const hashPassword = yield bcrypt_1.default.hash(payload.password, 10);
+        const initialWorkout = { workoutName: '', updated: false };
+        const initialWeeklyCalendar = { 'Monday': initialWorkout, 'Tuesday': initialWorkout, 'Wednesday': initialWorkout, 'Thursday': initialWorkout, 'Friday': initialWorkout, 'Saturday': initialWorkout, 'Sunday': initialWorkout };
         const newUserObject = {
             name: payload.name,
             lastName: payload.lastName,
@@ -37,7 +40,9 @@ registerRouter.post('/submit', (req, res, next) => __awaiter(void 0, void 0, voi
             height: undefined,
             workouts: [],
             activityLog: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            weeklyCalendar: { 'Monday': '', 'Tuesday': '', 'Wednesday': '', 'Thursday': '', 'Friday': '', 'Saturday': '', 'Sunday': '' },
+            generalWeeklyCalendar: initialWeeklyCalendar,
+            yearWeeklyCalendar: (0, CreateMonthlyCalendar_1.createNumberedWeeklyCalendar)(initialWeeklyCalendar),
+            monthlyCalendar: (0, CreateMonthlyCalendar_1.createMonthlyCalendar)(initialWeeklyCalendar),
             workoutHistory: {},
             previousWorkout: {}
         };
