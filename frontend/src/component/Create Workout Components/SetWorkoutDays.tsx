@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IUser from "../../interfaces/IUser";
-import { ICalendarBool } from "../../interfaces/ICalendar";
+import { ICalendarBool, IWeekDay } from "../../interfaces/ICalendar";
 
 export const SetWorkoutDays = ({
   setWorkoutDays,
@@ -21,9 +21,19 @@ export const SetWorkoutDays = ({
     false,
   ]);
 
-  const weeklyCalendar: ICalendarBool =
-    user.generalWeeklyCalendar as object as ICalendarBool;
-  console.log(weeklyCalendar);
+  const [weeklyCalendar, setWeeklyCalendar] = useState({} as ICalendarBool);
+  useEffect(() => {
+    for (const key in user.generalWeeklyCalendar) {
+      setWeeklyCalendar((currentWeeklyCalendar) => {
+        const newCalendar = { ...currentWeeklyCalendar };
+        newCalendar[key as IWeekDay] = Boolean(
+          user.generalWeeklyCalendar[key as IWeekDay]["workoutName"]
+        );
+        return newCalendar;
+      });
+    }
+  }, [user.generalWeeklyCalendar]);
+
   const setRemoveDay = (dayIndex: number) => {
     switch (dayIndex) {
       case 0: {

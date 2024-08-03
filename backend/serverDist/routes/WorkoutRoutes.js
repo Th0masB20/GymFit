@@ -35,7 +35,7 @@ workoutRoute.post('/saveWorkout', (req, res, next) => __awaiter(void 0, void 0, 
         }
         user.workouts.push(newWorkoutJson);
         for (let weekday of newWorkoutJson.calendarDay) {
-            if (!user.generalWeeklyCalendar[weekday]) {
+            if (!user.generalWeeklyCalendar[weekday].workoutName) {
                 const calendar = Object.assign({}, user.generalWeeklyCalendar);
                 calendar[weekday] = Object.assign(Object.assign({}, calendar[weekday]), { workoutName: newWorkoutJson.workoutName });
                 user.generalWeeklyCalendar = calendar;

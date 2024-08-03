@@ -35,7 +35,7 @@ interface IUser {
   workouts: IWorkout[];
   activityLog: number[];
   generalWeeklyCalendar: IWeeklyCalendar;
-  entireWeekCalendar: INumberedWeekCalendar;
+  yearWeeklyCalendar: INumberedWeekCalendar;
   //monthName : {day:workoutName}
   monthlyCalendar: ICalendar;
   workoutHistory: IWorkoutHistry;

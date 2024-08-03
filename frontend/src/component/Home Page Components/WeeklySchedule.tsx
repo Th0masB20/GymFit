@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import UserProp from "../../interfaces/UserProp";
 import { IWeekDay } from "../../interfaces/ICalendar";
+import moment from "moment";
 
 export const WeeklySchedule = ({ user }: UserProp): React.ReactElement => {
   const [mapOfExercises, setExerciseMap] = useState<React.ReactElement[]>([]);
   useEffect(() => {
     setExerciseMap([]);
-    for (const weekDay in user.generalWeeklyCalendar) {
+    for (const weekDay in user.yearWeeklyCalendar[moment().week()]) {
+      console.log(weekDay);
+
       setExerciseMap((current) =>
         current.concat(
           <div
@@ -17,9 +20,12 @@ export const WeeklySchedule = ({ user }: UserProp): React.ReactElement => {
             <p className="underline mb-4 lg:text-sm md:text-xs font-bold">
               {weekDay}
             </p>
-            {user.generalWeeklyCalendar[weekDay as IWeekDay] ? (
+            {user.yearWeeklyCalendar[moment().week()][weekDay as IWeekDay] ? (
               <p className="lg:text-sm md:text-xs text-nowrap">
-                {user.generalWeeklyCalendar[weekDay as IWeekDay]}
+                {
+                  user.yearWeeklyCalendar[moment().week()][weekDay as IWeekDay]
+                    .workoutName
+                }
               </p>
             ) : (
               <p className="lg:text-sm">Rest</p>
@@ -28,7 +34,7 @@ export const WeeklySchedule = ({ user }: UserProp): React.ReactElement => {
         )
       );
     }
-  }, [user.generalWeeklyCalendar]);
+  }, [user.yearWeeklyCalendar]);
   return (
     <div className="ml-10 md:ml-0 w-auto h-48 rounded-2xl bg-gradient-to-r from-main to-second flex flex-col justify-center items-center">
       <p className="mb-5 underline">Weekly Schedule</p>

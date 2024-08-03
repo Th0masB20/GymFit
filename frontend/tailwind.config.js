@@ -24,6 +24,8 @@ export default {
         "soft-1": "#FFC1E5",
         "soft-2": "#F57FFF",
         "soft-3": "#F8CEFF",
+        "soft-4": "#FFF1F9",
+        "soft-5": "#C181FF",
         accent: "#F84A92",
         "footer-background": "rgba(255,255,255,0.7)",
       },

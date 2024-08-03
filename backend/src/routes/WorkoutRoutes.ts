@@ -12,6 +12,7 @@ workoutRoute.post('/saveWorkout', async (req: Request, res: Response, next: Next
     const request: IReqVerification = req as IReqVerification;
     const newWorkoutJson: IWorkout = req.body as IWorkout;
     try {
+
         const user = await User.findById(request.token.id);
         if (!user) throw new Error('user DNE');
 
@@ -27,7 +28,7 @@ workoutRoute.post('/saveWorkout', async (req: Request, res: Response, next: Next
 
         user.workouts.push(newWorkoutJson);
         for (let weekday of newWorkoutJson.calendarDay) {
-            if (!user.generalWeeklyCalendar[weekday]) {
+            if (!user.generalWeeklyCalendar[weekday].workoutName) {
                 const calendar = { ...user.generalWeeklyCalendar };
                 calendar[weekday] = { ...calendar[weekday], workoutName: newWorkoutJson.workoutName };
                 user.generalWeeklyCalendar = calendar;

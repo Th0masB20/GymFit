@@ -2,10 +2,10 @@ import { IWorkoutStartFinish } from "./IUser";
 
 export interface IMonthCalendar {
   //date and workout name
-  [key: number]: string;
+  [key: number]: ICalendarWorkoutName;
 }
 
-interface ICalendar {
+export interface ICalendar {
   January: IMonthCalendar;
   February: IMonthCalendar;
   March: IMonthCalendar;
@@ -25,13 +25,13 @@ export interface INumberedWeekCalendar {
 }
 
 export interface IWeeklyCalendar {
-  Monday: string;
-  Tuesday: string;
-  Wednesday: string;
-  Thursday: string;
-  Friday: string;
-  Saturday: string;
-  Sunday: string;
+  Monday: ICalendarWorkoutName;
+  Tuesday: ICalendarWorkoutName;
+  Wednesday: ICalendarWorkoutName;
+  Thursday: ICalendarWorkoutName;
+  Friday: ICalendarWorkoutName;
+  Saturday: ICalendarWorkoutName;
+  Sunday: ICalendarWorkoutName;
 }
 
 export interface IWorkoutHistry {
@@ -59,7 +59,10 @@ export type IMonthName =
   | "October"
   | "November"
   | "December";
-
+export interface ICalendarWorkoutName {
+  workoutName: string;
+  updated: boolean;
+}
 // type monthObject = { [key: string]: string };
 
 export interface ICalendarBool {

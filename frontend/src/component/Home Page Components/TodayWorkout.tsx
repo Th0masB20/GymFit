@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import UserProp from "../../interfaces/UserProp";
 import { IWeekDay } from "../../interfaces/ICalendar";
+import moment from "moment";
 
 export const TodayWorkout = ({ user }: UserProp): React.ReactElement => {
   const [todayExercise, setTodayExercise] = useState<string>("");
@@ -17,9 +18,9 @@ export const TodayWorkout = ({ user }: UserProp): React.ReactElement => {
     ];
     setTodayExercise("");
     if (!user) return;
-    const todayIndex = new Date().getDay();
-    console.log(todayIndex);
-    const exerciseName = user.generalWeeklyCalendar[dateArray[todayIndex]];
+    const dayIndex = moment().day();
+    const exerciseName: string =
+      user.yearWeeklyCalendar[moment().week()][dateArray[dayIndex]].workoutName;
     if (exerciseName) {
       setTodayExercise(exerciseName);
     }
