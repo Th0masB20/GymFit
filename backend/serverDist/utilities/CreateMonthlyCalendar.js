@@ -8,9 +8,8 @@ const moment_1 = __importDefault(require("moment"));
 const createMonthlyCalendar = (weeklyCalendar) => {
     const calendar = {};
     const monthIndex = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const currentMonthNumber = (0, moment_1.default)().month();
     const currentYear = (0, moment_1.default)().year();
-    for (let i = currentMonthNumber; i < 12; i++) {
+    for (let i = 0; i < 12; i++) {
         let numberOfDays = (0, moment_1.default)().month(i).daysInMonth();
         calendar[monthIndex[i]] = {};
         for (let date = 1; date <= numberOfDays; date++) {

@@ -5,10 +5,9 @@ export const createMonthlyCalendar = (weeklyCalendar: IWeeklyCalendar): ICalenda
     const calendar: ICalendar = {} as ICalendar;
     const monthIndex: IMonthName[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    const currentMonthNumber = moment().month();
     const currentYear = moment().year();
 
-    for (let i = currentMonthNumber; i < 12; i++) {
+    for (let i = 0; i < 12; i++) {
         let numberOfDays = moment().month(i).daysInMonth();
         calendar[monthIndex[i]] = {} as IMonthCalendar;
         for (let date = 1; date <= numberOfDays; date++) {

@@ -17,11 +17,11 @@ const CalendarDay = ({
     >
       <p className="pl-2 mt-2">{date}</p>
       {workoutName ? (
-        <p className="w-fit items-center m-auto bg-soft-5 p-3 text-center text-xs rounded-xl">
+        <p className="w-fit items-center m-auto bg-soft-5 p-2 text-center text-xs rounded-xl">
           {workoutName}
         </p>
       ) : (
-        <p className="w-fit items-center m-auto bg-soft-3 p-3 text-center text-xs rounded-xl">
+        <p className="w-fit items-center m-auto bg-soft-3 p-2 text-center text-xs rounded-xl">
           Rest
         </p>
       )}

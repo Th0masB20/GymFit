@@ -12,6 +12,8 @@ export default {
         SettingsImage: "url('./src/imagesTracker/Settings.png')",
         HomeImage: "url('./src/imagesTracker/home.png')",
         WhiteAddSign: "url('./src/imagesTracker/white add.png')",
+        LeftArrow: "url('./src/imagesTracker/Left Arrow.png')",
+        RightArrow: "url('./src/imagesTracker/Right Arrow.png')",
       },
       backgroundPosition: {
         "center-center": "center 60%",

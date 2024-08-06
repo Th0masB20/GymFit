@@ -83,3 +83,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.arrowButton {
+  @apply bg-contain w-10 h-10 bg-no-repeat self-center hover:scale-[1.2] hover:cursor-pointer transition-all;
+}

@@ -3,7 +3,13 @@ import IUser from "../../interfaces/IUser";
 import moment from "moment";
 import { IMonthName } from "../../interfaces/ICalendar";
 import CalendarDay from "./CalendarDay";
-const Calendar = ({ user }: { user: IUser }): React.ReactElement => {
+const Calendar = ({
+  user,
+  monthNumber,
+}: {
+  user: IUser;
+  monthNumber: number;
+}): React.ReactElement => {
   const getMonth = (monthIndex: number): IMonthName => {
     const monthArr: IMonthName[] = [
       "January",
@@ -55,9 +61,12 @@ const Calendar = ({ user }: { user: IUser }): React.ReactElement => {
     return gridStart;
   };
 
-  const createCalendar = (user: IUser): React.ReactElement[] => {
+  const createCalendar = (
+    user: IUser,
+    monthNumber: number
+  ): React.ReactElement[] => {
     const calendarObject: React.ReactElement[] = [] as React.ReactElement[];
-    const currentMonth = getMonth(moment().month());
+    const currentMonth = getMonth(monthNumber);
     const startDay = moment().month(currentMonth).day();
     const gridStart = getGridStart(startDay);
 
@@ -85,8 +94,11 @@ const Calendar = ({ user }: { user: IUser }): React.ReactElement => {
     return calendarObject;
   };
   return (
-    <>
-      <div className="m-auto w-[80%] h-auto flex justify-around text-center">
+    <div className="w-[1000px] h-full inline-block">
+      <h1 className="w-auto h-auto px-4 gap-3 mx-3 text-center text-2xl font-bold">
+        {getMonth(monthNumber)}
+      </h1>
+      <div className="w-auto h-auto grid grid-cols-7 grid-rows-1 px-4 gap-3 mx-3 text-center">
         <p>Su</p>
         <p>Mo</p>
         <p>Tu</p>
@@ -95,10 +107,10 @@ const Calendar = ({ user }: { user: IUser }): React.ReactElement => {
         <p>Fr</p>
         <p>Sa</p>
       </div>
-      <div className="m-auto w-[80%] h-[92%] bg-second rounded-2xl grid grid-cols-7 grid-rows-5 p-4 gap-3">
-        {createCalendar(user)}
+      <div className="w-auto h-[90%] bg-second rounded-2xl grid grid-cols-7 grid-rows-5 p-4 gap-3 mx-3">
+        {createCalendar(user, monthNumber)}
       </div>
-    </>
+    </div>
   );
 };
 
