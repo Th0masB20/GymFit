@@ -19,7 +19,6 @@ const createMonthlyCalendar = (weeklyCalendar) => {
             calendar[monthIndex[i]][date] = weeklyCalendar[dayString];
         }
     }
-    console.log(calendar);
     return calendar;
 };
 exports.createMonthlyCalendar = createMonthlyCalendar;

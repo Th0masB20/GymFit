@@ -1,14 +1,18 @@
 import React from "react";
 import IUser from "../../interfaces/IUser";
 import moment from "moment";
-import { IMonthName } from "../../interfaces/ICalendar";
+import { IEditMonthDate, IMonthName } from "../../interfaces/ICalendar";
 import CalendarDay from "./CalendarDay";
 const Calendar = ({
   user,
   monthNumber,
+  setEditCalDay,
+  getDateMonth,
 }: {
   user: IUser;
   monthNumber: number;
+  setEditCalDay: React.Dispatch<React.SetStateAction<boolean>>;
+  getDateMonth: React.Dispatch<React.SetStateAction<IEditMonthDate>>;
 }): React.ReactElement => {
   const getMonth = (monthIndex: number): IMonthName => {
     const monthArr: IMonthName[] = [
@@ -33,28 +37,28 @@ const Calendar = ({
     let gridStart: string = "";
     switch (startDay) {
       case 0:
-        gridStart = "col-start-0";
-        break;
-      case 1:
         gridStart = "col-start-1";
         break;
-      case 2:
+      case 1:
         gridStart = "col-start-2";
         break;
-      case 3:
+      case 2:
         gridStart = "col-start-3";
         break;
-      case 4:
+      case 3:
         gridStart = "col-start-4";
         break;
-      case 5:
+      case 4:
         gridStart = "col-start-5";
         break;
-      case 6:
+      case 5:
         gridStart = "col-start-6";
         break;
-      case 7:
+      case 6:
         gridStart = "col-start-7";
+        break;
+      case 7:
+        gridStart = "col-start-1";
         break;
     }
 
@@ -67,16 +71,21 @@ const Calendar = ({
   ): React.ReactElement[] => {
     const calendarObject: React.ReactElement[] = [] as React.ReactElement[];
     const currentMonth = getMonth(monthNumber);
-    const startDay = moment().month(currentMonth).day();
+    const startDay = moment().month(currentMonth).startOf("month").weekday();
     const gridStart = getGridStart(startDay);
 
     for (const date in user.monthlyCalendar[currentMonth]) {
-      if (date == "1") {
+      const numberDate = Number(date);
+      if (numberDate == 1) {
         calendarObject.push(
           <CalendarDay
             workoutName={user.monthlyCalendar[currentMonth][date].workoutName}
-            date={date}
+            date={numberDate}
+            month={currentMonth}
             gridStart={gridStart}
+            setEditCalDay={setEditCalDay}
+            getDateMonth={getDateMonth}
+            // key=
           />
         );
         continue;
@@ -84,8 +93,11 @@ const Calendar = ({
       calendarObject.push(
         <CalendarDay
           workoutName={user.monthlyCalendar[currentMonth][date].workoutName}
-          date={date}
+          date={numberDate}
+          month={currentMonth}
           gridStart={""}
+          setEditCalDay={setEditCalDay}
+          getDateMonth={getDateMonth}
         />
       );
     }
@@ -94,7 +106,7 @@ const Calendar = ({
     return calendarObject;
   };
   return (
-    <div className="w-[1000px] h-full inline-block">
+    <div className="w-[1000px] xl:w-[1250px] h-full inline-block">
       <h1 className="w-auto h-auto px-4 gap-3 mx-3 text-center text-2xl font-bold">
         {getMonth(monthNumber)}
       </h1>

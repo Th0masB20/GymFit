@@ -11,7 +11,7 @@ const LastWorkoutStats = ({ user }: UserProp): React.ReactElement => {
       xs:ml-0
       xs:mt-5"
     >
-      <p className="underline font-bold pt-4">Last Workout Stats</p>
+      <p className="underline font-bold pt-4 text-center">Last Workout Stats</p>
       <DisplayLastWorkout user={user} />
     </div>
   );
@@ -20,7 +20,7 @@ const LastWorkoutStats = ({ user }: UserProp): React.ReactElement => {
 const DisplayLastWorkout = ({ user }: UserProp): React.ReactElement => {
   if (!user.previousWorkout || !user.previousWorkout.exercises) {
     return (
-      <div className="w-5/12 h-auto p-10 m-auto rounded-xl text-center bg-white">
+      <div className="inline-block w-9/12 h-auto min-w-f p-10 m-auto rounded-xl text-center bg-white">
         <p>Start Your First Workout</p>
       </div>
     );

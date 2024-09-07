@@ -5,15 +5,32 @@ import IUser from "../interfaces/IUser";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
+import EditCalendarDay from "../component/Calendar Components/EditCalendarDay";
+import { IEditMonthDate } from "../interfaces/ICalendar";
 
 const CalendarPage = (): React.ReactElement => {
   // const getNumberOfDays;
   const [user, setUser] = useState<IUser>();
   const calContainerRef = useRef<HTMLDivElement>(null);
+  const [editCalDay, setEditCalDay] = useState<boolean>(false);
+  const [shiftValue, setShiftValue] = useState<number>(
+    window.innerWidth >= 1400 ? 1250 : 1000
+  );
+  const [dateMonth, getDateMonth] = useState<IEditMonthDate>({
+    date: 0,
+    month: "",
+  });
+
   const [currentTranslate, setTranslate] = useState<number>(
-    moment().month() * -1000
+    moment().month() * -shiftValue
   );
   // const [minMaxTranslate] = useState<number[]>([0, 12 * 1000]);
+
+  useEffect(() => {
+    window.addEventListener("resize", () =>
+      setShiftValue(window.innerWidth >= 1400 ? 1250 : 1000)
+    );
+  }, []);
 
   const nav = useNavigate();
   useEffect(() => {
@@ -29,7 +46,7 @@ const CalendarPage = (): React.ReactElement => {
     }
 
     getData();
-  }, [nav]);
+  }, [nav, editCalDay]);
 
   useEffect(() => {
     const setTranslatePosition = (): void => {
@@ -46,38 +63,52 @@ const CalendarPage = (): React.ReactElement => {
   const moveRight = () => {
     if (!calContainerRef || !calContainerRef.current) return <div></div>;
     //12months * 1000px
-    if (currentTranslate - 1000 < -11000) {
+    if (currentTranslate - shiftValue < -(11 * shiftValue)) {
       return;
     }
-    setTranslate((current) => current - 1000);
+    setTranslate((current) => current - shiftValue);
     calContainerRef.current.style.transform = `translateX(${
-      currentTranslate - 1000
+      currentTranslate - shiftValue
     }px)`;
   };
 
   const moveLeft = () => {
     if (!calContainerRef || !calContainerRef.current) return <div></div>;
     //12months * 1000px
-    if (currentTranslate + 1000 > 0) {
+    if (currentTranslate + shiftValue > 0) {
       return;
     }
-    setTranslate((current) => current + 1000);
+    setTranslate((current) => current + shiftValue);
     calContainerRef.current.style.transform = `translateX(${
-      currentTranslate + 1000
+      currentTranslate + shiftValue
     }px)`;
   };
 
   const createEntireCalendar = (): React.ReactElement[] => {
     const calendarsArray: React.ReactElement[] = [];
     for (let i = 0; i < 12; i++) {
-      calendarsArray.push(<Calendar user={user} monthNumber={i} />);
+      calendarsArray.push(
+        <Calendar
+          user={user}
+          monthNumber={i}
+          setEditCalDay={setEditCalDay}
+          getDateMonth={getDateMonth}
+        />
+      );
     }
 
     return calendarsArray;
   };
-
   return (
     <main className="w-screen h-screen">
+      {editCalDay ? (
+        <EditCalendarDay
+          user={user}
+          dateMonth={dateMonth}
+          setEditCalDay={setEditCalDay}
+        />
+      ) : null}
+
       <SideBar />
       <section className="w-screen h-screen flex-auto flex-col">
         <h1 className="text-center text-2xl pl-20">Calendar</h1>
@@ -85,7 +116,7 @@ const CalendarPage = (): React.ReactElement => {
         {/* flex container of everything */}
         <div className="w-full h-[90%] pl-20 pt-5 flex justify-center">
           <div className="bg-LeftArrow arrowButton z-10" onClick={moveLeft} />
-          <div className="w-[1000px] h-full whitespace-nowrap overflow-hidden">
+          <div className="w-[1000px] h-full whitespace-nowrap overflow-hidden xl:w-[1250px]">
             <div
               className={"w-fit h-full transition-all "}
               ref={calContainerRef}

@@ -14,6 +14,7 @@ const EditWorkout = (): React.ReactElement => {
   const [user, setUser] = useState<IUser>();
   const [workout, setWorkout] = useState<IWorkout>();
   const [workoutName, setWorkoutName] = useState<string>("");
+  const [startingWorkoutName, setStartingWorkoutName] = useState<string>("");
   const [cachedExercises, populateCache] = useState<ExerciseRequestData[]>([]);
   const [exercises, setWorkoutExercises] = useState<IExercise[]>([]);
   const [workoutDays, setWorkoutDays] = useState<Set<string>>(new Set());
@@ -75,7 +76,7 @@ const EditWorkout = (): React.ReactElement => {
 
   useEffect(() => {
     if (user && workoutN) {
-      const theWorkout = user.workouts.find(
+      const theWorkout: IWorkout | undefined = user.workouts.find(
         (workout) => workout.workoutName == workoutN
       );
       if (theWorkout == undefined) {
@@ -87,6 +88,12 @@ const EditWorkout = (): React.ReactElement => {
       setWorkoutDays(new Set(theWorkout.calendarDay));
     }
   }, [user, workoutN]);
+
+  //saves initial workout name
+  useEffect(() => {
+    if (!workoutN) return;
+    setStartingWorkoutName(workoutN);
+  }, []);
 
   const changeWorkoutName = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setWorkoutName(e.target.value);
@@ -100,22 +107,32 @@ const EditWorkout = (): React.ReactElement => {
   };
 
   const saveWorkout = async () => {
-    if (!workoutName || !exercises) return;
+    if (!workoutName || !exercises || !workout) return;
     const exerciseJson: IWorkout = {
       workoutName,
       exercises,
       calendarDay: Array.from(workoutDays),
       previousWorkout: {},
     };
-    console.log(exerciseJson.calendarDay);
+
     const response = await axios.patch(
-      `http://localhost:3000/workout/${workout?.workoutName}/updateWorkout/`,
+      `http://localhost:3000/workout/${workout.workoutName}/updateWorkout/`,
       exerciseJson,
       { withCredentials: true }
     );
 
     if (response.status == 200) nav("/workouts");
     else nav("/404");
+  };
+
+  const deleteWorkout = async () => {
+    if (!startingWorkoutName) return;
+    const response = await axios.delete(
+      `http://localhost:3000/workout/${startingWorkoutName}/deleteWorkout`,
+      { withCredentials: true }
+    );
+
+    if (response.status == 200) nav("/workouts");
   };
 
   if (!exercises || !user) {
@@ -157,11 +174,14 @@ const EditWorkout = (): React.ReactElement => {
         <EditSetWorkoutDays
           setWorkoutDays={setWorkoutDays}
           workoutDays={workoutDays}
-          workoutName={workoutName}
+          workoutName={startingWorkoutName}
           user={user}
         />
         <div className="bg-footer-background w-full h-20 flex justify-center items-center">
-          <button className="w-52 h-10 bg-second rounded-lg hover:scale-110 mr-2 transition-all duration-100">
+          <button
+            className="w-52 h-10 bg-second rounded-lg hover:scale-110 mr-2 transition-all duration-100"
+            onClick={deleteWorkout}
+          >
             Delete Workout
           </button>
           <button

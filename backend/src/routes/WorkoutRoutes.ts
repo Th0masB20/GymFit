@@ -86,7 +86,6 @@ workoutRoute.post('/finishWorkout', async (req: Request, res: Response, next: Ne
     }
 });
 
-
 workoutRoute.patch('/:name/updateWorkout', async (req: Request, res: Response, next: NextFunction) => {
     const param: { name: string } = req.params as { name: string };
     const request: IReqVerification = req as IReqVerification;
@@ -105,9 +104,12 @@ workoutRoute.patch('/:name/updateWorkout', async (req: Request, res: Response, n
         const calendar = { ...user.generalWeeklyCalendar };
         //add new entries
         for (let weekday of updatedWorkout.calendarDay) {
-            if (!calendar[weekday]) {
+            if (!calendar[weekday].workoutName) {
                 calendar[weekday] = { ...calendar[weekday] as ICalendarWorkoutName, workoutName: updatedWorkout.workoutName };
                 continue;
+            }
+            else if (calendar[weekday].workoutName != updatedWorkout.workoutName) {
+                calendar[weekday] = { ...calendar[weekday] as ICalendarWorkoutName, workoutName: updatedWorkout.workoutName };
             }
             else {
                 continue
@@ -135,7 +137,7 @@ workoutRoute.patch('/:name/updateWorkout', async (req: Request, res: Response, n
     }
 })
 
-workoutRoute.patch('/updateSpecificWorkoutDate/:year-:month-:date', async (req: Request, res: Response, next: NextFunction) => {
+workoutRoute.patch('/updateWorkoutDate/:year-:month-:date', async (req: Request, res: Response, next: NextFunction) => {
     const request: IReqVerification = req as IReqVerification;
     const params: { year: string, month: string, date: string } = req.params as { year: string, month: string, date: string };
     const body: { name: string } = req.body as { name: string };
@@ -165,8 +167,9 @@ workoutRoute.patch('/updateSpecificWorkoutDate/:year-:month-:date', async (req: 
         user.monthlyCalendar = newCalendar;
 
 
-        const weekWhichIsUpdated = moment().year(yearNumber).month(monthNumber - 1).date(dateNumber).week()
-        const weekdayIndex = moment().year(yearNumber).month(monthNumber - 1).date(dateNumber).weekday();
+        //-1 since its a 0 based index
+        const weekWhichIsUpdated = moment().year(yearNumber).month(month).date(dateNumber).week() - 1;
+        const weekdayIndex = moment().year(yearNumber).month(month).date(dateNumber).day();
 
         const newWeek: IWeeklyCalendar = { ...user.yearWeeklyCalendar[weekWhichIsUpdated] }
         newWeek[days[weekdayIndex]] = newWorkout;
@@ -175,13 +178,14 @@ workoutRoute.patch('/updateSpecificWorkoutDate/:year-:month-:date', async (req: 
         newWeeklyCalendar[weekWhichIsUpdated] = newWeek;
 
         user.yearWeeklyCalendar = newWeeklyCalendar
+
         await user.save();
     }
     catch (error) {
         next(error);
     }
 
-    res.json("Yep");
+    res.status(200).json({ message: "Saved Successfully" });
 })
 
 workoutRoute.get('/:workoutName', async (req: Request, res: Response, next: NextFunction) => {
@@ -209,17 +213,25 @@ workoutRoute.get('/:workoutName', async (req: Request, res: Response, next: Next
 workoutRoute.delete('/:workoutName/deleteWorkout', async (req: Request, res: Response, next: NextFunction) => {
     const request: IReqVerification = req as IReqVerification;
     const params: { workoutName: string } = req.params as { workoutName: string };
-
+    const days: IWeekDay[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     try {
         const user = await User.findById(request.token.id);
         if (!user) throw new Error('user DNE');
+        const newCalendar: IWeeklyCalendar = {} as IWeeklyCalendar;
+        const newWorkoutPlan: IWorkout[] = [...user.workouts]
+
+        for (const weekDay of days) {
+            newCalendar[weekDay] = { ...user.generalWeeklyCalendar[weekDay] }
+        }
 
         for (let i = 0; i < user.workouts.length; i++) {
             if (user.workouts[i].workoutName == params.workoutName) {
+
                 for (let days of user.workouts[i].calendarDay) {
-                    delete user.generalWeeklyCalendar[days];
+                    newCalendar[days].workoutName = "";
+                    newCalendar[days].updated = false;
                 }
-                user.workouts.splice(i, 1);
+                newWorkoutPlan.splice(i, 1);
                 break;
             }
 
@@ -228,6 +240,11 @@ workoutRoute.delete('/:workoutName/deleteWorkout', async (req: Request, res: Res
             }
         }
 
+        user.generalWeeklyCalendar = newCalendar;
+        user.workouts = newWorkoutPlan;
+
+        user.monthlyCalendar = createMonthlyCalendar(newCalendar)
+        user.yearWeeklyCalendar = createNumberedWeeklyCalendar(newCalendar);
         await user.save();
         res.status(200).json(user);
 

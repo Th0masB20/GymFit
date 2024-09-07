@@ -45,6 +45,9 @@ export default {
 
       sm: { max: "900px" },
       xs: { max: "800px" },
+
+      //min-width: 1400 (styles apply when screen is bigger than 1400 px)
+      xl: "1400px",
     },
   },
   plugins: [],

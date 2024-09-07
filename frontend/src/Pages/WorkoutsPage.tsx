@@ -24,8 +24,6 @@ const WorkoutsPage = (): React.ReactElement => {
   if (user == undefined) return <div></div>;
   return (
     <main className="relative w-full h-full">
-      <h1 className="text-center text-2xl ml-20">Workouts</h1>
-      <div className="w-full h-1 bg-main float-right" />
       <SideBar />
       <MainBody user={user} />
     </main>

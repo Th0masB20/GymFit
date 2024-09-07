@@ -42,14 +42,14 @@ const HomePage = (): React.ReactElement => {
 const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
   if (user.workouts.length == 0) {
     return (
-      <div className="absolute flex flex-col justify-center items-center w-80 h-48 bg-gradient-to-r from-main to-fourth rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div className="ml-10 absolute flex flex-col justify-center items-center w-80 h-48 bg-gradient-to-r from-main to-fourth rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <p className="text-center text-xl w-44">
           Start By Creating Your Workout Routine
         </p>
 
         <NavLink
           to="/workouts"
-          className="w-8 h-8 bg-black rounded-full mt-3 hover:cursor-pointer hover:scale-110 flex justify-center items-center"
+          className="w-8 h-8 bg-black rounded-full mt-3 hover:cursor-pointer hover:scale-110 transition-all flex justify-center items-center"
         >
           <div className="w-5 h-5 bg-WhiteAddSign bg-cover" />
         </NavLink>

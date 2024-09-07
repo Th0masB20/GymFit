@@ -11,7 +11,6 @@ const registerRouter: Router = express.Router();
 
 registerRouter.post('/submit', async (req: Request<{}, {}, IRegisterReqest>, res: Response, next: NextFunction) => {
     const payload: IRegisterReqest = req.body;
-    console.log(payload)
     try {
         if (!isRegisterCorrect(payload)) {
             throw new Error('wrong inputs');

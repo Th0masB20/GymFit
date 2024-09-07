@@ -19,8 +19,9 @@ export const TodayWorkout = ({ user }: UserProp): React.ReactElement => {
     setTodayExercise("");
     if (!user) return;
     const dayIndex = moment().day();
+    const weekYearIndex = moment().week() - 1;
     const exerciseName: string =
-      user.yearWeeklyCalendar[moment().week()][dateArray[dayIndex]].workoutName;
+      user.yearWeeklyCalendar[weekYearIndex][dateArray[dayIndex]].workoutName;
     if (exerciseName) {
       setTodayExercise(exerciseName);
     }

@@ -20,7 +20,6 @@ const CreateMonthlyCalendar_1 = require("../utilities/CreateMonthlyCalendar");
 const registerRouter = express_1.default.Router();
 registerRouter.post('/submit', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    console.log(payload);
     try {
         if (!(0, IRegiesterRequest_1.isRegisterCorrect)(payload)) {
             throw new Error('wrong inputs');

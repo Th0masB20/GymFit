@@ -102,9 +102,12 @@ workoutRoute.patch('/:name/updateWorkout', (req, res, next) => __awaiter(void 0,
         const calendar = Object.assign({}, user.generalWeeklyCalendar);
         //add new entries
         for (let weekday of updatedWorkout.calendarDay) {
-            if (!calendar[weekday]) {
+            if (!calendar[weekday].workoutName) {
                 calendar[weekday] = Object.assign(Object.assign({}, calendar[weekday]), { workoutName: updatedWorkout.workoutName });
                 continue;
+            }
+            else if (calendar[weekday].workoutName != updatedWorkout.workoutName) {
+                calendar[weekday] = Object.assign(Object.assign({}, calendar[weekday]), { workoutName: updatedWorkout.workoutName });
             }
             else {
                 continue;
@@ -130,7 +133,7 @@ workoutRoute.patch('/:name/updateWorkout', (req, res, next) => __awaiter(void 0,
         next(error);
     }
 }));
-workoutRoute.patch('/updateSpecificWorkoutDate/:year-:month-:date', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+workoutRoute.patch('/updateWorkoutDate/:year-:month-:date', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const request = req;
     const params = req.params;
     const body = req.body;
@@ -156,8 +159,9 @@ workoutRoute.patch('/updateSpecificWorkoutDate/:year-:month-:date', (req, res, n
         const newCalendar = Object.assign({}, user.monthlyCalendar);
         newCalendar[month] = newMonthlyObject;
         user.monthlyCalendar = newCalendar;
-        const weekWhichIsUpdated = (0, moment_1.default)().year(yearNumber).month(monthNumber - 1).date(dateNumber).week();
-        const weekdayIndex = (0, moment_1.default)().year(yearNumber).month(monthNumber - 1).date(dateNumber).weekday();
+        //-1 since its a 0 based index
+        const weekWhichIsUpdated = (0, moment_1.default)().year(yearNumber).month(month).date(dateNumber).week() - 1;
+        const weekdayIndex = (0, moment_1.default)().year(yearNumber).month(month).date(dateNumber).day();
         const newWeek = Object.assign({}, user.yearWeeklyCalendar[weekWhichIsUpdated]);
         newWeek[days[weekdayIndex]] = newWorkout;
         const newWeeklyCalendar = Object.assign({}, user.yearWeeklyCalendar);
@@ -168,7 +172,7 @@ workoutRoute.patch('/updateSpecificWorkoutDate/:year-:month-:date', (req, res, n
     catch (error) {
         next(error);
     }
-    res.json("Yep");
+    res.status(200).json({ message: "Saved Successfully" });
 }));
 workoutRoute.get('/:workoutName', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const request = req;
@@ -193,22 +197,33 @@ workoutRoute.get('/:workoutName', (req, res, next) => __awaiter(void 0, void 0, 
 workoutRoute.delete('/:workoutName/deleteWorkout', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const request = req;
     const params = req.params;
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     try {
         const user = yield User_1.default.findById(request.token.id);
         if (!user)
             throw new Error('user DNE');
+        const newCalendar = {};
+        const newWorkoutPlan = [...user.workouts];
+        for (const weekDay of days) {
+            newCalendar[weekDay] = Object.assign({}, user.generalWeeklyCalendar[weekDay]);
+        }
         for (let i = 0; i < user.workouts.length; i++) {
             if (user.workouts[i].workoutName == params.workoutName) {
                 for (let days of user.workouts[i].calendarDay) {
-                    delete user.generalWeeklyCalendar[days];
+                    newCalendar[days].workoutName = "";
+                    newCalendar[days].updated = false;
                 }
-                user.workouts.splice(i, 1);
+                newWorkoutPlan.splice(i, 1);
                 break;
             }
             if (i == user.workouts.length) {
                 throw new Error('workout not found');
             }
         }
+        user.generalWeeklyCalendar = newCalendar;
+        user.workouts = newWorkoutPlan;
+        user.monthlyCalendar = (0, CreateMonthlyCalendar_1.createMonthlyCalendar)(newCalendar);
+        user.yearWeeklyCalendar = (0, CreateMonthlyCalendar_1.createNumberedWeeklyCalendar)(newCalendar);
         yield user.save();
         res.status(200).json(user);
     }

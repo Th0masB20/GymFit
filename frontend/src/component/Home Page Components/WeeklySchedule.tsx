@@ -7,9 +7,8 @@ export const WeeklySchedule = ({ user }: UserProp): React.ReactElement => {
   const [mapOfExercises, setExerciseMap] = useState<React.ReactElement[]>([]);
   useEffect(() => {
     setExerciseMap([]);
-    for (const weekDay in user.yearWeeklyCalendar[moment().week()]) {
-      console.log(weekDay);
-
+    const weekYearIndex = moment().week() - 1;
+    for (const weekDay in user.yearWeeklyCalendar[weekYearIndex]) {
       setExerciseMap((current) =>
         current.concat(
           <div
@@ -20,10 +19,10 @@ export const WeeklySchedule = ({ user }: UserProp): React.ReactElement => {
             <p className="underline mb-4 lg:text-sm md:text-xs font-bold">
               {weekDay}
             </p>
-            {user.yearWeeklyCalendar[moment().week()][weekDay as IWeekDay] ? (
+            {user.yearWeeklyCalendar[weekYearIndex][weekDay as IWeekDay] ? (
               <p className="lg:text-sm md:text-xs text-nowrap">
                 {
-                  user.yearWeeklyCalendar[moment().week()][weekDay as IWeekDay]
+                  user.yearWeeklyCalendar[weekYearIndex][weekDay as IWeekDay]
                     .workoutName
                 }
               </p>

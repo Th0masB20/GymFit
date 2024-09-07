@@ -85,13 +85,19 @@ const SignIn = (): React.ReactElement => {
         onKeyDown={pressedEnter}
       />
       {error != undefined ? displayError(error) : null}
-      <button className="self-center loginButton" onClick={logInRequest}>
+      <button
+        className="self-center loginButton hover:scale-105 transition-all"
+        onClick={logInRequest}
+      >
         Log In
       </button>
-      <NavLink to="/register" className="text-lg text-third mt-2 text-center">
+      <NavLink
+        to="/register"
+        className="text-lg text-third hover:opacity-50 mt-2 mx-auto text-center w-20"
+      >
         Register
       </NavLink>
-      <NavLink to="/" className="self-center">
+      <NavLink to="/" className="self-center hover:opacity-70">
         Back
       </NavLink>
     </div>

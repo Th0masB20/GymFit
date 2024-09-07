@@ -16,8 +16,6 @@ export const createMonthlyCalendar = (weeklyCalendar: IWeeklyCalendar): ICalenda
             calendar[monthIndex[i]][date] = weeklyCalendar[dayString];
         }
     }
-
-    console.log(calendar);
     return calendar;
 }
 

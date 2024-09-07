@@ -59,6 +59,7 @@ export type IMonthName =
   | "October"
   | "November"
   | "December";
+
 export interface ICalendarWorkoutName {
   workoutName: string;
   updated: boolean;
@@ -73,6 +74,11 @@ export interface ICalendarBool {
   Friday: boolean;
   Saturday: boolean;
   Sunday: boolean;
+}
+
+export interface IEditMonthDate {
+  date: number;
+  month: IMonthName | "";
 }
 
 export default ICalendar;
