@@ -66,6 +66,10 @@
   width: 5px;
 }
 
+.hide-scrollBar::-webkit-scrollbar {
+  width: 0;
+}
+
 /* Track */
 ::-webkit-scrollbar-track {
   margin-top: 25px;

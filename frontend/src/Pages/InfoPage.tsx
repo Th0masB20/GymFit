@@ -4,24 +4,24 @@ import axios from "axios";
 import IUser from "../interfaces/IUser";
 
 type setAgeProp = {
-  setAge: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setAge: React.Dispatch<React.SetStateAction<string>>;
 };
 type setHeightProp = {
-  setHeight: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setHeight: React.Dispatch<React.SetStateAction<string>>;
 };
 
 type prop = {
   finished: React.Dispatch<React.SetStateAction<boolean>>;
-  setHeight: React.Dispatch<React.SetStateAction<number | undefined>>;
-  setAge: React.Dispatch<React.SetStateAction<number | undefined>>;
-  age: number | undefined;
-  height: number | undefined;
+  setHeight: React.Dispatch<React.SetStateAction<string>>;
+  setAge: React.Dispatch<React.SetStateAction<string>>;
+  age: string;
+  height: string;
   user: IUser;
 };
 
 interface ageHeightProp {
-  age: number | undefined;
-  height: number | undefined;
+  age: string;
+  height: string;
 }
 
 const InfoForm = ({
@@ -36,9 +36,9 @@ const InfoForm = ({
     <section className="flex flex-col justify-center items-center">
       <h1 className="font-bold text-xl">Welcome, {user.name}</h1>
       {(() => {
-        if (age == undefined) {
+        if (age == "") {
           return <AgeForm setAge={setAge} />;
-        } else if (height == undefined) {
+        } else if (height == "") {
           return <HeightForm setHeight={setHeight} />;
         } else {
           finished(true);
@@ -53,8 +53,8 @@ const InfoFormPage = (): React.ReactElement => {
   const [finishSetUp, finished] = useState(false);
 
   const [user, setUser] = useState({} as IUser);
-  const [age, setAge] = useState<number | undefined>(undefined);
-  const [height, setHeight] = useState<number | undefined>(undefined);
+  const [age, setAge] = useState<string>("");
+  const [height, setHeight] = useState<string>("");
 
   const nav = useNavigate();
   useEffect(() => {
@@ -70,7 +70,7 @@ const InfoFormPage = (): React.ReactElement => {
     }
     getData();
   }, [nav]);
-
+  console.log(finishSetUp);
   if (finishSetUp) {
     return (
       <>
@@ -100,17 +100,20 @@ const InfoFormPage = (): React.ReactElement => {
 };
 
 const AgeForm = ({ setAge }: setAgeProp): React.ReactElement => {
-  const [inputAge, changeAge] = useState(0);
+  const [inputAge, changeAge] = useState<string>("");
   const updateAge = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputName: number = Number(e.target.value);
-    if (isNaN(inputName)) {
+    const inputNumberAge: number = Number(e.target.value);
+    if (e.target.value == "") {
+      changeAge("");
+      return;
+    }
+    if (isNaN(inputNumberAge)) {
       console.log("not a valid age number");
       e.target.value = "";
-      e.target.placeholder = "0";
       return;
     }
 
-    changeAge(inputName);
+    changeAge(inputNumberAge.toString());
   };
 
   const next = (e: React.FormEvent<HTMLButtonElement>) => {
@@ -128,6 +131,7 @@ const AgeForm = ({ setAge }: setAgeProp): React.ReactElement => {
           onChange={updateAge}
           value={inputAge}
           className="rounded-xl text-center mt-2 w-20"
+          placeholder="0"
         />
       </label>
       <button className="nextButton" onClick={next}>
@@ -138,17 +142,19 @@ const AgeForm = ({ setAge }: setAgeProp): React.ReactElement => {
 };
 
 const HeightForm = ({ setHeight }: setHeightProp): React.ReactElement => {
-  const [inputHeight, changeHeight] = useState(0);
+  const [inputHeight, changeHeight] = useState<string>("");
   const updateAge = (e: React.ChangeEvent<HTMLInputElement>) => {
     const height: number = Number(e.target.value);
-    if (isNaN(height)) {
+    if (e.target.value == "") {
+      changeHeight("");
+      return;
+    } else if (isNaN(height)) {
       console.log("not a valid age number");
       e.target.value = "";
-      e.target.placeholder = "0";
       return;
     }
 
-    changeHeight(height);
+    changeHeight(height.toString());
   };
 
   const next = (e: React.FormEvent<HTMLButtonElement>) => {
@@ -164,6 +170,7 @@ const HeightForm = ({ setHeight }: setHeightProp): React.ReactElement => {
           type="text"
           onChange={updateAge}
           value={inputHeight}
+          placeholder="0"
           className="rounded-xl text-center mt-2 w-20"
         />
       </label>
@@ -204,7 +211,7 @@ const FinishForm = ({ age, height }: ageHeightProp): React.ReactElement => {
         className="text-3xl text-gray-600 animate-fadeIn"
         onAnimationEnd={goToMainPage}
       >
-        You Are Ready To Begin You Workout Journy
+        You Are Ready To Begin You Workout Journey
       </h1>
     </div>
   );

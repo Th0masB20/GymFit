@@ -89,10 +89,16 @@ const RegisterForm = (): React.ReactElement => {
         onChange={updatePassword}
         value={passwordInput}
       />
-      <button className="loginButton" onClick={register}>
+      <button
+        className="loginButton hover:scale-105 transition-all"
+        onClick={register}
+      >
         Register
       </button>
-      <NavLink to="/login" className="text-third text-center mt-2">
+      <NavLink
+        to="/login"
+        className="text-third text-center mt-2 hover:text-[rgba(141,33,246,0.5)] "
+      >
         Back
       </NavLink>
     </form>

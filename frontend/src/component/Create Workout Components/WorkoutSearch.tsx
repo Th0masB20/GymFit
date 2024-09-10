@@ -19,12 +19,8 @@ export const WorkoutSearch = ({
   };
 
   const displayExerciseSearch = () => {
-    let numberOfExercises = 0;
-
     if (!searchInput) {
       return cachedExercises.map((exercise, i: number) => {
-        if (numberOfExercises >= 4) return;
-        numberOfExercises++;
         return (
           <ExerciseComponent
             exercise={exercise}
@@ -37,9 +33,7 @@ export const WorkoutSearch = ({
     }
 
     return cachedExercises.map((exercise: ExerciseRequestData, i: number) => {
-      if (numberOfExercises >= 4) return;
       if (exercise.name.includes(searchInput)) {
-        numberOfExercises++;
         return (
           <ExerciseComponent
             exercise={exercise}
@@ -63,7 +57,10 @@ export const WorkoutSearch = ({
         <div className="h-8 w-auto px-2 mt-2 rounded-full bg-soft-2 hover:cursor-pointer flex justify-center items-center">
           <p className="text-center">Target body Type</p>
         </div>
-        <div className="mt-4 flex flex-col w-full h-96 items-center">
+        <div
+          className="mt-4 flex flex-col w-fill
+         h-full mb-5 items-center overflow-y-scroll rounded-xl hide-scrollBar"
+        >
           {displayExerciseSearch()}
         </div>
       </div>
