@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import ILogin, { isLoginCorrect } from '../interfaces/ILogin';
 import User from '../mongodb/models/User';
+import getExercises from '../utilities/GetExercises';
 
 const loginRouter = express.Router();
 
@@ -30,6 +31,11 @@ loginRouter.post('/loginUser', async (req: Request<{}, {}, ILogin>, res: Respons
             httpOnly: true,
             secure: true,
         });
+
+        //once its logged in, get exercises from api and store it
+        const exercises = await getExercises();
+        user.JsonExercise = exercises;
+        await user.save();
         res.status(200).json({ message: 'Successfully Signed In' });
     }
     catch (error) {

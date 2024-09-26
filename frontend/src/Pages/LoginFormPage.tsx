@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-
-interface errorResconse {
-  response: { data: errorObject };
-}
-
-interface errorObject {
-  error: string;
-}
+import { errorObject, errorResponse } from "../interfaces/IError";
+import DisplayError from "../component/ErrorComponent";
+import Lottie, { Options } from "react-lottie";
+import animation from "../imagesTracker/Dumbbell_Loading.json";
 
 const SigninPage = (): React.ReactElement => {
   return (
@@ -19,9 +15,11 @@ const SigninPage = (): React.ReactElement => {
 };
 
 const SignIn = (): React.ReactElement => {
+  const status = { none: 0, inProgress: 1, done: 2 };
   const [emailInput, inputEmail] = useState("");
   const [passwordInput, inputPassword] = useState("");
-  const [error, setError] = useState<errorObject>();
+  const [error, setError] = useState<errorObject>({ error: "" });
+  const [registerStatusDone, setRegisterStatus] = useState<number>(status.none);
   const nav = useNavigate();
 
   const onchangePassword = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -38,35 +36,51 @@ const SignIn = (): React.ReactElement => {
     }
   };
 
+  const loginPostRequest = async () => {
+    setRegisterStatus(status.inProgress);
+    const response = await axios.post(
+      "http://localhost:3000/login/loginUser",
+      {
+        email: emailInput,
+        password: passwordInput,
+      },
+      {
+        headers: { Accept: "application/json" },
+        withCredentials: true,
+      }
+    );
+    return response;
+  };
+
   const logInRequest = async (e?: React.FormEvent<HTMLButtonElement>) => {
     if (e) e.preventDefault();
-    setError(undefined);
+    setError({ error: "" });
     try {
-      const response = await axios.post(
-        "http://localhost:3000/login/loginUser",
-        {
-          email: emailInput,
-          password: passwordInput,
-        },
-        {
-          headers: { Accept: "application/json" },
-          withCredentials: true,
-        }
-      );
+      const response = await loginPostRequest();
       if (response.status == 200) {
+        setRegisterStatus(status.done);
         nav("/home");
       }
     } catch (error) {
-      setError((error as errorResconse).response.data);
+      const errorResponse = (error as errorResponse).response.data;
+      setError(errorResponse);
     }
   };
 
-  const displayError = (errorLog: errorObject): React.ReactElement => {
-    console.log(errorLog.error);
+  console.log(registerStatusDone);
+
+  if (registerStatusDone == status.inProgress) {
+    const options: Options = {
+      animationData: animation,
+      loop: true,
+      autoplay: true,
+    };
     return (
-      <p className="w-60 text-center self-center mt-2">{errorLog.error}</p>
+      <div className="w-fill h-fill flex items-center justify-center">
+        <Lottie options={options} width={100} height={100} />
+      </div>
     );
-  };
+  }
   return (
     <div className="flex flex-col justify-center">
       <p className="my-4 font-semibold pl-1">Log In</p>
@@ -84,7 +98,7 @@ const SignIn = (): React.ReactElement => {
         value={passwordInput}
         onKeyDown={pressedEnter}
       />
-      {error != undefined ? displayError(error) : null}
+      {error != undefined ? <DisplayError errorLog={error} /> : null}
       <button
         className="self-center loginButton hover:scale-105 transition-all"
         onClick={logInRequest}

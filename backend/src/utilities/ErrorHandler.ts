@@ -4,6 +4,9 @@ const ErrorHandler: ErrorRequestHandler = (error: any, _req: Request, res: Respo
     if (error.message == 'wrong inputs') {
         return res.status(400).json({ error: 'Please fill out all fields' });
     }
+    if (error.message == "jwt must be provided") {
+        return res.status(300).json({ error: "Session Expired" })
+    }
     if (error.message == 'existing email') {
         return res.status(400).json({ error: 'Email already in our system, enter a new Email' });
     }
@@ -11,13 +14,13 @@ const ErrorHandler: ErrorRequestHandler = (error: any, _req: Request, res: Respo
         return res.status(400).json({ error: 'Password already exists, enter a new Password' });
     }
     if (error.message == 'incorrect login') {
-        return res.status(400).json({ error: 'Username or Password is empty, try again' });
+        return res.status(400).json({ error: 'Username or Password is empty' });
     }
     if (error.message == 'incorrect password') {
         return res.status(400).json({ error: 'Incorrect password, try again' });
     }
     if (error.message == 'user DNE') {
-        return res.status(400).json({ error: 'Email does not exist, register first before logging in' });
+        return res.status(400).json({ error: 'Email does not exist' });
     }
     if (error.message == 'jwt expired') {
         return res.status(400).json({ error: 'authoritation failed' });

@@ -47,7 +47,7 @@ const router = createBrowserRouter([
     element: <EditWorkout />,
   },
   {
-    path: "/404",
+    path: "/404/:error",
     element: <ErrorPage />,
   },
   {

@@ -35,19 +35,12 @@ const CreateWorkoutPage = (): React.ReactElement => {
   //gets workouts from api and cachesThem
   useEffect(() => {
     const getExercises = async () => {
-      const options = {
-        method: "GET",
-        url: "https://exercisedb.p.rapidapi.com/exercises",
-        params: { limit: "1324" },
-        headers: {
-          "X-RapidAPI-Key": import.meta.env.VITE_EXERCISE_API_KEY,
-          "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-        },
-      };
-
       try {
         if (cachedExercises == undefined) {
-          const response = await axios.request(options);
+          const response = await axios.get(
+            "http://localhost:3000/workout/getJsonExercises",
+            { withCredentials: true }
+          );
           populateCache(response.data);
         }
       } catch (error) {
@@ -56,7 +49,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
     };
 
     getExercises();
-  }, [cachedExercises, populateCache]);
+  }, [cachedExercises]);
 
   //hitting esc
   useEffect(() => {

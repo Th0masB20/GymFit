@@ -17,6 +17,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const ILogin_1 = require("../interfaces/ILogin");
 const User_1 = __importDefault(require("../mongodb/models/User"));
+const GetExercises_1 = __importDefault(require("../utilities/GetExercises"));
 const loginRouter = express_1.default.Router();
 loginRouter.post('/loginUser', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
@@ -39,6 +40,10 @@ loginRouter.post('/loginUser', (req, res, next) => __awaiter(void 0, void 0, voi
             httpOnly: true,
             secure: true,
         });
+        //once its logged in, get exercises from api and store it
+        const exercises = yield (0, GetExercises_1.default)();
+        user.JsonExercise = exercises;
+        yield user.save();
         res.status(200).json({ message: 'Successfully Signed In' });
     }
     catch (error) {

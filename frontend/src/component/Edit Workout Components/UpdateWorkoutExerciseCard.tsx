@@ -29,7 +29,6 @@ export const EditWorkoutExerciseCard = ({
 
       addToSetArry(setArray);
     }
-
     createSets();
   }, []);
 

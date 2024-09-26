@@ -18,6 +18,18 @@ const IWorkout_1 = require("../interfaces/IWorkout");
 const CreateMonthlyCalendar_1 = require("../utilities/CreateMonthlyCalendar");
 const moment_1 = __importDefault(require("moment"));
 const workoutRoute = express_1.default.Router();
+workoutRoute.get('/getJsonExercises', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const request = req;
+    try {
+        const user = yield User_1.default.findById(request.token.id);
+        if (!user)
+            throw new Error('user DNE');
+        res.status(200).json(user.JsonExercise);
+    }
+    catch (error) {
+        next(error);
+    }
+}));
 workoutRoute.post('/saveWorkout', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const request = req;
     const newWorkoutJson = req.body;

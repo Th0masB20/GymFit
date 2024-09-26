@@ -59,6 +59,9 @@ const UserSchema: Schema = new mongoose.Schema<IUserMongoose>(
         previousWorkout: {
             type: Object,
             required: true,
+        },
+        JsonExercise: {
+            type: Object,
         }
     },
     {

@@ -61,6 +61,9 @@ const UserSchema = new mongoose_1.default.Schema({
     previousWorkout: {
         type: Object,
         required: true,
+    },
+    JsonExercise: {
+        type: Object,
     }
 }, {
     minimize: false

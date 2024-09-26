@@ -43,7 +43,8 @@ registerRouter.post('/submit', (req, res, next) => __awaiter(void 0, void 0, voi
             yearWeeklyCalendar: (0, CreateMonthlyCalendar_1.createNumberedWeeklyCalendar)(initialWeeklyCalendar),
             monthlyCalendar: (0, CreateMonthlyCalendar_1.createMonthlyCalendar)(initialWeeklyCalendar),
             workoutHistory: {},
-            previousWorkout: {}
+            previousWorkout: {},
+            JsonExercise: {}
         };
         const newUser = new User_1.default(newUserObject);
         yield newUser.save();

@@ -6,6 +6,7 @@ import User from "../mongodb/models/User";
 import { IWorkoutStartFinish } from "../interfaces/IWorkout";
 import { ICalendarWorkoutName, IWeeklyCalendar, IWorkoutHistry } from "../interfaces/ICalendar";
 import { createMonthlyCalendar, createNumberedWeeklyCalendar } from "../utilities/CreateMonthlyCalendar";
+import IJsonExercise from "../interfaces/IJsonExercise";
 
 const registerRouter: Router = express.Router();
 
@@ -35,7 +36,8 @@ registerRouter.post('/submit', async (req: Request<{}, {}, IRegisterReqest>, res
             yearWeeklyCalendar: createNumberedWeeklyCalendar(initialWeeklyCalendar),
             monthlyCalendar: createMonthlyCalendar(initialWeeklyCalendar),
             workoutHistory: {} as IWorkoutHistry,
-            previousWorkout: {} as IWorkoutStartFinish
+            previousWorkout: {} as IWorkoutStartFinish,
+            JsonExercise: {} as IJsonExercise
         }
 
         const newUser = new User<IUser>(newUserObject);

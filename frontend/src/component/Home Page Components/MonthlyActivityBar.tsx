@@ -41,7 +41,6 @@ export const MonthlyActivityBar = ({
   function getFillPercentage(i: number) {
     return user.activityLog[i] / 40;
   }
-  console.log(getFillPercentage(index) + "%");
   return (
     <div className="flex flex-col items-center justify-center">
       {/* This is the activity log bar */}

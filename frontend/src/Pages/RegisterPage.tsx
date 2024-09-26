@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import animation from "../imagesTracker/Dumbbell_Loading.json";
+import Lottie, { Options } from "react-lottie";
 import axios from "axios";
+import DisplayError from "../component/ErrorComponent";
+import { errorObject, errorResponse } from "../interfaces/IError";
 
 interface RegisterObject {
   name: string;
@@ -9,41 +13,47 @@ interface RegisterObject {
   password: string;
 }
 
-interface errorResconse {
-  response: { data: string };
-}
-
 const RegisterForm = (): React.ReactElement => {
-  const [nameInput, changeName] = useState("");
-  const [lastInput, changeLastName] = useState("");
-  const [emailInput, changeEmail] = useState("");
-  const [passwordInput, changePassword] = useState("");
+  const status = { none: 0, inProgress: 1, done: 2 };
+  const [nameInput, changeName] = useState<string>("");
+  const [lastInput, changeLastName] = useState<string>("");
+  const [emailInput, changeEmail] = useState<string>("");
+  const [passwordInput, changePassword] = useState<string>("");
+  const [registerStatusDone, setRegisterStatus] = useState<number>(status.none);
+  const [error, setError] = useState<errorObject>({ error: "" });
   const nav = useNavigate();
+  console.log(error);
 
-  const register = async (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const fetchData = async () => {
+    setRegisterStatus(status.inProgress);
     const rObject: RegisterObject = {
       name: nameInput,
       lastName: lastInput,
       email: emailInput,
       password: passwordInput,
     };
+
+    const response = await axios.post(
+      "http://localhost:3000/register/submit",
+      rObject
+    );
+
+    return response;
+  };
+
+  const register = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setError({ error: "" });
     try {
-      const response = await axios.post(
-        "http://localhost:3000/register/submit",
-        rObject
-      );
+      const response = await fetchData();
+
       if (response.status == 200) {
-        setTimeout(() => nav("/logIn"), 2000);
-        return (
-          <div className="w-screen h-screen flex flex-col justify-center items-center">
-            <p className="text-2xl font-bold">Register Successful</p>
-          </div>
-        );
+        setRegisterStatus(status.done);
+        setTimeout(() => nav("/logIn"), 1500);
       }
     } catch (error) {
-      const errorResponse = (error as errorResconse).response.data;
-      console.log(errorResponse);
+      const errorResponse: errorObject = (error as errorResponse).response.data;
+      setError(errorResponse);
     }
   };
 
@@ -62,6 +72,27 @@ const RegisterForm = (): React.ReactElement => {
   const updatePassword = (e: React.ChangeEvent<HTMLInputElement>): void => {
     changePassword(e.target.value);
   };
+
+  if (registerStatusDone == status.done) {
+    return (
+      <div className="w-fill h-fill flex flex-col justify-center items-center">
+        <p className="text-2xl font-bold">Register Successful</p>
+      </div>
+    );
+  }
+
+  if (registerStatusDone == status.inProgress && !error.error) {
+    const options: Options = {
+      animationData: animation,
+      loop: true,
+      autoplay: true,
+    };
+    return (
+      <div className="w-fill h-fill flex items-center justify-center">
+        <Lottie options={options} width={100} height={100} />
+      </div>
+    );
+  }
 
   return (
     <form className="flex flex-col justify-center items-center">
@@ -89,6 +120,7 @@ const RegisterForm = (): React.ReactElement => {
         onChange={updatePassword}
         value={passwordInput}
       />
+      {error.error != undefined ? <DisplayError errorLog={error} /> : null}
       <button
         className="loginButton hover:scale-105 transition-all"
         onClick={register}
@@ -107,7 +139,7 @@ const RegisterForm = (): React.ReactElement => {
 
 const RegisterFormContainer = (): React.ReactElement => {
   return (
-    <div className="bg-white bg-opacity-90 w-96 h-[400px] rounded-3xl flex justify-center relative overflow-hidden">
+    <div className="bg-white bg-opacity-90 w-96 h-[450px] rounded-3xl flex justify-center relative overflow-hidden">
       <div className="absolute h-12 w-96 bg-main rotate-45 -right-1/3 top-[33]" />
       <div className="absolute h-12 w-96 bg-main -rotate-45 -left-1/3 top-[33]" />
       <div className="absolute h-12 w-96 bg-main rotate-45 right-1/3 bottom-0" />

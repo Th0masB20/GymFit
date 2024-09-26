@@ -4,6 +4,7 @@ import IUser from "../interfaces/IUser";
 import { NavLink, useNavigate } from "react-router-dom";
 import HomePageData from "./HomePageWithData";
 import SideBar from "../component/SideBar";
+import { errorResponse } from "../interfaces/IError";
 
 const HomePage = (): React.ReactElement => {
   const [user, setUser] = useState<IUser>();
@@ -21,7 +22,7 @@ const HomePage = (): React.ReactElement => {
         )
           nav("/info");
       } catch (error) {
-        nav("/404");
+        nav(`/404/${(error as errorResponse).response.data.error}`);
       }
     }
     getData();
