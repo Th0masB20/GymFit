@@ -1,6 +1,14 @@
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 const ErrorPage = (): React.ReactElement => {
   const { error } = useParams();
+  const nav = useNavigate();
+  useEffect(() => {
+    console.log(error);
+    if (error == "Session Expired" || error == "Need to log back in") {
+      nav("/");
+    }
+  }, [error, nav]);
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <section className="w-80 h-80 bg-main rounded-xl flex justify-center items-center flex-col">

@@ -39,6 +39,7 @@ loginRouter.post('/loginUser', async (req: Request<{}, {}, ILogin>, res: Respons
         res.status(200).json({ message: 'Successfully Signed In' });
     }
     catch (error) {
+        console.log(error)
         next(error);
     }
 })

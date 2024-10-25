@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const User_1 = __importDefault(require("../mongodb/models/User"));
 const mainUserRoutes = express_1.default.Router();
-mainUserRoutes.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+mainUserRoutes.get('/user', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const request = req;
     try {
         const user = yield User_1.default.findById(request.token.id);

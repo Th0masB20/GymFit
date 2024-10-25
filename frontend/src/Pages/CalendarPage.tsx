@@ -7,6 +7,7 @@ import axios from "axios";
 import moment from "moment";
 import EditCalendarDay from "../component/Calendar Components/EditCalendarDay";
 import { IEditMonthDate } from "../interfaces/ICalendar";
+import { errorResponse } from "../interfaces/IError";
 
 const CalendarPage = (): React.ReactElement => {
   // const getNumberOfDays;
@@ -34,14 +35,20 @@ const CalendarPage = (): React.ReactElement => {
 
   const nav = useNavigate();
   useEffect(() => {
+    //gets user
     async function getData() {
       try {
-        const userResponse = await axios.get("http://localhost:3000/home/", {
-          withCredentials: true,
-        });
+        const userResponse = await axios.get(
+          "http://localhost:3000/home/user",
+          {
+            withCredentials: true,
+            headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+          }
+        );
         setUser(userResponse.data as IUser);
       } catch (error) {
-        nav("/404");
+        const errorMessage = (error as errorResponse).response.data.error;
+        nav(`/404/${errorMessage}`);
       }
     }
 

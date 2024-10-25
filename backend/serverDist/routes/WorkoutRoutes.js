@@ -20,6 +20,7 @@ const moment_1 = __importDefault(require("moment"));
 const workoutRoute = express_1.default.Router();
 workoutRoute.get('/getJsonExercises', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const request = req;
+    console.log("its going throuhg");
     try {
         const user = yield User_1.default.findById(request.token.id);
         if (!user)

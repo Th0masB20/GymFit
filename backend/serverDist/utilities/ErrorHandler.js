@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const ErrorHandler = (error, _req, res, next) => {
+    console.log(error);
     if (error.message == 'wrong inputs') {
         return res.status(400).json({ error: 'Please fill out all fields' });
     }
     if (error.message == "jwt must be provided") {
-        return res.status(300).json({ error: "Session Expired" });
+        return res.status(400).json({ error: "Need to log back in" });
     }
     if (error.message == 'existing email') {
         return res.status(400).json({ error: 'Email already in our system, enter a new Email' });
@@ -23,7 +24,7 @@ const ErrorHandler = (error, _req, res, next) => {
         return res.status(400).json({ error: 'Email does not exist' });
     }
     if (error.message == 'jwt expired') {
-        return res.status(400).json({ error: 'authoritation failed' });
+        return res.status(400).json({ error: 'login expired' });
     }
     if (error.message == 'incorrect workout format') {
         return res.status(400).json({ error: 'workout json received is incorrect' });

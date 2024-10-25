@@ -10,47 +10,45 @@ export const SetRepWeightComponent = ({
   exerciseIndex: number;
   setWorkoutExercises: React.Dispatch<React.SetStateAction<IExercise[]>>;
 }): React.ReactElement => {
-  const [repNumber, setRepNumber] = useState<number>(0);
-  const [weightNumber, setWeightNumber] = useState<number>(0);
+  const [reps, setRepNumber] = useState<string>("");
+  const [weights, setWeightNumber] = useState<string>("");
 
   const onRepNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     if (isNaN(value)) return;
-    setRepNumber(Number(value));
+    setRepNumber(e.target.value);
   };
 
   const onWeightNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     if (isNaN(value)) return;
-    setWeightNumber(Number(value));
+    setWeightNumber(e.target.value);
   };
 
   useEffect(() => {
-    if (weightNumber && repNumber) {
-      setWorkoutExercises((current) => {
-        const newExerciseArray = current.map((currentExercise, i) => {
-          const newRepArray = [...currentExercise.reps];
-          const newWeightArray = [...currentExercise.weights];
+    setWorkoutExercises((current) => {
+      const newExerciseArray = current.map((currentExercise, i) => {
+        const repNumber = Number(reps);
+        const weightNumber = Number(weights);
 
-          if (
-            setIndex > newRepArray.length ||
-            setIndex > newWeightArray.length
-          ) {
-            newRepArray.push(repNumber);
-            newWeightArray.push(weightNumber);
-          } else {
-            newRepArray[setIndex] = repNumber;
-            newWeightArray[setIndex] = weightNumber;
-          }
-          return i == exerciseIndex
-            ? { ...currentExercise, reps: newRepArray, weights: newWeightArray }
-            : currentExercise;
-        });
+        const newRepArray = [...currentExercise.reps];
+        const newWeightArray = [...currentExercise.weights];
 
-        return newExerciseArray;
+        if (setIndex > newRepArray.length || setIndex > newWeightArray.length) {
+          newRepArray.push(repNumber);
+          newWeightArray.push(weightNumber);
+        } else {
+          newRepArray[setIndex] = repNumber;
+          newWeightArray[setIndex] = weightNumber;
+        }
+        return i == exerciseIndex
+          ? { ...currentExercise, reps: newRepArray, weights: newWeightArray }
+          : currentExercise;
       });
-    }
-  }, [exerciseIndex, repNumber, setIndex, setWorkoutExercises, weightNumber]);
+
+      return newExerciseArray;
+    });
+  }, [exerciseIndex, reps, setIndex, setWorkoutExercises, weights]);
 
   return (
     <>
@@ -61,12 +59,14 @@ export const SetRepWeightComponent = ({
         <input
           className="w-14 rounded-full bg-soft-1 text-center"
           onChange={onRepNumberInput}
-          value={repNumber}
+          value={reps}
+          placeholder="0"
         />
         <input
           className="w-14 rounded-full bg-soft-1 text-center"
           onChange={onWeightNumberInput}
-          value={weightNumber}
+          value={weights}
+          placeholder="0"
         />
       </div>
     </>

@@ -12,9 +12,14 @@ const HomePage = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios.get("http://localhost:3000/home/", {
-          withCredentials: true,
-        });
+        const userResponse = await axios.get(
+          "http://localhost:3000/home/user",
+          {
+            withCredentials: true,
+            headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+          }
+        );
+        console.log(userResponse);
         setUser(userResponse.data as IUser);
         if (
           (userResponse.data as IUser).age == undefined ||
@@ -22,7 +27,8 @@ const HomePage = (): React.ReactElement => {
         )
           nav("/info");
       } catch (error) {
-        nav(`/404/${(error as errorResponse).response.data.error}`);
+        const reponseError = (error as errorResponse).response.data.error;
+        nav(`/404/${reponseError}`);
       }
     }
     getData();

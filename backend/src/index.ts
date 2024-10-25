@@ -9,13 +9,12 @@ import loginRouter from "./routes/LoginRoute";
 import authorize from "./utilities/ValidateUser";
 import mainUserRoutes from './routes/ApiRoutes';
 import workoutRoute from './routes/WorkoutRoutes';
-import bodyParser from 'body-parser';
 
 dotenv.config();
 const app = express();
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
-app.use(bodyParser.urlencoded())
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static('./dist'));

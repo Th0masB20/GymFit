@@ -6,6 +6,7 @@ import { ExerciseRequestData } from "../interfaces/ICacheExercises";
 import { WorkoutSearch } from "../component/Create Workout Components/WorkoutSearch";
 import { SetWorkoutDays } from "../component/Create Workout Components/SetWorkoutDays";
 import { WorkoutExerciseCard } from "../component/Create Workout Components/WorkoutExerciseCard";
+import { errorResponse } from "../interfaces/IError";
 
 const CreateWorkoutPage = (): React.ReactElement => {
   const [user, setUser] = useState<IUser>();
@@ -13,43 +14,87 @@ const CreateWorkoutPage = (): React.ReactElement => {
   const [cachedExercises, populateCache] = useState<ExerciseRequestData[]>();
   const [exercises, setWorkoutExercises] = useState<IExercise[]>([]);
   const [workoutDays, setWorkoutDays] = useState<Set<string>>(new Set());
+  const [disableButton, setDisableButton] = useState<boolean>(true);
 
   const [displayExerciseSearch, showSearch] = useState<boolean>(false);
 
   const nav = useNavigate();
+
+  useEffect(() => {
+    const repsIsEmpty = (): boolean => {
+      for (const exercise of exercises) {
+        if (exercise.reps.includes(0) || exercise.numberOfSets == 0)
+          return true;
+      }
+      return false;
+    };
+    setDisableButton(
+      !workoutName ||
+        exercises.length == 0 ||
+        workoutDays.size == 0 ||
+        repsIsEmpty()
+    );
+  }, [exercises, workoutDays.size, workoutName]);
   //gets user
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios.get("http://localhost:3000/home/", {
-          withCredentials: true,
-        });
+        const userResponse = await axios.get(
+          "http://localhost:3000/home/user",
+          {
+            withCredentials: true,
+          }
+        );
         setUser(userResponse.data as IUser);
       } catch (error) {
-        nav("/404");
+        const responseError = (error as errorResponse).response.data.error;
+        nav(`/404/${responseError}`);
       }
     }
     getData();
   }, [nav]);
 
   //gets workouts from api and cachesThem
+  //getting 300 errors from cached data in website, disabling cache helped
   useEffect(() => {
     const getExercises = async () => {
-      try {
-        if (cachedExercises == undefined) {
-          const response = await axios.get(
-            "http://localhost:3000/workout/getJsonExercises",
-            { withCredentials: true }
-          );
-          populateCache(response.data);
-        }
-      } catch (error) {
-        console.error(error);
+      if (cachedExercises == undefined) {
+        const response = await axios.get(
+          "http://localhost:3000/workout/getJsonExercises",
+          {
+            withCredentials: true,
+            headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+          }
+        );
+        populateCache(response.data);
       }
     };
 
-    getExercises();
+    setTimeout(getExercises, 1000);
   }, [cachedExercises]);
+
+  const saveWorkout = async () => {
+    try {
+      const exerciseJson: IWorkout = {
+        workoutName,
+        exercises,
+        calendarDay: Array.from(workoutDays),
+        previousWorkout: {},
+      };
+
+      const response = await axios.post(
+        "http://localhost:3000/workout/saveWorkout",
+        exerciseJson,
+        { withCredentials: true }
+      );
+
+      if (response.status == 200) nav("/workouts");
+    } catch (error) {
+      console.log(error);
+      const responsError = (error as errorResponse).response.data.error;
+      nav(`/404/${responsError}`);
+    }
+  };
 
   //hitting esc
   useEffect(() => {
@@ -74,24 +119,6 @@ const CreateWorkoutPage = (): React.ReactElement => {
     }
   };
 
-  const saveWorkout = async () => {
-    const exerciseJson: IWorkout = {
-      workoutName,
-      exercises,
-      calendarDay: Array.from(workoutDays),
-      previousWorkout: {},
-    };
-
-    const response = await axios.post(
-      "http://localhost:3000/workout/saveWorkout",
-      exerciseJson,
-      { withCredentials: true }
-    );
-
-    if (response.status == 200) nav("/workouts");
-    else nav("/404");
-  };
-
   if (user == undefined) return <div></div>;
   return (
     <main
@@ -113,7 +140,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
       />
       <div className="w-full h-1 bg-main float-right" />
       <button
-        className="flex flex-col justify-center items-center w-80 h-10 bg-main rounded-lg mt-5 m-auto hover:scale-110"
+        className="flex flex-col justify-center items-center w-80 h-10 bg-main rounded-lg mt-5 m-auto hover:scale-110 transition-all"
         onClick={() => showSearch(true)}
       >
         Add Exercise
@@ -144,14 +171,10 @@ const CreateWorkoutPage = (): React.ReactElement => {
           <button
             className={
               "w-52 h-10 bg-main rounded-lg ml-2 transition-all " +
-              (!workoutName || exercises.length == 0 || workoutDays.size == 0
-                ? " opacity-30"
-                : "hover:scale-110")
+              (disableButton ? " opacity-30" : "hover:scale-110")
             }
             onClick={saveWorkout}
-            disabled={
-              !workoutName || exercises.length == 0 || workoutDays.size == 0
-            }
+            disabled={disableButton}
           >
             Save Workout
           </button>

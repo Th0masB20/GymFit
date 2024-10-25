@@ -20,9 +20,13 @@ const StartWorkout = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios.get("http://localhost:3000/home/", {
-          withCredentials: true,
-        });
+        const userResponse = await axios.get(
+          "http://localhost:3000/home/user",
+          {
+            withCredentials: true,
+            headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+          }
+        );
         setUser(userResponse.data as IUser);
       } catch (error) {
         nav("/404");

@@ -22,10 +22,18 @@ const RegisterForm = (): React.ReactElement => {
   const [registerStatusDone, setRegisterStatus] = useState<number>(status.none);
   const [error, setError] = useState<errorObject>({ error: "" });
   const nav = useNavigate();
-  console.log(error);
 
   const fetchData = async () => {
     setRegisterStatus(status.inProgress);
+    if (!emailInput || !passwordInput || !nameInput || !lastInput) {
+      const stringError = "Please fill out all fields";
+      const error: errorResponse = {
+        response: { data: { error: stringError } },
+      } as errorResponse;
+      setError(error.response.data);
+      throw Error(error.response.data.error);
+    }
+
     const rObject: RegisterObject = {
       name: nameInput,
       lastName: lastInput,
@@ -52,7 +60,12 @@ const RegisterForm = (): React.ReactElement => {
         setTimeout(() => nav("/logIn"), 1500);
       }
     } catch (error) {
-      const errorResponse: errorObject = (error as errorResponse).response.data;
+      let errorResponse: errorObject;
+      if ((error as Error).name == "Error") {
+        errorResponse = { error: (error as Error).message };
+      } else {
+        errorResponse = (error as errorResponse).response.data;
+      }
       setError(errorResponse);
     }
   };

@@ -9,6 +9,14 @@ Content-Type: application/json
 }
 
 ###
+GET http://localhost:3000/workout/getJsonExercises
+Content-Type: application/json
+Cookie: ticket=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZTBlMzg2YmM5ZGI2YTAxMDlkYWY2MyIsImlhdCI6MTcyNzU2NzU1NywiZXhwIjoxNzI3NTcxMTU3fQ.Qsc8FHoEHqXZSLJEROGdFqiD4dM2maNHI8F5Dbb7U4E
+
+{
+}
+
+###
 POST http://localhost:3000/login/loginUser
 Content-Type: application/json
 
@@ -20,6 +28,12 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/home
+Content-Type: application/json
+ticket: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZTBlMzg2YmM5ZGI2YTAxMDlkYWY2MyIsImlhdCI6MTcyNzU2NzU1NywiZXhwIjoxNzI3NTcxMTU3fQ.Qsc8FHoEHqXZSLJEROGdFqiD4dM2maNHI8F5Dbb7U4E
+
+{
+
+}
 
 ###
 PUT http://localhost:3000/home/updateUser

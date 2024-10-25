@@ -6,6 +6,7 @@ import axios from "axios";
 import { WorkoutSearch } from "../component/Create Workout Components/WorkoutSearch";
 import { EditWorkoutExerciseCard } from "../component/Edit Workout Components/UpdateWorkoutExerciseCard";
 import { EditSetWorkoutDays } from "../component/Edit Workout Components/EditSetWorkoutDays";
+import { errorResponse } from "../interfaces/IError";
 
 const EditWorkout = (): React.ReactElement => {
   const nav = useNavigate();
@@ -25,12 +26,17 @@ const EditWorkout = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios.get("http://localhost:3000/home/", {
-          withCredentials: true,
-        });
+        const userResponse = await axios.get(
+          "http://localhost:3000/home/user",
+          {
+            withCredentials: true,
+            headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+          }
+        );
         setUser(userResponse.data as IUser);
       } catch (error) {
-        nav("/404");
+        const responsError = (error as errorResponse).response.data.error;
+        nav(`/404/${responsError}`);
       }
     }
     getData();
@@ -43,7 +49,10 @@ const EditWorkout = (): React.ReactElement => {
         if (cachedExercises == undefined) {
           const response = await axios.get(
             "http://localhost:3000/workout/getJsonExercises",
-            { withCredentials: true }
+            {
+              withCredentials: true,
+              headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+            }
           );
           populateCache(response.data);
         }
@@ -100,22 +109,26 @@ const EditWorkout = (): React.ReactElement => {
   };
 
   const saveWorkout = async () => {
-    if (!workoutName || !exercises || !workout) return;
-    const exerciseJson: IWorkout = {
-      workoutName,
-      exercises,
-      calendarDay: Array.from(workoutDays),
-      previousWorkout: {},
-    };
+    try {
+      if (!workoutName || !exercises || !workout) return;
+      const exerciseJson: IWorkout = {
+        workoutName,
+        exercises,
+        calendarDay: Array.from(workoutDays),
+        previousWorkout: {},
+      };
 
-    const response = await axios.patch(
-      `http://localhost:3000/workout/${workout.workoutName}/updateWorkout/`,
-      exerciseJson,
-      { withCredentials: true }
-    );
+      const response = await axios.patch(
+        `http://localhost:3000/workout/${workout.workoutName}/updateWorkout/`,
+        exerciseJson,
+        { withCredentials: true }
+      );
 
-    if (response.status == 200) nav("/workouts");
-    else nav("/404");
+      if (response.status == 200) nav("/workouts");
+    } catch (error) {
+      const responseError = (error as errorResponse).response.data;
+      nav(`/404/${responseError}`);
+    }
   };
 
   const deleteWorkout = async () => {

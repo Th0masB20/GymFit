@@ -5,7 +5,7 @@ import { IUserAgeWeight } from '../interfaces/IUser';
 
 const mainUserRoutes = express.Router();
 
-mainUserRoutes.get('/', async (req: Request, res: Response, next: NextFunction) => {
+mainUserRoutes.get('/user', async (req: Request, res: Response, next: NextFunction) => {
     const request: IReqVerification = req as IReqVerification;
     try {
         const user = await User.findById(request.token.id);

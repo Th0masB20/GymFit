@@ -38,6 +38,14 @@ const SignIn = (): React.ReactElement => {
 
   const loginPostRequest = async () => {
     setRegisterStatus(status.inProgress);
+    if (!emailInput || !passwordInput) {
+      const stringError = "Username or Password is empty";
+      const error: errorResponse = {
+        response: { data: { error: stringError } },
+      } as errorResponse;
+      setError(error.response.data);
+      throw Error(error.response.data.error);
+    }
     const response = await axios.post(
       "http://localhost:3000/login/loginUser",
       {
@@ -58,18 +66,23 @@ const SignIn = (): React.ReactElement => {
     try {
       const response = await loginPostRequest();
       if (response.status == 200) {
-        setRegisterStatus(status.done);
-        nav("/home");
+        setTimeout(() => {
+          setRegisterStatus(status.done);
+          nav("/home");
+        }, 1000);
       }
     } catch (error) {
-      const errorResponse = (error as errorResponse).response.data;
+      let errorResponse: errorObject;
+      if ((error as Error).name == "Error") {
+        errorResponse = { error: (error as Error).message };
+      } else {
+        errorResponse = (error as errorResponse).response.data;
+      }
       setError(errorResponse);
     }
   };
 
-  console.log(registerStatusDone);
-
-  if (registerStatusDone == status.inProgress) {
+  if (registerStatusDone == status.inProgress && !error.error) {
     const options: Options = {
       animationData: animation,
       loop: true,

@@ -47,6 +47,7 @@ loginRouter.post('/loginUser', (req, res, next) => __awaiter(void 0, void 0, voi
         res.status(200).json({ message: 'Successfully Signed In' });
     }
     catch (error) {
+        console.log(error);
         next(error);
     }
 }));
