@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios_instance from "../utilities/AxiosInstance";
 import { errorObject, errorResponse } from "../interfaces/IError";
 import DisplayError from "../component/ErrorComponent";
 import Lottie, { Options } from "react-lottie";
@@ -46,7 +46,7 @@ const SignIn = (): React.ReactElement => {
       setError(error.response.data);
       throw Error(error.response.data.error);
     }
-    const response = await axios.post(
+    const response = await axios_instance.post(
       "http://localhost:3000/login/loginUser",
       {
         email: emailInput,

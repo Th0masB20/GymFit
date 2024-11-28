@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import IUser from "../interfaces/IUser";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios_instance from "../utilities/AxiosInstance";
 import SideBar from "../component/SideBar";
 import { MainBody } from "../component/Workout Page Components/Body";
+import { errorResponse } from "../interfaces/IError";
 
 const WorkoutsPage = (): React.ReactElement => {
   const [user, setUser] = useState<IUser>();
@@ -11,16 +12,17 @@ const WorkoutsPage = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios.get(
+        const userResponse = await axios_instance.get(
           "http://localhost:3000/home/user",
           {
             withCredentials: true,
-            headers: { "Cache-Control": "no-cache", Pragma: "no-cache" }
+            headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
           }
         );
         setUser(userResponse.data as IUser);
       } catch (error) {
-        nav("/404");
+        const responsError = (error as errorResponse).response.data.error;
+        nav(`/404/${responsError}`);
       }
     }
     getData();

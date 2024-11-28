@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import IUser, { IExercise, IWorkout } from "../interfaces/IUser";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios_instance from "../utilities/AxiosInstance";
 import { ExerciseRequestData } from "../interfaces/ICacheExercises";
 import { WorkoutSearch } from "../component/Create Workout Components/WorkoutSearch";
 import { SetWorkoutDays } from "../component/Create Workout Components/SetWorkoutDays";
@@ -39,7 +39,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios.get(
+        const userResponse = await axios_instance.get(
           "http://localhost:3000/home/user",
           {
             withCredentials: true,
@@ -59,7 +59,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
   useEffect(() => {
     const getExercises = async () => {
       if (cachedExercises == undefined) {
-        const response = await axios.get(
+        const response = await axios_instance.get(
           "http://localhost:3000/workout/getJsonExercises",
           {
             withCredentials: true,
@@ -82,7 +82,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
         previousWorkout: {},
       };
 
-      const response = await axios.post(
+      const response = await axios_instance.post(
         "http://localhost:3000/workout/saveWorkout",
         exerciseJson,
         { withCredentials: true }

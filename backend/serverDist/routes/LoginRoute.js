@@ -33,9 +33,16 @@ loginRouter.post('/loginUser', (req, res, next) => __awaiter(void 0, void 0, voi
         if (!isLoggedIn) {
             throw new Error('incorrect password');
         }
-        const ticket = yield jsonwebtoken_1.default.sign({ id: user.id }, process.env.SECRET_STRING, { expiresIn: '1h' });
-        res.cookie('ticket', ticket, {
-            maxAge: 1000 * 60 * 60,
+        const accessToken = yield jsonwebtoken_1.default.sign({ id: user.id }, process.env.SECRET_STRING, { expiresIn: `${Number(process.env.ACCESS_TIME)}s` });
+        const refreshToken = yield jsonwebtoken_1.default.sign({ id: user.id }, process.env.REFRESH_STRING, { expiresIn: `${Number(process.env.REFRESH_TIME)}s` });
+        res.cookie('ticket', accessToken, {
+            maxAge: 1000 * Number(process.env.ACCESS_TIME),
+            sameSite: 'strict',
+            httpOnly: true,
+            secure: true,
+        });
+        res.cookie('ticket_r', refreshToken, {
+            maxAge: 1000 * Number(process.env.REFRESH_TIME),
             sameSite: 'strict',
             httpOnly: true,
             secure: true,
@@ -47,7 +54,6 @@ loginRouter.post('/loginUser', (req, res, next) => __awaiter(void 0, void 0, voi
         res.status(200).json({ message: 'Successfully Signed In' });
     }
     catch (error) {
-        console.log(error);
         next(error);
     }
 }));

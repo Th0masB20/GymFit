@@ -9,6 +9,7 @@ import loginRouter from "./routes/LoginRoute";
 import authorize from "./utilities/ValidateUser";
 import mainUserRoutes from './routes/ApiRoutes';
 import workoutRoute from './routes/WorkoutRoutes';
+import refreshTokenRoute from "./routes/RefreshTokenRoute";
 
 dotenv.config();
 const app = express();
@@ -30,9 +31,11 @@ mongoose.connect(connectionString).then(() => {
         console.log("an error occured with connection: try again");
     }
 )
+
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/home', authorize, mainUserRoutes);
 app.use('/workout', authorize, workoutRoute);
+app.use('/refresh', refreshTokenRoute)
 
 app.use(ErrorHandler);

@@ -22,6 +22,7 @@ function authorize(req, _res, next) {
             next();
         }
         catch (error) {
+            error.message += ' access';
             next(error);
         }
     });

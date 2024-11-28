@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios_instance from "../utilities/AxiosInstance";
 import IUser from "../interfaces/IUser";
+import { errorResponse } from "../interfaces/IError";
 
 type setAgeProp = {
   setAge: React.Dispatch<React.SetStateAction<string>>;
@@ -60,7 +61,7 @@ const InfoFormPage = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios.get(
+        const userResponse = await axios_instance.get(
           "http://localhost:3000/home/user",
           {
             withCredentials: true,
@@ -69,7 +70,8 @@ const InfoFormPage = (): React.ReactElement => {
         );
         setUser(userResponse.data as IUser);
       } catch (error) {
-        nav("/404");
+        const responsError = (error as errorResponse).response.data.error;
+        nav(`/404/${responsError}`);
       }
     }
     getData();
@@ -190,7 +192,7 @@ const FinishForm = ({ age, height }: ageHeightProp): React.ReactElement => {
   useEffect(() => {
     async function update() {
       try {
-        const response = await axios.put(
+        const response = await axios_instance.put(
           "http://localhost:3000/home/updateUser",
           { age, height },
           {
@@ -199,8 +201,9 @@ const FinishForm = ({ age, height }: ageHeightProp): React.ReactElement => {
         );
 
         console.log(response);
-      } catch (e) {
-        nav("/404");
+      } catch (error) {
+        const responsError = (error as errorResponse).response.data.error;
+        nav(`/404/${responsError}`);
       }
     }
     update();

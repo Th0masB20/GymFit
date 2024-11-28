@@ -21,7 +21,7 @@ mainUserRoutes.get('/user', (req, res, next) => __awaiter(void 0, void 0, void 0
         const user = yield User_1.default.findById(request.token.id);
         if (!user)
             throw new Error('User DNE');
-        res.json(user);
+        res.status(200).json(user);
     }
     catch (error) {
         next(error);
@@ -33,7 +33,7 @@ mainUserRoutes.get('/getCalendar', (req, res, next) => __awaiter(void 0, void 0,
         const user = yield User_1.default.findById(request.token.id);
         if (!user)
             throw new Error('User DNE');
-        res.json(user.generalWeeklyCalendar);
+        res.status(200).json(user.generalWeeklyCalendar);
     }
     catch (error) {
         next(error);

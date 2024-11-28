@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios_instance from '../utilities/AxiosInstance'
 import IUser from "../interfaces/IUser";
 import { NavLink, useNavigate } from "react-router-dom";
 import HomePageData from "./HomePageWithData";
@@ -12,14 +12,13 @@ const HomePage = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios.get(
+        const userResponse = await axios_instance.get(
           "http://localhost:3000/home/user",
           {
             withCredentials: true,
             headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
           }
         );
-        console.log(userResponse);
         setUser(userResponse.data as IUser);
         if (
           (userResponse.data as IUser).age == undefined ||

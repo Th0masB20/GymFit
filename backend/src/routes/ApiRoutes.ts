@@ -10,7 +10,7 @@ mainUserRoutes.get('/user', async (req: Request, res: Response, next: NextFuncti
     try {
         const user = await User.findById(request.token.id);
         if (!user) throw new Error('User DNE');
-        res.json(user);
+        res.status(200).json(user);
     }
     catch (error) {
         next(error);
@@ -22,7 +22,7 @@ mainUserRoutes.get('/getCalendar', async (req: Request, res: Response, next: Nex
     try {
         const user = await User.findById(request.token.id);
         if (!user) throw new Error('User DNE');
-        res.json(user.generalWeeklyCalendar);
+        res.status(200).json(user.generalWeeklyCalendar);
     }
     catch (error) {
         next(error);

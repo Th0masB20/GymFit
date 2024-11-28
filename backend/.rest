@@ -11,10 +11,12 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/workout/getJsonExercises
 Content-Type: application/json
-Cookie: ticket=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZTBlMzg2YmM5ZGI2YTAxMDlkYWY2MyIsImlhdCI6MTcyNzU2NzU1NywiZXhwIjoxNzI3NTcxMTU3fQ.Qsc8FHoEHqXZSLJEROGdFqiD4dM2maNHI8F5Dbb7U4E
+Cookie:  ticket=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MmY4ZmViNThkNDFiZTFhNTZkNmVhMyIsImlhdCI6MTczMTE5NDYxMywiZXhwIjoxNzMxMTk0NjE4fQ.q-xSkp162n5XqRlLS-76kVRxgiRThKSQjq6v7vxr2q8
 
 {
 }
+
+
 
 ###
 POST http://localhost:3000/login/loginUser
@@ -27,72 +29,24 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:3000/home
+GET http://localhost:3000/home/user
 Content-Type: application/json
-ticket: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZTBlMzg2YmM5ZGI2YTAxMDlkYWY2MyIsImlhdCI6MTcyNzU2NzU1NywiZXhwIjoxNzI3NTcxMTU3fQ.Qsc8FHoEHqXZSLJEROGdFqiD4dM2maNHI8F5Dbb7U4E
+Cookie: ticket=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MmY4ZmViNThkNDFiZTFhNTZkNmVhMyIsImlhdCI6MTczMTE5NjMzMywiZXhwIjoxNzMxMTk2MzUzfQ.rTuUqjzQFITJM8inRXFpuPqTHAdmiG_ONsoP6LycgJc
 
 {
 
 }
 
 ###
-PUT http://localhost:3000/home/updateUser
+Post http://localhost:3000/refresh
 Content-Type: application/json
+Cookie: ticket_r=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MmY4ZmViNThkNDFiZTFhNTZkNmVhMyIsImlhdCI6MTczMTE5NjEzMiwiZXhwIjoxNzMxMTk2NzMyfQ.rcBKaDENvZHr-KWrvVHOlWJ7cGaiV68dILJFOGlGJSU
 
 {
-    "age":"40"
+
 }
 
 
-###
-POST  http://localhost:3000/workout/saveWorkout
-Content-Type: application/json
-
-{
-    "workoutName": "bench",
-    "exercises":[
-        {
-            "exerciseName":"Push Ups",
-            "numberOfSets":3,
-            "reps":[],
-            "weights":[]
-        },
-        {
-            "exerciseName":"Bench Press",
-            "numberOfSets":4,
-            "reps":[],
-            "weights":[]
-        }
-    ],
-    "calendarDay":["monday", "wednesday", "friday"],
-    "previousWorkout":{}
-}
-
-###
-POST  http://localhost:3000/workout/saveWorkout
-Content-Type: application/json
-
-{
-    "workoutName": "second workout",
-    "exercises":[
-        {
-            "exerciseName":"pull ups",
-            "numberOfSets":3,
-            "reps":[],
-            "weights":[]
-        },
-        {
-            "exerciseName":"situps",
-            "numberOfSets":3,
-            "reps":[],
-            "weights":[]
-        }
-    ],
-    "calendarDay":["tursday", "sunday"],
-    "previousWorkout":{}
-}
-###
-PATCH  http://localhost:3000/editWorkout/
 
 
 ###
@@ -118,9 +72,3 @@ Content-Type: application/json
     "calendarDay":["monday", "wednesday", "friday"],
     "time":60
 }
-
-###
-GET http://localhost:3000/workout/second workout
-
-###
-DELETE http://localhost:3000/workout/bench/deleteWorkout

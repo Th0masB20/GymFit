@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios_instance from "../../utilities/AxiosInstance";
 import { IEditMonthDate, IMonthName } from "../../interfaces/ICalendar";
 import IUser from "../../interfaces/IUser";
 import DisplayCalendarDay from "./DisplayCalendarDay";
@@ -49,7 +49,7 @@ const EditDay = ({
     } else {
       selectedWorkoutName = "";
     }
-    const response = await axios.patch(
+    const response = await axios_instance.patch(
       `http://localhost:3000/workout/updateWorkoutDate/${moment()
         .month(month)
         .date(date)

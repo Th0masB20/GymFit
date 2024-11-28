@@ -4,8 +4,7 @@ const ErrorPage = (): React.ReactElement => {
   const { error } = useParams();
   const nav = useNavigate();
   useEffect(() => {
-    console.log(error);
-    if (error == "Session Expired" || error == "Need to log back in") {
+    if (error == "Need to login" || error == "Token expired or not provided") {
       nav("/");
     }
   }, [error, nav]);

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import IUser, { IWorkout, IWorkoutStartFinish } from "../interfaces/IUser";
-import axios from "axios";
+import axios_instance from "../utilities/AxiosInstance";
 import { useNavigate, useParams } from "react-router-dom";
 import { StartWorkoutExerciseCard } from "../component/Start Workout Components/StartWorkoutExerciseCards";
 import FinishWorkoutButton from "../component/Start Workout Components/FinishWorkoutButton";
 import TimerComponent from "../component/Start Workout Components/Timer";
 import ITimerComponent from "../interfaces/ITimerComponent";
+import { errorResponse } from "../interfaces/IError";
 
 const StartWorkout = (): React.ReactElement => {
   const [user, setUser] = useState<IUser>();
@@ -20,7 +21,7 @@ const StartWorkout = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios.get(
+        const userResponse = await axios_instance.get(
           "http://localhost:3000/home/user",
           {
             withCredentials: true,
@@ -29,7 +30,8 @@ const StartWorkout = (): React.ReactElement => {
         );
         setUser(userResponse.data as IUser);
       } catch (error) {
-        nav("/404");
+        const responsError = (error as errorResponse).response.data.error;
+        nav(`/404/${responsError}`);
       }
     }
     getData();
@@ -58,7 +60,7 @@ const StartWorkout = (): React.ReactElement => {
     };
 
     try {
-      const saveFinishedResponse = await axios.post(
+      const saveFinishedResponse = await axios_instance.post(
         "http://localhost:3000/workout/finishWorkout",
         finishedWorkoutJson,
         {
@@ -66,7 +68,7 @@ const StartWorkout = (): React.ReactElement => {
         }
       );
 
-      const updateUsersLastWorkout = await axios.patch(
+      const updateUsersLastWorkout = await axios_instance.patch(
         `http://localhost:3000/workout/updatePreviousWorkout`,
         finishedWorkoutJson,
         {
@@ -84,7 +86,8 @@ const StartWorkout = (): React.ReactElement => {
         throw Error(saveFinishedResponse.statusText);
       }
     } catch (error) {
-      nav("/404");
+      const responsError = (error as errorResponse).response.data.error;
+      nav(`/404/${responsError}`);
     }
     nav("/workouts");
   }

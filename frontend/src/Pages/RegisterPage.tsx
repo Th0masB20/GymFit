@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import animation from "../imagesTracker/Dumbbell_Loading.json";
 import Lottie, { Options } from "react-lottie";
-import axios from "axios";
+import axios_instance from "../utilities/AxiosInstance";
 import DisplayError from "../component/ErrorComponent";
 import { errorObject, errorResponse } from "../interfaces/IError";
 
@@ -41,7 +41,7 @@ const RegisterForm = (): React.ReactElement => {
       password: passwordInput,
     };
 
-    const response = await axios.post(
+    const response = await axios_instance.post(
       "http://localhost:3000/register/submit",
       rObject
     );

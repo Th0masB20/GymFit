@@ -1,12 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const ErrorHandler = (error, _req, res, next) => {
-    console.log(error);
+    console.log(error.message);
     if (error.message == 'wrong inputs') {
         return res.status(400).json({ error: 'Please fill out all fields' });
     }
-    if (error.message == "jwt must be provided") {
-        return res.status(400).json({ error: "Need to log back in" });
+    if (error.message == "jwt must be provided access") {
+        return res.status(401).json({ error: "Token expired or not provided" });
+    }
+    if (error.message == "jwt must be provided refresh") {
+        return res.status(401).json({ error: "Token expired or not provided" });
+    }
+    if (error.message == 'jwt expired access') {
+        return res.status(403).json({ error: 'Access token expired' });
+    }
+    if (error.message == 'jwt expired refresh') {
+        return res.status(403).json({ error: 'Need to login' });
     }
     if (error.message == 'existing email') {
         return res.status(400).json({ error: 'Email already in our system, enter a new Email' });
@@ -22,9 +31,6 @@ const ErrorHandler = (error, _req, res, next) => {
     }
     if (error.message == 'user DNE') {
         return res.status(400).json({ error: 'Email does not exist' });
-    }
-    if (error.message == 'jwt expired') {
-        return res.status(400).json({ error: 'login expired' });
     }
     if (error.message == 'incorrect workout format') {
         return res.status(400).json({ error: 'workout json received is incorrect' });

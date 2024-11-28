@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import IUser, { IExercise, IWorkout } from "../interfaces/IUser";
 import { ExerciseRequestData } from "../interfaces/ICacheExercises";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axios_instance from "../utilities/AxiosInstance";
 import { WorkoutSearch } from "../component/Create Workout Components/WorkoutSearch";
 import { EditWorkoutExerciseCard } from "../component/Edit Workout Components/UpdateWorkoutExerciseCard";
 import { EditSetWorkoutDays } from "../component/Edit Workout Components/EditSetWorkoutDays";
@@ -26,7 +26,7 @@ const EditWorkout = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios.get(
+        const userResponse = await axios_instance.get(
           "http://localhost:3000/home/user",
           {
             withCredentials: true,
@@ -47,7 +47,7 @@ const EditWorkout = (): React.ReactElement => {
     const getExercises = async () => {
       try {
         if (cachedExercises == undefined) {
-          const response = await axios.get(
+          const response = await axios_instance.get(
             "http://localhost:3000/workout/getJsonExercises",
             {
               withCredentials: true,
@@ -118,7 +118,7 @@ const EditWorkout = (): React.ReactElement => {
         previousWorkout: {},
       };
 
-      const response = await axios.patch(
+      const response = await axios_instance.patch(
         `http://localhost:3000/workout/${workout.workoutName}/updateWorkout/`,
         exerciseJson,
         { withCredentials: true }
@@ -133,7 +133,7 @@ const EditWorkout = (): React.ReactElement => {
 
   const deleteWorkout = async () => {
     if (!startingWorkoutName) return;
-    const response = await axios.delete(
+    const response = await axios_instance.delete(
       `http://localhost:3000/workout/${startingWorkoutName}/deleteWorkout`,
       { withCredentials: true }
     );

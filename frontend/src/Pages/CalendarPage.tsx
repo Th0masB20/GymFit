@@ -3,7 +3,7 @@ import SideBar from "../component/SideBar";
 import Calendar from "../component/Calendar Components/Calendar";
 import IUser from "../interfaces/IUser";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios_instance from "../utilities/AxiosInstance";
 import moment from "moment";
 import EditCalendarDay from "../component/Calendar Components/EditCalendarDay";
 import { IEditMonthDate } from "../interfaces/ICalendar";
@@ -38,7 +38,7 @@ const CalendarPage = (): React.ReactElement => {
     //gets user
     async function getData() {
       try {
-        const userResponse = await axios.get(
+        const userResponse = await axios_instance.get(
           "http://localhost:3000/home/user",
           {
             withCredentials: true,
