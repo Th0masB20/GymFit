@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios_instance from '../utilities/AxiosInstance'
+import axios_instance from "../utilities/AxiosInstance";
 import IUser from "../interfaces/IUser";
 import { NavLink, useNavigate } from "react-router-dom";
 import HomePageData from "./HomePageWithData";
@@ -19,12 +19,17 @@ const HomePage = (): React.ReactElement => {
             headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
           }
         );
-        setUser(userResponse.data as IUser);
-        if (
-          (userResponse.data as IUser).age == undefined ||
-          (userResponse.data as IUser).height == undefined
-        )
-          nav("/info");
+        if (userResponse.status == 200) {
+          setUser(userResponse.data as IUser);
+          if (
+            (userResponse.data as IUser).age == undefined ||
+            (userResponse.data as IUser).height == undefined
+          ) {
+            nav("/info");
+          }
+        } else {
+          throw userResponse;
+        }
       } catch (error) {
         const reponseError = (error as errorResponse).response.data.error;
         nav(`/404/${reponseError}`);

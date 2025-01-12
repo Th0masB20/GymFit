@@ -1,7 +1,6 @@
 import { NextFunction, Response, Request, ErrorRequestHandler } from "express";
 
 const ErrorHandler: ErrorRequestHandler = (error: any, _req: Request, res: Response, next: NextFunction) => {
-    console.log(error.message)
     if (error.message == 'wrong inputs') {
         return res.status(400).json({ error: 'Please fill out all fields' });
     }
@@ -9,7 +8,7 @@ const ErrorHandler: ErrorRequestHandler = (error: any, _req: Request, res: Respo
         return res.status(401).json({ error: "Token expired or not provided" })
     }
     if (error.message == "jwt must be provided refresh") {
-        return res.status(401).json({ error: "Token expired or not provided" })
+        return res.status(401).json({ error: "Token expired" })
     }
     if (error.message == 'jwt expired access') {
         return res.status(403).json({ error: 'Access token expired' });

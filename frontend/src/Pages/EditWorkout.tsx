@@ -144,7 +144,7 @@ const EditWorkout = (): React.ReactElement => {
   if (!exercises || !user) {
     return <div></div>;
   }
-
+  console.log(!workoutName || exercises.length == 0 || workoutDays.size == 0);
   return (
     <main className="relative w-full h-screen mb-80">
       <input

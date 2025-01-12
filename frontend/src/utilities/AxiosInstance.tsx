@@ -9,8 +9,9 @@ axios_instance.interceptors.response.use(
   async (error) => {
     //used to create new entry, retry. originally false, then set to true
     const original_request = error.config;
-    if (error.response.data.error == "Token expired or not provided") {
-      try {
+
+    try {
+      if (error.response.data.error == "Token expired or not provided") {
         const ticket_response = await axios.get(
           "http://localhost:3000/refresh",
           { withCredentials: true }
@@ -18,9 +19,9 @@ axios_instance.interceptors.response.use(
         if (ticket_response.status == 200) {
           return axios(original_request);
         }
-      } catch (final_error) {
-        return final_error;
       }
+    } catch (final_error) {
+      return final_error;
     }
 
     return error;

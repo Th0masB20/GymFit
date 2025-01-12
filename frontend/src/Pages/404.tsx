@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, NavLink } from "react-router-dom";
 const ErrorPage = (): React.ReactElement => {
   const { error } = useParams();
   const nav = useNavigate();
@@ -12,7 +12,15 @@ const ErrorPage = (): React.ReactElement => {
     <div className="w-screen h-screen flex justify-center items-center">
       <section className="w-80 h-80 bg-main rounded-xl flex justify-center items-center flex-col">
         <p className="text-center text-2xl text-white"> 404 Error</p>
-        <p className="text-center text-2xl text-white">{error}</p>.
+        <p className="text-center text-2xl text-white">{error}</p>
+        {error == "Token expired" ? (
+          <NavLink
+            to="/login"
+            className="box-border bg-third h-auto py-2 px-5 mt-5 rounded-full text-white font-bold z-10 hover:scale-105 transition-all"
+          >
+            Login
+          </NavLink>
+        ) : null}
       </section>
     </div>
   );
