@@ -41,10 +41,7 @@ const RegisterForm = (): React.ReactElement => {
       password: passwordInput,
     };
 
-    const response = await axios_instance.post(
-      "http://localhost:3000/register/submit",
-      rObject
-    );
+    const response = await axios_instance.post("/api/register/submit", rObject);
 
     return response;
   };

@@ -13,7 +13,7 @@ const WorkoutsPage = (): React.ReactElement => {
     async function getData() {
       try {
         const userResponse = await axios_instance.get(
-          "http://localhost:3000/home/user",
+          "/api/home/user",
           {
             withCredentials: true,
             headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },

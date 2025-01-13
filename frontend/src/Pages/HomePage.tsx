@@ -12,13 +12,10 @@ const HomePage = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios_instance.get(
-          "http://localhost:3000/home/user",
-          {
-            withCredentials: true,
-            headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-          }
-        );
+        const userResponse = await axios_instance.get("/api/home/user", {
+          withCredentials: true,
+          headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+        });
         if (userResponse.status == 200) {
           setUser(userResponse.data as IUser);
           if (

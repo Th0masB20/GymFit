@@ -50,7 +50,7 @@ const EditDay = ({
       selectedWorkoutName = "";
     }
     const response = await axios_instance.patch(
-      `http://localhost:3000/workout/updateWorkoutDate/${moment()
+      `/api/workout/updateWorkoutDate/${moment()
         .month(month)
         .date(date)
         .format("YYYY-MM-DD")}`,
