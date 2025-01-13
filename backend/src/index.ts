@@ -20,8 +20,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static('./dist'));
 
-const connectionString: string = `mongodb+srv://ThomasB20:${process.env.PASSWORD}@gymtracker.fv3h94k.mongodb.net/GymTracker?retryWrites=true&w=majority&appName=GymTracker`
-const PORT: number = 3000;
+const connectionString: string = `${process.env.CONNECTION}${process.env.PASSWORD}${process.env.CONNECTION_END}`
+const PORT: number = Number(process.env.PORT) || 3000;
 
 mongoose.connect(connectionString).then(() => {
     app.listen(PORT, () => console.log('running'));

@@ -22,8 +22,8 @@ app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.static('./dist'));
-const connectionString = `mongodb+srv://ThomasB20:${process.env.PASSWORD}@gymtracker.fv3h94k.mongodb.net/GymTracker?retryWrites=true&w=majority&appName=GymTracker`;
-const PORT = 3000;
+const connectionString = `${process.env.CONNECTION}${process.env.PASSWORD}${process.env.CONNECTION_END}`;
+const PORT = Number(process.env.PORT) || 3000;
 mongoose_1.default.connect(connectionString).then(() => {
     app.listen(PORT, () => console.log('running'));
 }).catch(() => {

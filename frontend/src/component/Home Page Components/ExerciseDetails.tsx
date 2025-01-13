@@ -23,7 +23,7 @@ const ExerciseDetails = ({
       </p>
       <div className="w-full flex justify-between">
         {selected
-          ? exercise.reps.map((rep, index) => (
+          ? exercise.reps.map((_rep, index) => (
               <SetCard exercise={exercise} index={index} />
             ))
           : null}
