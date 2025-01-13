@@ -5,15 +5,15 @@ export default {
     extend: {
       backgroundImage: {
         headerFullBackground:
-          "linear-gradient(to bottom, rgba(0,0,0,0) 80%, rgba(255,255,255,1)), url('./src/imagesTracker/karsten-winegeart-0Wra5YYVQJE-unsplash.jpg')",
-        loginBackground: "url('./src/imagesTracker/People working out.jpg')",
-        WorkoutImage: "url('./src/imagesTracker/Workouts.png')",
-        CalendarImage: "url('./src/imagesTracker/Plan Calendar.png')",
-        SettingsImage: "url('./src/imagesTracker/Settings.png')",
-        HomeImage: "url('./src/imagesTracker/home.png')",
-        WhiteAddSign: "url('./src/imagesTracker/white add.png')",
-        LeftArrow: "url('./src/imagesTracker/Left Arrow.png')",
-        RightArrow: "url('./src/imagesTracker/Right Arrow.png')",
+          "linear-gradient(to bottom, rgba(0,0,0,0) 80%, rgba(255,255,255,1)), url('/src/imagesTracker/karsten-winegeart-0Wra5YYVQJE-unsplash.jpg')",
+        loginBackground: "url('/src/imagesTracker/People working out.jpg')",
+        WorkoutImage: "url('/src/imagesTracker/Workouts.png')",
+        CalendarImage: "url('/src/imagesTracker/Plan Calendar.png')",
+        SettingsImage: "url('/src/imagesTracker/Settings.png')",
+        HomeImage: "url('/src/imagesTracker/home.png')",
+        WhiteAddSign: "url('/src/imagesTracker/white add.png')",
+        LeftArrow: "url('/src/imagesTracker/Left Arrow.png')",
+        RightArrow: "url('/src/imagesTracker/Right Arrow.png')",
       },
       backgroundPosition: {
         "center-center": "center 60%",
