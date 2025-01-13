@@ -21,7 +21,7 @@ const StartWorkout = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios_instance.get("/api/home/user", {
+        const userResponse = await axios_instance.get("/home/user", {
           withCredentials: true,
           headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
         });
@@ -58,7 +58,7 @@ const StartWorkout = (): React.ReactElement => {
 
     try {
       const saveFinishedResponse = await axios_instance.post(
-        "/api/workout/finishWorkout",
+        "/workout/finishWorkout",
         finishedWorkoutJson,
         {
           withCredentials: true,
@@ -66,7 +66,7 @@ const StartWorkout = (): React.ReactElement => {
       );
 
       const updateUsersLastWorkout = await axios_instance.patch(
-        `/api/workout/updatePreviousWorkout`,
+        `/workout/updatePreviousWorkout`,
         finishedWorkoutJson,
         {
           withCredentials: true,

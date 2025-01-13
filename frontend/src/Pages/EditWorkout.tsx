@@ -26,7 +26,7 @@ const EditWorkout = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios_instance.get("/api/home/user", {
+        const userResponse = await axios_instance.get("/home/user", {
           withCredentials: true,
           headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
         });
@@ -45,7 +45,7 @@ const EditWorkout = (): React.ReactElement => {
       try {
         if (cachedExercises == undefined) {
           const response = await axios_instance.get(
-            "/api/workout/getJsonExercises",
+            "/workout/getJsonExercises",
             {
               withCredentials: true,
               headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
@@ -116,7 +116,7 @@ const EditWorkout = (): React.ReactElement => {
       };
 
       const response = await axios_instance.patch(
-        `/api/workout/${workout.workoutName}/updateWorkout/`,
+        `/workout/${workout.workoutName}/updateWorkout/`,
         exerciseJson,
         { withCredentials: true }
       );
@@ -131,7 +131,7 @@ const EditWorkout = (): React.ReactElement => {
   const deleteWorkout = async () => {
     if (!startingWorkoutName) return;
     const response = await axios_instance.delete(
-      `/api/workout/${startingWorkoutName}/deleteWorkout`,
+      `/workout/${startingWorkoutName}/deleteWorkout`,
       { withCredentials: true }
     );
 

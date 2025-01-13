@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const SideBar = (): React.ReactElement => {
   const patchTest = async () => {
     const response = await axios_instance.patch(
-      "/api/workout/updateSpecificWorkoutDate/2024-7-31",
+      "/workout/updateSpecificWorkoutDate/2024-7-31",
       { name: "Test workout" },
       { withCredentials: true }
     );

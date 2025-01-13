@@ -61,7 +61,7 @@ const InfoFormPage = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios_instance.get("/api/home/user", {
+        const userResponse = await axios_instance.get("/home/user", {
           withCredentials: true,
           headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
         });
@@ -190,7 +190,7 @@ const FinishForm = ({ age, height }: ageHeightProp): React.ReactElement => {
     async function update() {
       try {
         const response = await axios_instance.put(
-          "/api/home/updateUser",
+          "/home/updateUser",
           { age, height },
           {
             withCredentials: true,

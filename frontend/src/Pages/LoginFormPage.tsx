@@ -47,7 +47,7 @@ const SignIn = (): React.ReactElement => {
       throw Error(error.response.data.error);
     }
     const response = await axios_instance.post(
-      "/api/login/loginUser",
+      "/login/loginUser",
       {
         email: emailInput,
         password: passwordInput,
