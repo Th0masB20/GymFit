@@ -8,6 +8,7 @@ import getExercises from '../utilities/GetExercises';
 const loginRouter = express.Router();
 
 loginRouter.post('/loginUser', async (req: Request<{}, {}, ILogin>, res: Response, next: NextFunction) => {
+    console.log('logging in')
     const payload: ILogin = req.body;
     try {
         if (!isLoginCorrect(payload)) {

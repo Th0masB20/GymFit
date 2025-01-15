@@ -24,7 +24,7 @@ const connectionString: string = `${process.env.CONNECTION}${process.env.PASSWOR
 const PORT: number = Number(process.env.PORT) || 3000;
 
 mongoose.connect(connectionString).then(() => {
-    app.listen(PORT, () => console.log('running'));
+    app.listen(PORT, () => console.log('running on port ' + PORT));
 }
 ).catch(
     () => {
