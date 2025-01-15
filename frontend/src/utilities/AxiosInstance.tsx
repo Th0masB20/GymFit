@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const axios_instance = axios.create({ withCredentials: true });
+const axios_instance = axios.create({
+  withCredentials: true,
+  baseURL: import.meta.env.BACKEND_URL,
+});
 
 axios_instance.interceptors.response.use(
   (config) => {
