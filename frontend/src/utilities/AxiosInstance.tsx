@@ -2,7 +2,7 @@ import axios from "axios";
 
 const axios_instance = axios.create({
   withCredentials: true,
-  baseURL: import.meta.env.BACKEND_URL,
+  baseURL: import.meta.env.VITE_BACKEND_URL,
 });
 
 axios_instance.interceptors.response.use(
