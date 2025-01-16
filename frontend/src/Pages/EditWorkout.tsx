@@ -26,10 +26,13 @@ const EditWorkout = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios_instance.get("/home/user", {
-          withCredentials: true,
-          headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-        });
+        const userResponse = await axios_instance.get(
+          import.meta.env.VITE_BACKEND_URL + "/home/user",
+          {
+            withCredentials: true,
+            headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+          }
+        );
         setUser(userResponse.data as IUser);
       } catch (error) {
         const responsError = (error as errorResponse).response.data.error;
@@ -45,7 +48,7 @@ const EditWorkout = (): React.ReactElement => {
       try {
         if (cachedExercises == undefined) {
           const response = await axios_instance.get(
-            "/workout/getJsonExercises",
+            import.meta.env.VITE_BACKEND_URL + "/workout/getJsonExercises",
             {
               withCredentials: true,
               headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
@@ -116,7 +119,8 @@ const EditWorkout = (): React.ReactElement => {
       };
 
       const response = await axios_instance.patch(
-        `/workout/${workout.workoutName}/updateWorkout/`,
+        import.meta.env.VITE_BACKEND_URL +
+          `/workout/${workout.workoutName}/updateWorkout/`,
         exerciseJson,
         { withCredentials: true }
       );
@@ -131,7 +135,8 @@ const EditWorkout = (): React.ReactElement => {
   const deleteWorkout = async () => {
     if (!startingWorkoutName) return;
     const response = await axios_instance.delete(
-      `/workout/${startingWorkoutName}/deleteWorkout`,
+      import.meta.env.VITE_BACKEND_URL +
+        `/workout/${startingWorkoutName}/deleteWorkout`,
       { withCredentials: true }
     );
 

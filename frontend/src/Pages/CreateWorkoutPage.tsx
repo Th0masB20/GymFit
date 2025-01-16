@@ -39,9 +39,12 @@ const CreateWorkoutPage = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios_instance.get("/home/user", {
-          withCredentials: true,
-        });
+        const userResponse = await axios_instance.get(
+          import.meta.env.VITE_BACKEND_URL + "/home/user",
+          {
+            withCredentials: true,
+          }
+        );
         setUser(userResponse.data as IUser);
       } catch (error) {
         const responseError = (error as errorResponse).response.data.error;
@@ -56,10 +59,13 @@ const CreateWorkoutPage = (): React.ReactElement => {
   useEffect(() => {
     const getExercises = async () => {
       if (cachedExercises == undefined) {
-        const response = await axios_instance.get("/workout/getJsonExercises", {
-          withCredentials: true,
-          headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-        });
+        const response = await axios_instance.get(
+          import.meta.env.VITE_BACKEND_URL + "/workout/getJsonExercises",
+          {
+            withCredentials: true,
+            headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+          }
+        );
         populateCache(response.data);
       }
     };
@@ -77,7 +83,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
       };
 
       const response = await axios_instance.post(
-        "/workout/saveWorkout",
+        import.meta.env.VITE_BACKEND_URL + "/workout/saveWorkout",
         exerciseJson,
         { withCredentials: true }
       );

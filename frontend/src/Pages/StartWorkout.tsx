@@ -21,10 +21,13 @@ const StartWorkout = (): React.ReactElement => {
   useEffect(() => {
     async function getData() {
       try {
-        const userResponse = await axios_instance.get("/home/user", {
-          withCredentials: true,
-          headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-        });
+        const userResponse = await axios_instance.get(
+          import.meta.env.VITE_BACKEND_URL + "/home/user",
+          {
+            withCredentials: true,
+            headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+          }
+        );
         setUser(userResponse.data as IUser);
       } catch (error) {
         const responsError = (error as errorResponse).response.data.error;
@@ -58,7 +61,7 @@ const StartWorkout = (): React.ReactElement => {
 
     try {
       const saveFinishedResponse = await axios_instance.post(
-        "/workout/finishWorkout",
+        import.meta.env.VITE_BACKEND_URL + "/workout/finishWorkout",
         finishedWorkoutJson,
         {
           withCredentials: true,
@@ -66,7 +69,7 @@ const StartWorkout = (): React.ReactElement => {
       );
 
       const updateUsersLastWorkout = await axios_instance.patch(
-        `/workout/updatePreviousWorkout`,
+        import.meta.env.VITE_BACKEND_URL + "/workout/updatePreviousWorkout",
         finishedWorkoutJson,
         {
           withCredentials: true,

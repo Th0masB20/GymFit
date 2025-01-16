@@ -38,10 +38,13 @@ const CalendarPage = (): React.ReactElement => {
     //gets user
     async function getData() {
       try {
-        const userResponse = await axios_instance.get("/home/user", {
-          withCredentials: true,
-          headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-        });
+        const userResponse = await axios_instance.get(
+          import.meta.env.VITE_BACKEND_URL + "/home/user",
+          {
+            withCredentials: true,
+            headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+          }
+        );
         setUser(userResponse.data as IUser);
       } catch (error) {
         const errorMessage = (error as errorResponse).response.data.error;

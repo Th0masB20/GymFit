@@ -41,7 +41,10 @@ const RegisterForm = (): React.ReactElement => {
       password: passwordInput,
     };
 
-    const response = await axios_instance.post("/register/submit", rObject);
+    const response = await axios_instance.post(
+      import.meta.env.VITE_BACKEND_URL + "/register/submit",
+      rObject
+    );
 
     return response;
   };
