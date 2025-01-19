@@ -16,7 +16,6 @@ refreshTokenRoute.get('/', async (req: Request, res: Response, next: NextFunctio
             sameSite: 'none',
             httpOnly: true,
             secure: true,
-            domain: process.env.FRONTEND_URL,
         });
         res.status(200).end();
     }

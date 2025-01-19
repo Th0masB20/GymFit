@@ -33,7 +33,6 @@ loginRouter.post('/loginUser', async (req: Request<{}, {}, ILogin>, res: Respons
             sameSite: 'none',
             httpOnly: true,
             secure: true,
-            domain: process.env.FRONTEND_URL
         });
 
         res.cookie('ticket_r', refreshToken, {
@@ -41,7 +40,6 @@ loginRouter.post('/loginUser', async (req: Request<{}, {}, ILogin>, res: Respons
             sameSite: 'none',
             httpOnly: true,
             secure: true,
-            domain: process.env.FRONTEND_URL
         });
 
         //once its logged in, get exercises from api and store it
