@@ -13,9 +13,10 @@ refreshTokenRoute.get('/', async (req: Request, res: Response, next: NextFunctio
         const newAccessTicket = await jwt.sign({ id: validation.id }, process.env.SECRET_STRING as jwt.Secret, { expiresIn: '20s' })
         res.cookie('ticket', newAccessTicket, {
             maxAge: 1000 * Number(process.env.ACCESS_TIME),
-            sameSite: 'strict',
+            sameSite: 'none',
             httpOnly: true,
             secure: true,
+            domain: process.env.FRONTEND_URL,
         });
         res.status(200).end();
     }
