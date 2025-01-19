@@ -39,3 +39,6 @@ app.use('/workout', authorize, workoutRoute);
 app.use('/refresh', refreshTokenRoute)
 
 app.use(ErrorHandler);
+
+
+export default app;
