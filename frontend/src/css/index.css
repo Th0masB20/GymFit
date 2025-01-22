@@ -15,7 +15,7 @@
 }
 
 .headerWords {
-  @apply box-border absolute h-56 top-[20%] left-40 after:absolute after:bg-inherit after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:bg-gray-400 after:w-72 after:h-80 after:rounded-full after:blur-3xl flex flex-col justify-between items-center;
+  @apply box-border absolute h-56 xl:h-[300px] top-[20%] left-40 xl:left-60 mobile:left-10 after:absolute after:bg-inherit after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:bg-gray-400 after:w-72 after:h-80 after:rounded-full after:blur-3xl flex flex-col justify-between items-center;
 }
 
 .mainLoginButton {
@@ -23,15 +23,15 @@
 }
 
 .listItem {
-  @apply text-center text-accent text-xl md:text-lg;
+  @apply text-center text-accent text-xl md:text-lg mobile:text-base;
 }
 
 .LoginInput {
-  @apply w-72 h-7 bg-gray-300 opacity-80 rounded-full pl-2;
+  @apply w-72 h-7 mobile:w-64 mobile:h-6 bg-gray-300 opacity-80 rounded-full pl-2 pr-2;
 }
 
 .loginButton {
-  @apply relative w-40 h-9 bg-main flex justify-center items-center text-white text-xl font-semibold mt-4 after:w-24 after:h-24 after:bg-third after:rounded-full after:absolute overflow-hidden z-10 after:blur-xl after:-z-10 border-third border-2 border-opacity-50;
+  @apply relative w-40 h-9 mobile:w-32 mobile:h-7 bg-main flex justify-center items-center text-white text-xl font-semibold mt-4 after:w-24 after:h-24 after:bg-third after:rounded-full after:absolute overflow-hidden z-10 after:blur-xl after:-z-10 border-third border-2 border-opacity-50;
 }
 
 .nextButton {

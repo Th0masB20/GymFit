@@ -19,7 +19,6 @@ const CreateWorkoutPage = (): React.ReactElement => {
   const [displayExerciseSearch, showSearch] = useState<boolean>(false);
 
   const nav = useNavigate();
-
   useEffect(() => {
     const repsIsEmpty = (): boolean => {
       for (const exercise of exercises) {
@@ -28,6 +27,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
       }
       return false;
     };
+    console.log(repsIsEmpty());
     setDisableButton(
       !workoutName ||
         exercises.length == 0 ||
@@ -140,13 +140,13 @@ const CreateWorkoutPage = (): React.ReactElement => {
       />
       <div className="w-full h-1 bg-main float-right" />
       <button
-        className="flex flex-col justify-center items-center w-80 h-10 bg-main rounded-lg mt-5 m-auto hover:scale-110 transition-all"
+        className="flex flex-col justify-center items-center w-80 tablet:w-72 mobile:w-52 h-10 bg-main rounded-lg mt-5 m-auto hover:scale-110 transition-all"
         onClick={() => showSearch(true)}
       >
         Add Exercise
       </button>
 
-      <div className="w-fit h-fit grid grid-cols-3 mx-auto">
+      <div className="w-fit h-fit grid grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 mx-auto">
         {exercises.map((currentExercise, i) => {
           return (
             <WorkoutExerciseCard
@@ -158,19 +158,19 @@ const CreateWorkoutPage = (): React.ReactElement => {
           );
         })}
       </div>
-      <div className="fixed bottom-0 w-full flex flex-col justify-center items-center">
+      <div className=" bg-footer-background fixed bottom-0 w-full flex flex-col justify-center items-center">
         <SetWorkoutDays
           setWorkoutDays={setWorkoutDays}
           workoutDays={workoutDays}
           user={user}
         />
-        <div className="bg-footer-background w-full h-20 flex justify-center items-center">
-          <button className="w-52 h-10 bg-second rounded-lg hover:scale-110 mr-2 transition-all duration-100">
+        <div className="w-full h-20 flex justify-center items-center">
+          <button className="w-52 tablet:w-48 mobile:w-40 h-10 bg-second rounded-lg hover:scale-110 mr-2 transition-all duration-100">
             Delete Workout
           </button>
           <button
             className={
-              "w-52 h-10 bg-main rounded-lg ml-2 transition-all " +
+              "w-52 tablet:w-48 mobile:w-40 h-10 bg-main rounded-lg ml-2 transition-all " +
               (disableButton ? " opacity-30" : "hover:scale-110")
             }
             onClick={saveWorkout}

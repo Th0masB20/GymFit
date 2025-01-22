@@ -6,7 +6,7 @@ import { ActivityLog } from "../component/Home Page Components/ActivityLog";
 import LastWorkoutStats from "../component/Home Page Components/LastWorkout";
 const HomePageData = ({ user }: UserProp): React.ReactElement => {
   return (
-    <section className="pl-[7.5rem] pr-16 xs:mx-auto w-full h-full flex flex-col justify-start">
+    <section className="w-full h-full flex flex-col justify-start">
       <div className="flex justify-center md:justify-center items-center w-full h-auto mt-6 ">
         <TodayWorkout user={user} />
         <WeeklySchedule user={user} />

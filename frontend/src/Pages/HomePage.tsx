@@ -40,7 +40,7 @@ const HomePage = (): React.ReactElement => {
   if (user == undefined) return <div></div>;
   return (
     <main className="relative w-screen h-screen">
-      <h1 className="text-center text-2xl ml-20">
+      <h1 className="text-center text-2xl ml-20 mobile:text-xl">
         Welcome, {user.name} {user.lastName}
       </h1>
       <div className="w-screen h-1 bg-main float-right" />
@@ -53,7 +53,7 @@ const HomePage = (): React.ReactElement => {
 const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
   if (user.workouts.length == 0) {
     return (
-      <div className="ml-10 absolute flex flex-col justify-center items-center w-80 h-48 bg-gradient-to-r from-main to-fourth rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div className="ml-10 absolute flex flex-col justify-center items-center w-80 h-48 mobile:w-60 mobile:h-40 bg-gradient-to-r from-main to-fourth rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <p className="text-center text-xl w-44">
           Start By Creating Your Workout Routine
         </p>
@@ -69,8 +69,8 @@ const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
   }
   return (
     <>
-      <div className="xs:ml-20">
-        <HomePageData user={user} />;
+      <div className="ml-20 tablet:ml-16">
+        <HomePageData user={user} />
       </div>
     </>
   );

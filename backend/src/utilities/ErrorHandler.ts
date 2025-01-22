@@ -5,16 +5,16 @@ const ErrorHandler: ErrorRequestHandler = (error: any, _req: Request, res: Respo
         return res.status(400).json({ error: 'Please fill out all fields' });
     }
     if (error.message == "jwt must be provided access") {
-        return res.status(401).json({ error: "Token expired or not provided" })
+        return res.status(401).json({ error: "Access Token Expired" })
     }
     if (error.message == "jwt must be provided refresh") {
-        return res.status(401).json({ error: "Token expired" })
+        return res.status(401).json({ error: "Refresh Token Expired" })
     }
     if (error.message == 'jwt expired access') {
-        return res.status(403).json({ error: 'Access token expired' });
+        return res.status(403).json({ error: 'Access Token Expired' });
     }
     if (error.message == 'jwt expired refresh') {
-        return res.status(403).json({ error: 'Need to login' });
+        return res.status(403).json({ error: 'Refresh Token Expired' });
     }
     if (error.message == 'existing email') {
         return res.status(400).json({ error: 'Email already in our system, enter a new Email' });

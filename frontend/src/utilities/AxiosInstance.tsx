@@ -13,7 +13,7 @@ axios_instance.interceptors.response.use(
     const original_request = error.config;
 
     try {
-      if (error.response.data.error == "Token expired or not provided") {
+      if (error.response.data.error == "Refresh Token Expired") {
         const ticket_response = await axios.get("/refresh", {
           withCredentials: true,
         });

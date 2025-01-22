@@ -51,7 +51,8 @@ export const MonthlyActivityBar = ({
       md:w-4 
       sm:w-3
       xs:w-2
-      xs:h-40"
+      xs:h-40
+      xs:m-[7px]"
       >
         <div
           className={

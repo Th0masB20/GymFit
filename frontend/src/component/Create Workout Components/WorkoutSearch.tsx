@@ -48,9 +48,9 @@ export const WorkoutSearch = ({
   };
   return (
     <div className="absolute top-0 w-full h-full bg-[rgba(0,0,0,0.6)] flex justify-center items-center">
-      <div className="w-[600px] h-[550px] bg-second rounded-3xl flex flex-col items-center">
+      <div className="w-[600px] h-[550px] tablet:w-[500px] tablet:h-[500px] mobile:w-[340px] mobile:h-[450px] bg-second rounded-3xl flex flex-col items-center">
         <input
-          className="w-96 h-8 bg-gray-200 rounded-full focus:outline-none pl-2 mt-4"
+          className="w-96 tablet:w-80 mobile:w-64 h-8 bg-gray-200 rounded-full focus:outline-none pl-2 mt-4"
           onChange={onSearch}
           value={searchInput}
         />

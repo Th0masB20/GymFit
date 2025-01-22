@@ -40,11 +40,14 @@ export default {
     },
 
     screens: {
-      lg: { max: "1200px" },
-      md: { max: "1000px" },
+      lg: { max: "1300px" },
+      md: { max: "1100px" },
 
       sm: { max: "900px" },
       xs: { max: "800px" },
+
+      tablet: { max: "780px" },
+      mobile: { max: "450px" },
 
       //min-width: 1400 (styles apply when screen is bigger than 1400 px)
       xl: "1400px",

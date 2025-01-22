@@ -47,9 +47,9 @@ export const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
           }
           className={
             (selectedIndex == undefined
-              ? "w-80 h-10 md:h-10 md:w-64 "
-              : "w-60 h-8 my-2 md:w-52 ") +
-            "bg-main rounded-lg hover:scale-110 text-center text-xl flex items-center justify-center transition-all duration-300"
+              ? "w-72 h-10 md:h-10 md:w-64 sm:w-52 "
+              : "w-60 h-8 my-2 md:w-52 sm:w-44 ") +
+            "bg-main rounded-lg hover:scale-110 text-center text-xl md:text-lg flex items-center justify-center transition-all duration-300"
           }
         >
           {selectedIndex == undefined ? "Create Workout" : "Edit Workout"}

@@ -8,7 +8,7 @@ import animation from "../imagesTracker/Dumbbell_Loading.json";
 
 const SigninPage = (): React.ReactElement => {
   return (
-    <main className="bg-loginBackground w-screen h-screen flex justify-center items-center">
+    <main className="bg-purple-950 w-screen h-screen flex justify-center items-center">
       <CenterLogin />
     </main>
   );
@@ -96,7 +96,7 @@ const SignIn = (): React.ReactElement => {
   }
   return (
     <div className="flex flex-col justify-center">
-      <p className="my-4 font-semibold pl-1">Log In</p>
+      <p className="my-4 font-semibold pl-1 mobile:text-center">Log In</p>
       <input
         className="LoginInput mb-4"
         placeholder="Email"
@@ -110,6 +110,7 @@ const SignIn = (): React.ReactElement => {
         onChange={onchangePassword}
         value={passwordInput}
         onKeyDown={pressedEnter}
+        type="password"
       />
       {error != undefined ? <DisplayError errorLog={error} /> : null}
       <button
@@ -133,11 +134,11 @@ const SignIn = (): React.ReactElement => {
 
 const CenterLogin = (): React.ReactElement => {
   return (
-    <div className="bg-white bg-opacity-90 w-96 h-96 rounded-3xl flex justify-center relative overflow-hidden">
-      <div className="absolute h-12 w-96 bg-main rotate-45 -right-1/3 top-[33]" />
-      <div className="absolute h-12 w-96 bg-main -rotate-45 -left-1/3 top-[33]" />
-      <div className="absolute h-12 w-96 bg-main rotate-45 right-1/3 bottom-0" />
-      <div className="absolute h-12 w-96 bg-main -rotate-45 left-1/3 bottom-0" />
+    <div className="bg-white bg-opacity-90 w-96 h-96 mobile:w-80 mobile:h-80 rounded-3xl flex justify-center relative overflow-hidden">
+      <div className="absolute h-12 w-96 mobile:w-80 mobile:h-10 bg-main rotate-45 -right-1/3 top-[33]" />
+      <div className="absolute h-12 w-96 mobile:w-80 mobile:h-10 bg-main -rotate-45 -left-1/3 top-[33]" />
+      <div className="absolute h-12 w-96 mobile:w-80 mobile:h-10 bg-main rotate-45 right-1/3 bottom-0" />
+      <div className="absolute h-12 w-96 mobile:w-80 mobile:h-10 bg-main -rotate-45 left-1/3 bottom-0" />
       <SignIn />
     </div>
   );
