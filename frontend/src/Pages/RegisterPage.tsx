@@ -102,7 +102,12 @@ const RegisterForm = (): React.ReactElement => {
     };
     return (
       <div className="w-fill h-fill flex items-center justify-center">
-        <Lottie options={options} width={100} height={100} />
+        <Lottie
+          options={options}
+          isClickToPauseDisabled={false}
+          width={100}
+          height={100}
+        />
       </div>
     );
   }
@@ -152,11 +157,11 @@ const RegisterForm = (): React.ReactElement => {
 
 const RegisterFormContainer = (): React.ReactElement => {
   return (
-    <div className="bg-white bg-opacity-90 w-96 h-[450px] rounded-3xl flex justify-center relative overflow-hidden">
-      <div className="absolute h-12 w-96 bg-main rotate-45 -right-1/3 top-[33]" />
-      <div className="absolute h-12 w-96 bg-main -rotate-45 -left-1/3 top-[33]" />
-      <div className="absolute h-12 w-96 bg-main rotate-45 right-1/3 bottom-0" />
-      <div className="absolute h-12 w-96 bg-main -rotate-45 left-1/3 bottom-0" />
+    <div className="bg-white bg-opacity-90 w-96 tablet:w-80 tablet:h-[400px] h-[450px] rounded-3xl flex justify-center relative overflow-hidden">
+      <div className="absolute h-12 w-96 tablet:w-80 bg-main rotate-45 -right-1/3 top-[33]" />
+      <div className="absolute h-12 w-96 tablet:w-80 bg-main -rotate-45 -left-1/3 top-[33]" />
+      <div className="absolute h-12 w-96 tablet:w-80 bg-main rotate-45 right-1/3 bottom-0" />
+      <div className="absolute h-12 w-96 tablet:w-80 bg-main -rotate-45 left-1/3 bottom-0" />
       <RegisterForm />
     </div>
   );

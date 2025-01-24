@@ -90,7 +90,12 @@ const SignIn = (): React.ReactElement => {
     };
     return (
       <div className="w-fill h-fill flex items-center justify-center">
-        <Lottie options={options} width={100} height={100} />
+        <Lottie
+          options={options}
+          isClickToPauseDisabled={false}
+          width={100}
+          height={100}
+        />
       </div>
     );
   }

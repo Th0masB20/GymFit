@@ -31,12 +31,12 @@ export const WeeklySchedule = ({ user }: UserProp): React.ReactElement => {
             </div>
 
             <div
-              className="flex justify-center items-center w-28 h-10 mx-3 bg-soft-3 rounded-2xl 
+              className="flex justify-center items-center w-20 h-10 mx-3 bg-soft-3 rounded-2xl 
             lg:w-20 lg:mx-2 lg:px-2
             xs:w-16 xs:hidden"
             >
               {user.yearWeeklyCalendar[weekYearIndex][weekDay as IWeekDay] ? (
-                <p className="lg:text-sm md:text-xs text-nowrap">
+                <p className="xl:text-xs lg:text-xs md:text-xs text-nowrap">
                   {
                     user.yearWeeklyCalendar[weekYearIndex][weekDay as IWeekDay]
                       .workoutName

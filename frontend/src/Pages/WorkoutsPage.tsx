@@ -19,8 +19,10 @@ const WorkoutsPage = (): React.ReactElement => {
             headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
           }
         );
+        if (userResponse.status != 200) throw userResponse;
         setUser(userResponse.data as IUser);
       } catch (error) {
+        console.log(error);
         const responsError = (error as errorResponse).response.data.error;
         nav(`/404/${responsError}`);
       }

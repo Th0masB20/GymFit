@@ -39,8 +39,8 @@ const HomePage = (): React.ReactElement => {
   }, [nav]);
   if (user == undefined) return <div></div>;
   return (
-    <main className="relative w-screen h-screen">
-      <h1 className="text-center text-2xl ml-20 mobile:text-xl">
+    <main className="relative w-full h-screen">
+      <h1 className="text-center text-2xl ml-20 tablet:ml-16 mobile:ml-14 mobile:text-xl">
         Welcome, {user.name} {user.lastName}
       </h1>
       <div className="w-screen h-1 bg-main float-right" />
@@ -69,7 +69,7 @@ const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
   }
   return (
     <>
-      <div className="ml-20 tablet:ml-16">
+      <div className="ml-20 tablet:ml-16 mobile:ml-14">
         <HomePageData user={user} />
       </div>
     </>

@@ -27,7 +27,7 @@
 }
 
 .LoginInput {
-  @apply w-72 h-7 mobile:w-64 mobile:h-6 bg-gray-300 opacity-80 rounded-full pl-2 pr-2;
+  @apply w-72 h-7 tablet:w-60 mobile:w-64 mobile:h-6 bg-gray-300 opacity-80 rounded-full pl-2 pr-2;
 }
 
 .loginButton {

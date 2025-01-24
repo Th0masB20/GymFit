@@ -15,7 +15,7 @@ export const WorkoutCard = ({
   return (
     <div
       className={
-        "m-auto w-80 lg:w-72 md:w-64 h-80 bg-fourth rounded-3xl flex flex-col items-center hover:cursor-pointer hover:scale-105 transition-all " +
+        "m-auto w-80 lg:w-72 md:w-64 tablet:w-60 h-80 bg-fourth rounded-3xl flex flex-col items-center hover:cursor-pointer hover:scale-105 transition-all " +
         (selectedIndex == index ? "border-2   border-black" : "")
       }
       onClick={() => {
