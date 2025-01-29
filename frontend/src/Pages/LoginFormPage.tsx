@@ -92,7 +92,7 @@ const SignIn = (): React.ReactElement => {
       <div className="w-fill h-fill flex items-center justify-center">
         <Lottie
           options={options}
-          isClickToPauseDisabled={false}
+          isClickToPauseDisabled={true}
           width={100}
           height={100}
         />

@@ -1,7 +1,7 @@
 import axios_instance from "../utilities/AxiosInstance";
 import { NavLink } from "react-router-dom";
 
-const SideBar = (): React.ReactElement => {
+const MobileSideBar = (): React.ReactElement => {
   const patchTest = async () => {
     const response = await axios_instance.patch(
       "/workout/updateSpecificWorkoutDate/2024-7-31",
@@ -12,14 +12,14 @@ const SideBar = (): React.ReactElement => {
     console.log(response);
   };
   return (
-    <nav className="h-screen w-20 tablet:hidden bg-main fixed top-0 flex flex-col justify-between items-center z-10">
-      <div className="flex justify-center bg-[rgba(255,255,255,0.95)] mt-4 p-1 rounded-lg hover:scale-110 transition-all ">
+    <nav className="hidden tablet:flex mb-5 h-16 w-screen bg-main justify-center items-center z-10">
+      <div className="flex justify-center bg-[rgba(255,255,255,0.95)] p-1 rounded-lg hover:scale-110 transition-all tablet:mr-2">
         <NavLink
           to="/home"
           className="bg-HomeImage bg-cover w-11 h-11 mobile:w-9 mobile:h-9"
         />
       </div>
-      <div className="flex flex-col items-center justify-between h-48 w-full">
+      <div className="flex justify-around items-center w-40">
         <NavLink
           to="/workouts"
           className="bg-WorkoutImage bg-cover w-16 h-16 mobile:w-14 mobile:h-14 hover:scale-110 transition-all"
@@ -37,4 +37,4 @@ const SideBar = (): React.ReactElement => {
   );
 };
 
-export default SideBar;
+export default MobileSideBar;

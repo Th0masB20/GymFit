@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import HomePageData from "./HomePageWithData";
 import SideBar from "../component/SideBar";
 import { errorResponse } from "../interfaces/IError";
+import MobileSideBar from "../component/MobileSideBar";
 
 const HomePage = (): React.ReactElement => {
   const [user, setUser] = useState<IUser>();
@@ -40,7 +41,8 @@ const HomePage = (): React.ReactElement => {
   if (user == undefined) return <div></div>;
   return (
     <main className="relative w-full h-screen">
-      <h1 className="text-center text-2xl ml-20 tablet:ml-16 mobile:ml-14 mobile:text-xl">
+      <MobileSideBar />
+      <h1 className="text-center text-2xl ml-20 tablet:ml-0 mobile:hidden">
         Welcome, {user.name} {user.lastName}
       </h1>
       <div className="w-screen h-1 bg-main float-right" />
@@ -53,7 +55,7 @@ const HomePage = (): React.ReactElement => {
 const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
   if (user.workouts.length == 0) {
     return (
-      <div className="ml-10 absolute flex flex-col justify-center items-center w-80 h-48 mobile:w-60 mobile:h-40 bg-gradient-to-r from-main to-fourth rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div className="ml-10 tablet:ml-0 absolute flex flex-col justify-center items-center w-80 h-48 mobile:w-60 mobile:h-40 bg-gradient-to-r from-main to-fourth rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <p className="text-center text-xl w-44">
           Start By Creating Your Workout Routine
         </p>
@@ -69,7 +71,7 @@ const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
   }
   return (
     <>
-      <div className="ml-20 tablet:ml-16 mobile:ml-14">
+      <div className="ml-20 tablet:ml-0">
         <HomePageData user={user} />
       </div>
     </>

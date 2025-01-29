@@ -7,12 +7,10 @@ export const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
   const [selectedIndex, setSelectedIndex] = useState<number>();
   return (
     <>
-      <h1 className="text-center text-2xl ml-20 tablet:ml-16 mobile:ml-14">
-        Workouts
-      </h1>
+      <h1 className="text-center text-2xl ml-20 tablet:ml-0">Workouts</h1>
       <div className="w-full h-1 bg-main float-right" />
-      <div className="ml-20 tablet:ml-16 mobile:ml-14 flex justify-center">
-        <section className="mt-10 w-fit grid grid-cols-3 md:grid-cols-2 tablet:grid-cols-1 gap-16 tablet:gap-10 mb-32 ">
+      <div className="ml-20 tablet:ml-0 tablet:w-full flex justify-center">
+        <section className="mt-10 w-fit grid grid-cols-3 md:grid-cols-2 tablet:grid-cols-2 mobile:grid-cols-1 gap-16 tablet:gap-10 mb-32 ">
           {user.workouts.map((workout, i) => {
             return (
               <WorkoutCard
@@ -29,7 +27,7 @@ export const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
       <div
         className={
           (selectedIndex == undefined ? "h-20" : "h-28") +
-          " ml-10 w-full fixed bg-footer-background bottom-0 transition-all duration-200 flex flex-col items-center justify-center"
+          " ml-10 tablet:ml-0 w-full fixed bg-footer-background bottom-0 transition-all duration-200 flex flex-col items-center justify-center"
         }
         onClick={() => setSelectedIndex(undefined)}
       >

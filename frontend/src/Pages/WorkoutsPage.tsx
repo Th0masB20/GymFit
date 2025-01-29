@@ -5,6 +5,7 @@ import axios_instance from "../utilities/AxiosInstance";
 import SideBar from "../component/SideBar";
 import { MainBody } from "../component/Workout Page Components/Body";
 import { errorResponse } from "../interfaces/IError";
+import MobileSideBar from "../component/MobileSideBar";
 
 const WorkoutsPage = (): React.ReactElement => {
   const [user, setUser] = useState<IUser>();
@@ -32,6 +33,7 @@ const WorkoutsPage = (): React.ReactElement => {
   if (user == undefined) return <div></div>;
   return (
     <main className="relative w-full h-full">
+      <MobileSideBar />
       <SideBar />
       <MainBody user={user} />
     </main>

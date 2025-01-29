@@ -41,15 +41,16 @@ export default {
 
     screens: {
       lg: { max: "1300px" },
-      md: { max: "1100px" },
+      md: { max: "1200px" },
 
       sm: { max: "900px" },
       xs: { max: "800px" },
       tablet: { max: "780px" },
-      mobile: { max: "450px" },
+      mobile: { max: "550px" },
 
       //min-width: 1400 (styles apply when screen is bigger than 1400 px)
       xl: "1300px",
+      xll: "1450px",
     },
   },
   plugins: [],

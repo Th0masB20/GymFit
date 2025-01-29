@@ -9,7 +9,7 @@ const DisplayCalendarDay = ({
 }): React.ReactElement => {
   return (
     <div
-      className={"w-32 h-32 mx-auto mt-6 bg-soft-4 rounded-lg flex flex-col "}
+      className={"w-32 h-32 mx-auto mt-8 bg-soft-4 rounded-lg flex flex-col "}
     >
       <p className="pl-2 mt-2">{date}</p>
       {workoutName ? (

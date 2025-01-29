@@ -65,6 +65,12 @@ const EditDay = ({
   };
   return (
     <div className="min-w-80 min-h-96 w-4/12 h-1/2 bg-second rounded-2xl absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
+      <button
+        className="absolute w-min right-8 top-4 hover:scale-125 transition-all"
+        onClick={() => setEditCalDay(false)}
+      >
+        X
+      </button>
       <DisplayCalendarDay
         workoutName={user.monthlyCalendar[month][date].workoutName}
         date={date.toString()}
