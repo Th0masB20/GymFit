@@ -30,7 +30,7 @@ export const EditWorkoutExerciseCard = ({
       addToSetArry(setArray);
     }
     createSets();
-  }, []);
+  }, [currentExercise.numberOfSets, exerciseIndex, setWorkoutExercises]);
 
   const createSet = () => {
     currentExercise.numberOfSets++;
@@ -49,7 +49,7 @@ export const EditWorkoutExerciseCard = ({
   };
 
   return (
-    <div className="w-80 min-h-72 h-auto bg-fourth m-10 flex flex-col justify-around items-center rounded-3xl">
+    <div className="w-80 min-h-72 md:w-64 tablet:w-64 tablet:min-h-60 h-auto bg-fourth m-10 flex flex-col justify-around items-center rounded-3xl">
       <p className="text-center text-xl mb-3 mt-3">
         {currentExercise.exerciseName}
       </p>

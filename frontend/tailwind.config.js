@@ -43,10 +43,10 @@ export default {
       lg: { max: "1300px" },
       md: { max: "1200px" },
 
-      sm: { max: "900px" },
+      sm: { max: "1000px" },
       xs: { max: "800px" },
       tablet: { max: "780px" },
-      mobile: { max: "550px" },
+      mobile: { max: "670px" },
 
       //min-width: 1400 (styles apply when screen is bigger than 1400 px)
       xl: "1300px",

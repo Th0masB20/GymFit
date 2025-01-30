@@ -46,23 +46,23 @@ const EditWorkout = (): React.ReactElement => {
   useEffect(() => {
     const getExercises = async () => {
       try {
-        if (cachedExercises == undefined) {
-          const response = await axios_instance.get(
-            import.meta.env.VITE_BACKEND_URL + "/workout/getJsonExercises",
-            {
-              withCredentials: true,
-              headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-            }
-          );
-          populateCache(response.data);
-        }
+        const response = await axios_instance.get(
+          import.meta.env.VITE_BACKEND_URL + "/workout/getJsonExercises",
+          {
+            withCredentials: true,
+            headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+          }
+        );
+
+        console.log(response);
+        populateCache(response.data);
       } catch (error) {
         console.error(error);
       }
     };
 
     getExercises();
-  }, [cachedExercises]);
+  }, []);
 
   //hitting esc
   useEffect(() => {
@@ -95,7 +95,7 @@ const EditWorkout = (): React.ReactElement => {
   useEffect(() => {
     if (!workoutN) return;
     setStartingWorkoutName(workoutN);
-  }, []);
+  }, [workoutN]);
 
   const changeWorkoutName = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setWorkoutName(e.target.value);
@@ -148,7 +148,14 @@ const EditWorkout = (): React.ReactElement => {
   }
   console.log(!workoutName || exercises.length == 0 || workoutDays.size == 0);
   return (
-    <main className="relative w-full h-screen mb-80">
+    <main
+      className={
+        "relative w-full " +
+        (displayExerciseSearch
+          ? "h-screen mb-0 overflow-hidden"
+          : "h-full mb-32")
+      }
+    >
       <input
         className="text-center text-2xl m-auto block focus:outline-none"
         placeholder={workoutName}
@@ -160,13 +167,13 @@ const EditWorkout = (): React.ReactElement => {
       />
       <div className="w-full h-1 bg-main float-right" />
       <button
-        className="flex flex-col justify-center items-center w-80 h-10 bg-main rounded-lg mt-5 m-auto hover:scale-110"
+        className="flex flex-col justify-center items-center w-80 tablet:w-72 mobile:w-52 h-10 bg-main rounded-lg mt-5 m-auto hover:scale-110 transition-all"
         onClick={() => showSearch(true)}
       >
         Add Exercise
       </button>
 
-      <div className="w-fit h-fit grid grid-cols-3 m-auto mb-32">
+      <div className="w-fit h-fit grid grid-cols-3 sm:grid-cols-2 mobile:grid-cols-1 mx-auto mb-32">
         {exercises.map((currentExercise, i) => {
           return (
             <EditWorkoutExerciseCard
@@ -178,23 +185,23 @@ const EditWorkout = (): React.ReactElement => {
           );
         })}
       </div>
-      <div className="fixed bottom-0 w-full flex flex-col justify-center items-center">
+      <div className="bg-footer-background fixed bottom-0 w-full flex flex-col justify-center items-center">
         <EditSetWorkoutDays
           setWorkoutDays={setWorkoutDays}
           workoutDays={workoutDays}
           workoutName={startingWorkoutName}
           user={user}
         />
-        <div className="bg-footer-background w-full h-20 flex justify-center items-center">
+        <div className="w-full h-20 flex justify-center items-center">
           <button
-            className="w-52 h-10 bg-second rounded-lg hover:scale-110 mr-2 transition-all duration-100"
+            className="w-52 tablet:w-48 mobile:w-40 h-10 bg-second rounded-lg hover:scale-110 mr-2 transition-all duration-100"
             onClick={deleteWorkout}
           >
             Delete Workout
           </button>
           <button
             className={
-              "w-52 h-10 bg-main rounded-lg ml-2 transition-all " +
+              "w-52 tablet:w-48 mobile:w-40 h-10 bg-main rounded-lg ml-2 transition-all " +
               (!workoutName || exercises.length == 0 || workoutDays.size == 0
                 ? " opacity-30"
                 : "hover:scale-110")

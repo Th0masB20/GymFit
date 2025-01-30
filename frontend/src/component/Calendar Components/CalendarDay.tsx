@@ -18,7 +18,7 @@ const CalendarDay = ({
 }): React.ReactElement => {
   return (
     <div
-      className={`w-full h-full md:h-[60px] md:w-16 mobile:w-8 bg-soft-4 rounded-lg flex flex-col select-none ${gridStart} ${
+      className={`w-full h-full md:h-[60px] md:w-16 mobile:w-8 mobile:h-12 bg-soft-4 rounded-lg flex flex-col select-none ${gridStart} ${
         window.innerWidth <= 1100 ? "active:bg-soft-1" : ""
       }`}
       onClick={() => {

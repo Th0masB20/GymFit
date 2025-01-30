@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import IUser, { IExercise, IWorkout } from "../interfaces/IUser";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios_instance from "../utilities/AxiosInstance";
 import { ExerciseRequestData } from "../interfaces/ICacheExercises";
 import { WorkoutSearch } from "../component/Create Workout Components/WorkoutSearch";
@@ -22,12 +22,10 @@ const CreateWorkoutPage = (): React.ReactElement => {
   useEffect(() => {
     const repsIsEmpty = (): boolean => {
       for (const exercise of exercises) {
-        if (exercise.reps.includes(0) || exercise.numberOfSets == 0)
-          return true;
+        if (exercise.numberOfSets == 0) return true;
       }
       return false;
     };
-    console.log(repsIsEmpty());
     setDisableButton(
       !workoutName ||
         exercises.length == 0 ||
@@ -146,7 +144,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
         Add Exercise
       </button>
 
-      <div className="w-fit h-fit grid grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 mx-auto">
+      <div className="w-fit h-fit grid grid-cols-3 sm:grid-cols-2 mobile:grid-cols-1 mx-auto">
         {exercises.map((currentExercise, i) => {
           return (
             <WorkoutExerciseCard
@@ -158,16 +156,19 @@ const CreateWorkoutPage = (): React.ReactElement => {
           );
         })}
       </div>
-      <div className=" bg-footer-background fixed bottom-0 w-full flex flex-col justify-center items-center">
+      <div className="bg-footer-background fixed bottom-0 w-full flex flex-col justify-center items-center">
         <SetWorkoutDays
           setWorkoutDays={setWorkoutDays}
           workoutDays={workoutDays}
           user={user}
         />
         <div className="w-full h-20 flex justify-center items-center">
-          <button className="w-52 tablet:w-48 mobile:w-40 h-10 bg-second rounded-lg hover:scale-110 mr-2 transition-all duration-100">
-            Delete Workout
-          </button>
+          <NavLink
+            to="/workout"
+            className="w-52 tablet:w-48 mobile:w-40 h-10 bg-second rounded-lg hover:scale-110 mr-2 transition-all duration-100"
+          >
+            Cancel
+          </NavLink>
           <button
             className={
               "w-52 tablet:w-48 mobile:w-40 h-10 bg-main rounded-lg ml-2 transition-all " +
@@ -175,6 +176,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
             }
             onClick={saveWorkout}
             disabled={disableButton}
+            onFocus={() => console.log("yep")}
           >
             Save Workout
           </button>

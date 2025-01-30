@@ -19,35 +19,47 @@ function mouseDown(
 }
 function mouseUp(
   setIsDown: React.Dispatch<React.SetStateAction<boolean>>,
-  currentTranslate: number,
   setTranslate: React.Dispatch<React.SetStateAction<number>>,
   calContainerRef: React.RefObject<HTMLDivElement>
 ) {
-  let calendarMonthHeight = 590;
-  if (calContainerRef.current && calContainerRef.current.firstElementChild) {
-    calendarMonthHeight =
-      calContainerRef.current.firstElementChild.getBoundingClientRect().height +
-      40;
-  }
+  if (!calContainerRef.current) return;
+  if (!calContainerRef.current.firstElementChild) return;
+  const currentTranslate = Number(
+    calContainerRef.current.style.transform.substring(
+      11,
+      calContainerRef.current.style.transform.length - 3
+    )
+  );
+  const calendarMonthHeight =
+    calContainerRef.current.firstElementChild.getBoundingClientRect().height +
+    40;
 
   const quotient = currentTranslate / calendarMonthHeight;
   if (!Number.isInteger(quotient)) {
     let roundedQuotient = Math.round(quotient);
 
-    if (roundedQuotient * calendarMonthHeight <= calendarMonthHeight * 11) {
+    console.log(roundedQuotient);
+    if (roundedQuotient * calendarMonthHeight < -calendarMonthHeight * 11) {
       roundedQuotient = Math.ceil(quotient);
     }
 
+    console.log("quotient ", roundedQuotient);
     if (roundedQuotient * calendarMonthHeight >= 0) {
       roundedQuotient = 0;
     }
-    setTranslate(roundedQuotient * calendarMonthHeight);
+
+    if (roundedQuotient < -11) {
+      roundedQuotient = -11;
+    }
+
+    const translate = roundedQuotient * calendarMonthHeight;
+    calContainerRef.current.style.transform = `translateY(${translate}px)`;
+    setTranslate(translate);
   }
 
   setIsDown(false);
 }
 function mouseLeave(setIsDown: React.Dispatch<React.SetStateAction<boolean>>) {
-  console.log("mouse leave");
   setIsDown(false);
 }
 
@@ -61,22 +73,21 @@ function mouseMove(
   calContainerRef: React.RefObject<HTMLDivElement>
 ) {
   if (!isDown) return;
-  const moveAmount = startY - e.touches[0].clientY;
+  if (!calContainerRef.current || !calContainerRef.current.firstElementChild)
+    return;
+  const speed = 3.5;
+  const moveAmount = (startY - e.touches[0].clientY) * speed;
   const sliderMoveAmount = startScrollY - moveAmount;
 
-  let calendarMonthHeight = 590;
-  if (calContainerRef.current && calContainerRef.current.firstElementChild) {
-    calendarMonthHeight =
-      calContainerRef.current.firstElementChild.getBoundingClientRect().height +
-      40;
-  }
+  const calendarMonthHeight =
+    calContainerRef.current.firstElementChild.getBoundingClientRect().height +
+    40;
 
-  setTranslate(sliderMoveAmount);
-
+  calContainerRef.current.style.transform = `translateY(${sliderMoveAmount}px)`;
   //move down
   if (
     moveAmount >= calendarMonthHeight / 2 &&
-    startScrollY != -calendarMonthHeight * 11
+    startScrollY > -calendarMonthHeight * 11
   ) {
     setTranslate((startScrollY -= calendarMonthHeight));
     setIsDown(false);

@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 const refreshTokenRoute = express.Router();
 
 refreshTokenRoute.get('/', async (req: Request, res: Response, next: NextFunction) => {
+    console.log('refresh')
     const token: ICookieTicket = req.cookies as ICookieTicket;
     try {
         //if validation is wrong it will normally throw an error
@@ -17,7 +18,7 @@ refreshTokenRoute.get('/', async (req: Request, res: Response, next: NextFunctio
             httpOnly: true,
             secure: true,
         });
-        res.status(200).end();
+        res.send();
     }
     catch (error) {
         (error as Error).message += ' refresh';

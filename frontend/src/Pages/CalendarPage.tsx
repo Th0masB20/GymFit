@@ -51,7 +51,7 @@ const CalendarPage = (): React.ReactElement => {
   useEffect(() => {
     const setTranslatePosition = (): void => {
       if (!calContainerRef || !calContainerRef.current) return;
-      if (windowWidth <= 550)
+      if (windowWidth <= 670)
         calContainerRef.current.style.transform = `translateY(${currentTranslate}px)`;
       else
         calContainerRef.current.style.transform = `translateX(${currentTranslate}px)`;
@@ -62,7 +62,7 @@ const CalendarPage = (): React.ReactElement => {
 
   // const [minMaxTranslate] = useState<number[]>([0, 12 * 1000]);
   useEffect(() => {
-    if (windowWidth <= 550) return;
+    if (windowWidth <= 670) return;
     let variableShiftValue = 1250;
     if (windowWidth >= 1450) variableShiftValue = 1250;
     else if (windowWidth >= 1200) variableShiftValue = 1000;
@@ -159,7 +159,7 @@ const CalendarPage = (): React.ReactElement => {
         <div className="w-screen h-1 bg-main float-right" />
         {/* flex container of everything */}
         <div
-          className="w-full h-[90%] pl-20 tablet:pl-0 pt-5 mobile:pt-2 mobile:h-[65%] flex justify-center"
+          className="w-full h-[90%] pl-20 tablet:pl-0 pt-5 mobile:pt-2 mobile:h-96 flex justify-center"
           onTouchStart={(e: React.TouchEvent<HTMLDivElement>) =>
             mouseDown(
               setIsDown,
@@ -181,17 +181,17 @@ const CalendarPage = (): React.ReactElement => {
             );
           }}
           onTouchEnd={() => {
-            mouseUp(setIsDown, currentTranslate, setTranslate, calContainerRef);
+            mouseUp(setIsDown, setTranslate, calContainerRef);
           }}
           onTouchCancel={() =>
-            mouseUp(setIsDown, currentTranslate, setTranslate, calContainerRef)
+            mouseUp(setIsDown, setTranslate, calContainerRef)
           }
         >
           <div
             className="mobile:hidden bg-LeftArrow arrowButton z-10"
             onClick={moveLeft}
           />
-          <div className="mobile:w-80 md:w-[600px] w-[1000px] h-full mobile:whitespace-normal whitespace-nowrap xll:w-[1250px] overflow-hidden">
+          <div className="mobile:h-screen mobile:w-80 md:w-[600px] w-[1000px] h-full mobile:whitespace-normal whitespace-nowrap xll:w-[1250px] overflow-hidden">
             {/*container for the calendar*/}
             <div
               className={

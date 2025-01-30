@@ -10,7 +10,6 @@ const workoutRoute = express.Router();
 
 workoutRoute.get('/getJsonExercises', async (req: Request, res: Response, next: NextFunction) => {
     const request: IReqVerification = req as IReqVerification;
-    console.log("its going throuhg")
     try {
         const user = await User.findById(request.token.id);
         if (!user) throw new Error('user DNE');

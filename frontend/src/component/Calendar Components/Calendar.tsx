@@ -106,7 +106,7 @@ const Calendar = ({
     return calendarObject;
   };
   return (
-    <div className="mobile:w-80 mobile:h-[550px] md:w-[600px] w-[1000px] xll:w-[1250px] h-full inline-block mobile:mb-10">
+    <div className="mobile:w-80 mobile:h-[400px] md:w-[600px] w-[1000px] xll:w-[1250px] h-full inline-block mobile:mb-10">
       <h1 className="w-auto h-auto px-4 gap-3 mx-3 text-center text-2xl font-bold select-none">
         {getMonth(monthNumber)}
       </h1>
@@ -119,7 +119,7 @@ const Calendar = ({
         <p>Fr</p>
         <p>Sa</p>
       </div>
-      <div className="w-auto h-[90%] md:h-[80%] bg-second rounded-2xl grid grid-cols-7 grid-rows-5 p-4 gap-3 mx-3">
+      <div className="w-auto h-[90%] md:h-[85%] bg-second rounded-2xl grid grid-cols-7 grid-rows-5 p-4 gap-3 mx-3">
         {createCalendar(user, monthNumber)}
       </div>
     </div>
