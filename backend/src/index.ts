@@ -27,8 +27,8 @@ mongoose.connect(connectionString).then(() => {
     app.listen(PORT, () => console.log('running on port ' + PORT));
 }
 ).catch(
-    () => {
-        console.log("an error occured with connection: try again");
+    (error) => {
+        console.log("an error occured with connection: try again: \n", error);
     }
 )
 
