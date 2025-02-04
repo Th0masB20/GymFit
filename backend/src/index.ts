@@ -21,6 +21,7 @@ app.use(cookieParser());
 app.use(express.static('./dist'));
 
 const connectionString: string = `${process.env.CONNECTION}${process.env.PASSWORD}${process.env.CONNECTION_END}`
+console.log(connectionString)
 const PORT: number = Number(process.env.PORT) || 3000;
 
 mongoose.connect(connectionString).then(() => {
