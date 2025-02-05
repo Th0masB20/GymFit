@@ -31,14 +31,14 @@ loginRouter.post('/loginUser', async (req: Request<{}, {}, ILogin>, res: Respons
 
         res.cookie('ticket', accessToken, {
             maxAge: 1000 * Number(process.env.ACCESS_TIME),
-            sameSite: 'none',
+            sameSite: 'strict',
             httpOnly: true,
             secure: true,
         });
 
         res.cookie('ticket_r', refreshToken, {
             maxAge: 1000 * Number(process.env.REFRESH_TIME),
-            sameSite: 'none',
+            sameSite: 'strict',
             httpOnly: true,
             secure: true,
         });
