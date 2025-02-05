@@ -4,6 +4,9 @@ dist
 .rest
 backend/serverDist
 backend/.rest
+*.key
+*.crt
+*.pem
 
 # Logs
 logs
