@@ -9,6 +9,8 @@ const loginRouter = express.Router();
 
 loginRouter.post('/loginUser', async (req: Request<{}, {}, ILogin>, res: Response, next: NextFunction) => {
     const payload: ILogin = req.body;
+    console.log("trying to login")
+
     try {
         if (!isLoginCorrect(payload)) {
             throw new Error('incorrect login');
@@ -41,6 +43,7 @@ loginRouter.post('/loginUser', async (req: Request<{}, {}, ILogin>, res: Respons
             secure: true,
         });
 
+        console.log("has logged in")
         //once its logged in, get exercises from api and store it
         const exercises = await getExercises();
         user.JsonExercise = exercises;

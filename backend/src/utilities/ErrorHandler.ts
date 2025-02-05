@@ -1,6 +1,7 @@
 import { NextFunction, Response, Request, ErrorRequestHandler } from "express";
 
 const ErrorHandler: ErrorRequestHandler = (error: any, _req: Request, res: Response, next: NextFunction) => {
+    console.log(error.message)
     if (error.message == 'wrong inputs') {
         return res.status(400).json({ error: 'Please fill out all fields' });
     }
