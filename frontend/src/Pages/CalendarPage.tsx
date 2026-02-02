@@ -142,7 +142,7 @@ const CalendarPage = (): React.ReactElement => {
     return calendarsArray;
   };
   return (
-    <main className="w-screen h-screen mobile:overflow-hidden">
+    <main className="w-screen h-screen mobile:overflow-hidden mobile:h-svh overscroll-none">
       {editCalDay ? (
         <EditCalendarDay
           user={user}
@@ -152,14 +152,14 @@ const CalendarPage = (): React.ReactElement => {
       ) : null}
       <MobileSideBar />
       <SideBar />
-      <section className="w-screen h-screen flex-auto flex-col">
+      <section className="w-screen h-screen flex-auto flex-col overscroll-y-contain">
         <h1 className="text-center text-2xl pl-20 tablet:pl-0 mobile:hidden">
           Calendar
         </h1>
-        <div className="w-screen h-1 bg-main float-right" />
+        <div className="w-screen h-1 bg-main float-right overscroll-y-contain" />
         {/* flex container of everything */}
         <div
-          className="w-full h-[90%] pl-20 tablet:pl-0 pt-5 mobile:pt-2 mobile:h-96 flex justify-center"
+          className="w-full h-[90%] pl-20 tablet:pl-0 pt-5 mobile:pt-2 mobile:h-96 flex justify-center overscroll-y-contain"
           onTouchStart={(e: React.TouchEvent<HTMLDivElement>) =>
             mouseDown(
               setIsDown,

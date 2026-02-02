@@ -8,7 +8,7 @@ import animation from "../imagesTracker/Dumbbell_Loading.json";
 
 const SigninPage = (): React.ReactElement => {
   return (
-    <main className="bg-purple-950 w-screen h-screen flex justify-center items-center">
+    <main className="bg-purple-950 w-screen h-screen flex justify-center items-center overscroll-none">
       <CenterLogin />
     </main>
   );

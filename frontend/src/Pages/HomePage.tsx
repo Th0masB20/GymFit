@@ -40,7 +40,7 @@ const HomePage = (): React.ReactElement => {
   }, [nav]);
   if (user == undefined) return <div></div>;
   return (
-    <main className="relative w-full h-screen">
+    <main className="relative w-full h-screen overscroll-none">
       <MobileSideBar />
       <h1 className="text-center text-2xl ml-20 tablet:ml-0 mobile:hidden">
         Welcome, {user.name} {user.lastName}

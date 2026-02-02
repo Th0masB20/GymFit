@@ -5,6 +5,8 @@ function mouseDown(
   setStartY: React.Dispatch<React.SetStateAction<number>>,
   setStartScrollY: React.Dispatch<React.SetStateAction<number>>
 ) {
+  e.preventDefault();
+  e.stopPropagation();
   setIsDown(true);
   const startY = e.touches[0].clientY;
   const startScrollY = Number(
@@ -72,6 +74,8 @@ function mouseMove(
   setIsDown: React.Dispatch<React.SetStateAction<boolean>>,
   calContainerRef: React.RefObject<HTMLDivElement>
 ) {
+  e.preventDefault();
+  e.stopPropagation();
   if (!isDown) return;
   if (!calContainerRef.current || !calContainerRef.current.firstElementChild)
     return;

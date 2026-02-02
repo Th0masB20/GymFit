@@ -1,9 +1,9 @@
 import express from "express";
-import https from "https"
+//import https from "https"
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import fs from 'fs'
+//import fs from 'fs'
 import cookieParser from 'cookie-parser';
 import registerRouter from "./routes/RegisterRoute";
 import ErrorHandler from "./utilities/ErrorHandler";
@@ -23,11 +23,12 @@ app.use(cookieParser());
 
 const connectionString: string = `${process.env.CONNECTION}${process.env.PASSWORD}${process.env.CONNECTION_END}`
 const PORT: number = Number(process.env.PORT) || 3000;
-const certificates: https.ServerOptions = { key: fs.readFileSync('./certificates/key.pem'), cert: fs.readFileSync('certificates/cert.pem') }
-const server = https.createServer(certificates, app);
+//const certificates: https.ServerOptions = { key: fs.readFileSync('./certificates/key.pem'), cert: fs.readFileSync('certificates/cert.pem') }
+//const server = https.createServer(certificates, app);
 
 mongoose.connect(connectionString).then(() => {
-    server.listen(PORT, () => console.log('running on port ' + PORT));
+    //server.listen(PORT, () => console.log('running on port ' + PORT));
+    app.listen(PORT);
 }
 ).catch(
     (error) => {

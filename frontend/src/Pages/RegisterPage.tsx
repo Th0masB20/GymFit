@@ -169,7 +169,7 @@ const RegisterFormContainer = (): React.ReactElement => {
 
 const RegisterPage = (): React.ReactElement => {
   return (
-    <main className="bg-purple-950 w-screen h-screen flex justify-center items-center">
+    <main className="bg-purple-950 w-screen h-screen flex justify-center items-center overscroll-none">
       <RegisterFormContainer />
     </main>
   );

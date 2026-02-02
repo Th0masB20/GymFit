@@ -10,6 +10,11 @@
   }
 }
 
+html,
+body {
+  overscroll-behavior: none !important;
+}
+
 .header {
   @apply bg-headerFullBackground w-full h-[450px] bg-cover bg-center-center relative;
 }

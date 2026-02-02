@@ -121,7 +121,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
   return (
     <main
       className={
-        "relative w-full " +
+        "relative w-full overscroll-none " +
         (displayExerciseSearch
           ? "h-screen mb-0 overflow-hidden"
           : "h-full mb-32")
@@ -164,8 +164,8 @@ const CreateWorkoutPage = (): React.ReactElement => {
         />
         <div className="w-full h-20 flex justify-center items-center">
           <NavLink
-            to="/workout"
-            className="w-52 tablet:w-48 mobile:w-40 h-10 bg-second rounded-lg hover:scale-110 mr-2 transition-all duration-100"
+            to="/workouts"
+            className="w-52 tablet:w-48 mobile:w-40 h-10 bg-second rounded-lg hover:scale-110 mr-2 transition-all duration-100 flex justify-center items-center"
           >
             Cancel
           </NavLink>

@@ -32,7 +32,7 @@ const WorkoutsPage = (): React.ReactElement => {
   }, [nav]);
   if (user == undefined) return <div></div>;
   return (
-    <main className="relative w-full h-full">
+    <main className="relative w-full h-full overscroll-none">
       <MobileSideBar />
       <SideBar />
       <MainBody user={user} />

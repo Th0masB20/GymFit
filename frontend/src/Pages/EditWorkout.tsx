@@ -150,7 +150,7 @@ const EditWorkout = (): React.ReactElement => {
   return (
     <main
       className={
-        "relative w-full " +
+        "relative w-full overscroll-none " +
         (displayExerciseSearch
           ? "h-screen mb-0 overflow-hidden"
           : "h-full mb-32")

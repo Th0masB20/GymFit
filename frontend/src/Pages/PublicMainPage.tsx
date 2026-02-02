@@ -4,14 +4,14 @@ import { NavLink } from "react-router-dom";
 
 const NavBar = (): React.ReactElement => {
   return (
-    <nav className="absolute right-0 bg-[rgba(255,255,255,0.3)] h-10 flex flex-col justify-center w-96 mobile:w-full">
-      <ul className="z-10 flex justify-end mr-5">
+    <nav className="absolute right-0 bg-[rgba(255,255,255,0.3)] h-10 flex flex-col justify-center w-auto mobile:w-full px-6">
+      <ul className="z-10 flex justify-end">
         <li>
-          <NavLink to="/about" className="text-white font-semibold">
+          <NavLink to="/about" className="text-white font-semibold pr-8">
             About
           </NavLink>
         </li>
-        <li className="pl-8 hover:scale-110 transition-all">
+        <li className="hover:scale-110 transition-all">
           <NavLink to="/login" className="mainLoginButton">
             Log In
           </NavLink>
@@ -23,7 +23,7 @@ const NavBar = (): React.ReactElement => {
 
 const Header = (): React.ReactElement => {
   return (
-    <header className="header">
+    <header className="header overscroll-contain">
       <NavBar />
       <div className="headerWords">
         <p className="box-border text-4xl xl:text-5xl text-center w-52 xl:w-64 z-10 text-white font-semibold">
@@ -42,7 +42,7 @@ const Header = (): React.ReactElement => {
 
 const About = (): React.ReactElement => {
   return (
-    <div className="flex flex-col items-center bg-soft-1 w-6/12 h-96 mx-auto mt-24 mb-24 p-8 rounded-3xl min-w-96 mobile:min-w-80">
+    <div className="flex flex-col items-center bg-soft-1 w-6/12 h-96 mx-auto mt-24 mb-24 p-8 rounded-3xl min-w-96 mobile:min-w-80 overscroll-contain">
       <h2 className="text-3xl font-semibold pb-5 underline">About</h2>
       <p className="text-xl text-center md:text-lg mobile:text-base">
         We strive to make workout tracking as easy and seamless as possible
@@ -68,7 +68,7 @@ const MainPage = (): React.ReactElement => {
   return (
     <>
       <Header />
-      <main>
+      <main className="overscroll-none">
         <About />
       </main>
     </>

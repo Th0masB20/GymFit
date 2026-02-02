@@ -101,7 +101,7 @@ const StartWorkout = (): React.ReactElement => {
     setHour,
   };
   return (
-    <main>
+    <main className="overscroll-none">
       <TimerComponent timerProps={props} />
       <div className="w-10/12 h-auto flex justify-center flex-wrap m-auto mb-20">
         {newWorkoutInstanse.exercises.map((currentExercise, i) => {

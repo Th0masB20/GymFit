@@ -85,7 +85,7 @@ const InfoFormPage = (): React.ReactElement => {
     );
   } else {
     return (
-      <main className="w-screen h-screen flex justify-center items-center">
+      <main className="w-screen h-screen flex justify-center items-center overscroll-none">
         <div className="bg-[#ECECEC] bg-opacity-90 w-96 h-96 rounded-3xl flex justify-center relative overflow-hidden shadow-2xl shadow-[rgba(0,0,0,0.9)]">
           <div className="absolute h-12 w-96 bg-main rotate-45 -right-1/3 top-[33]" />
           <div className="absolute h-12 w-96 bg-main -rotate-45 -left-1/3 top-[33]" />
