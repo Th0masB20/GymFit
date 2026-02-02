@@ -65,6 +65,7 @@ const UserSchema: Schema = new mongoose.Schema<IUserMongoose>(
         }
     },
     {
+        versionKey: false,
         minimize: false
     }
 );
@@ -74,7 +75,6 @@ UserSchema.set('toJSON', {
         delete current._id;
         delete current.password;
         delete current._id;
-        delete current.__v;
         delete current.email;
     }
 });
