@@ -11,7 +11,17 @@ export const WeeklySchedule = ({ user }: UserProp): React.ReactElement => {
   const weekYearIndex = moment().week() - 1;
   useEffect(() => {
     setExerciseMap([]);
-    for (const weekDay in user.yearWeeklyCalendar[weekYearIndex]) {
+    const orderedWeekDays: IWeekDay[] = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+
+    for (const weekDay of orderedWeekDays) {
       setExerciseMap((current) =>
         current.concat(
           <div
@@ -50,7 +60,7 @@ export const WeeklySchedule = ({ user }: UserProp): React.ReactElement => {
             <div></div>
           </div>,
           <div key={current.length + 5500}>
-            {weekDay != "Sunday" ? (
+            {weekDay != "Saturday" ? (
               <div className="w-[3px] h-full bg-third" />
             ) : (
               <div></div>
