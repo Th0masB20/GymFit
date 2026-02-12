@@ -1,16 +1,6 @@
-import axios_instance from "../utilities/AxiosInstance";
 import { NavLink } from "react-router-dom";
 
 const MobileSideBar = (): React.ReactElement => {
-  const patchTest = async () => {
-    const response = await axios_instance.patch(
-      "/workout/updateSpecificWorkoutDate/2024-7-31",
-      { name: "Test workout" },
-      { withCredentials: true }
-    );
-
-    console.log(response);
-  };
   return (
     <nav className="hidden tablet:flex mb-5 h-16 w-screen bg-main justify-center items-center z-10">
       <div className="flex justify-center bg-[rgba(255,255,255,0.95)] p-1 rounded-lg hover:scale-110 transition-all tablet:mr-2">
@@ -28,10 +18,7 @@ const MobileSideBar = (): React.ReactElement => {
           to="/calendar"
           className="bg-CalendarImage bg-cover w-12 h-12 mobile:w-11 mobile:h-11 hover:scale-110 transition-all"
         />
-        <button
-          className="bg-SettingsImage bg-cover w-11 h-11 mobile:w-10 mobile:h-10 hover:scale-110 transition-all"
-          onClick={patchTest}
-        />
+        <button className="bg-SettingsImage bg-cover w-11 h-11 mobile:w-10 mobile:h-10 hover:scale-110 transition-all" />
       </div>
     </nav>
   );

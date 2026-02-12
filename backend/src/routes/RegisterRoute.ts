@@ -30,6 +30,7 @@ registerRouter.post('/submit', async (req: Request<{}, {}, IRegisterReqest>, res
             password: hashPassword,
             age: undefined,
             height: undefined,
+            weight: undefined,
             workouts: [],
             activityLog: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             generalWeeklyCalendar: initialWeeklyCalendar,

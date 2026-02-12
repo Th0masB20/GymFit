@@ -11,7 +11,7 @@ const FinishWorkoutButton = ({
     >
       <button
         className={
-          "w-64 h-10 bg-main rounded-lg hover:scale-110 text-center text-xl flex items-center justify-center transition-all duration-100"
+          "w-64 h-10 text-mainWhite bg-main rounded-lg hover:scale-110 text-center text-xl flex items-center justify-center transition-all duration-100"
         }
         onClick={finishWorkout}
       >

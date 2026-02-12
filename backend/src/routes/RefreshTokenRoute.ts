@@ -11,7 +11,7 @@ refreshTokenRoute.get('/', async (req: Request, res: Response, next: NextFunctio
         //if validation is wrong it will normally throw an error
         const validation = jwt.verify(token.ticket_r, process.env.REFRESH_STRING as jwt.Secret) as IUserToken;
         //create new access token and set it in the cookies
-        const newAccessTicket = await jwt.sign({ id: validation.id }, process.env.SECRET_STRING as jwt.Secret, { expiresIn: '20s' })
+        const newAccessTicket = await jwt.sign({ id: validation.id }, process.env.SECRET_STRING as jwt.Secret, { expiresIn: `${Number(process.env.ACCESS_TIME)}s` })
         res.cookie('ticket', newAccessTicket, {
             maxAge: 1000 * Number(process.env.ACCESS_TIME),
             sameSite: 'strict',

@@ -5,7 +5,7 @@ export default {
     extend: {
       backgroundImage: {
         headerFullBackground:
-          "linear-gradient(to bottom, rgba(0,0,0,0) 80%, rgba(255,255,255,1)), url('/src/imagesTracker/karsten-winegeart-0Wra5YYVQJE-unsplash.jpg')",
+          "linear-gradient(to bottom, rgba(0,0,0,0) 80%, rgba(34, 40, 49,1)), url('/src/imagesTracker/karsten-winegeart-0Wra5YYVQJE-unsplash.jpg')",
         loginBackground: "url('/src/imagesTracker/People working out.jpg')",
         WorkoutImage: "url('/src/imagesTracker/Workouts.png')",
         CalendarImage: "url('/src/imagesTracker/Plan Calendar.png')",
@@ -19,17 +19,22 @@ export default {
         "center-center": "center 60%",
       },
       colors: {
-        main: "#F973C1",
-        second: "#FFCDEA",
-        third: "#8D21F6",
-        fourth: "#FFA1D8",
-        "soft-1": "#FFC1E5",
-        "soft-2": "#F57FFF",
-        "soft-3": "#F8CEFF",
-        "soft-4": "#FFF1F9",
-        "soft-5": "#C181FF",
-        accent: "#F84A92",
-        "footer-background": "rgba(255,255,255,0.7)",
+        "soft-1": "#6EACDA",
+        "soft-2": "#BBE1FA",
+
+        main: "#1C4D8D",
+        second: "#0F2854",
+        third: "#4988C4",
+        fourth: "#BDE8F5",
+
+        accent: "#3282B8",
+
+        cardBackground: "#343740",
+
+        mainDark: "#222831",
+        mainWhite: "#e4e4e7",
+
+        "footer-background": "rgba(62, 66, 69,0.4)",
       },
     },
     animation: {
@@ -44,7 +49,7 @@ export default {
       md: { max: "1200px" },
 
       sm: { max: "1000px" },
-      xs: { max: "800px" },
+      xs: { max: "880px" },
       tablet: { max: "780px" },
       mobile: { max: "670px" },
 

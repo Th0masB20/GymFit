@@ -38,7 +38,7 @@ const EditDay = ({
   const date: number = dateMonth.date;
   const month: IMonthName | "" = dateMonth.month;
   const [selectedIndex, setSelectedIndex] = useState<number | undefined>(
-    undefined
+    undefined,
   );
   if (!month) return <div></div>;
   const submitUpdate = async () => {
@@ -56,7 +56,7 @@ const EditDay = ({
           .date(date)
           .format("YYYY-MM-DD")}`,
       { name: selectedWorkoutName },
-      { withCredentials: true }
+      { withCredentials: true },
     );
 
     if (response.status == 200) {
@@ -64,7 +64,7 @@ const EditDay = ({
     }
   };
   return (
-    <div className="min-w-80 min-h-96 w-4/12 h-1/2 bg-second rounded-2xl absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
+    <div className="min-w-80 min-h-96 w-4/12 h-1/2 bg-third rounded-2xl absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
       <button
         className="absolute w-min right-8 top-4 hover:scale-125 transition-all"
         onClick={() => setEditCalDay(false)}
@@ -81,7 +81,7 @@ const EditDay = ({
         selectedIndex={selectedIndex}
       />
       <button
-        className="block mx-auto w-auto h-auto bg-main py -1 px-2 mt-8 rounded-full hover:scale-105 transition-all"
+        className="block mx-auto w-auto h-auto bg-main py-1 px-5 mt-8 rounded-full hover:scale-105 transition-all text-mainWhite"
         onClick={submitUpdate}
       >
         Add Workout To Date

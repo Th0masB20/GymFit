@@ -45,7 +45,7 @@ export const MonthlyActivityBar = ({
     <div className="flex flex-col items-center justify-center">
       {/* This is the activity log bar */}
       <div
-        className="w-7 h-60 bg-second rounded-md relative mx-3 
+        className="w-7 h-60 bg-fourth rounded-md relative mx-3 
       lg:mx-2 
       lg:w-5 
       md:w-4 
@@ -56,7 +56,7 @@ export const MonthlyActivityBar = ({
       >
         <div
           className={
-            "w-[80%] bg-main rounded-t-md mx-auto absolute bottom-0 left-[50%] translate-x-[-50%]"
+            "w-[80%] bg-main rounded-t-md rounded-b-sm mx-auto absolute bottom-0 left-[50%] translate-x-[-50%]"
           }
           style={{ height: `${getFillPercentage(index) * 100}%` }}
         />

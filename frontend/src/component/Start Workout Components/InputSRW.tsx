@@ -61,7 +61,7 @@ const InputSRWComponent = ({
           return i == exerciseIndex
             ? { ...currentExercise, reps: newRepArray, weights: newWeightArray }
             : currentExercise;
-        }
+        },
       );
 
       updateCurrentWorkout(currentWorkout);
@@ -77,8 +77,8 @@ const InputSRWComponent = ({
 
   return (
     <>
-      <div className="flex w-52 justify-around">
-        <div className="w-5 h-6 rounded-full bg-soft-3 text-center">
+      <div className="flex gap-6 justify-around">
+        <div className="w-6 h-6 rounded-full bg-soft-3 text-center">
           {setIndex + 1}
         </div>
         <input
@@ -87,12 +87,15 @@ const InputSRWComponent = ({
           value={repNumber}
           placeholder={repStartVal ? repStartVal.toString() : "0"}
         />
-        <input
-          className="w-14 rounded-full bg-soft-1 text-center"
-          onChange={onWeightNumberInput}
-          value={weightNumber}
-          placeholder={weightStartVal ? weightStartVal.toString() : "0"}
-        />
+        <div className="flex gap-1">
+          <input
+            className="w-14 rounded-full bg-soft-1 text-center"
+            onChange={onWeightNumberInput}
+            value={weightNumber}
+            placeholder={weightStartVal ? weightStartVal.toString() : "0"}
+          />
+          <p className="w-3">lb</p>
+        </div>
       </div>
     </>
   );

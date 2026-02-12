@@ -28,8 +28,8 @@ const TimerComponent = ({
   }, [seconds, minutes, hours]);
 
   return (
-    <div className="m-auto w-20 h-10 bg-main rounded-lg flex items-center justify-center mt-5">
-      <p className="text-center text-lg">
+    <div className="m-auto w-24 h-10 bg-main rounded-lg flex items-center justify-center mt-5">
+      <p className="text-center text-lg text-mainWhite">
         {hours < 10 ? "0" + hours : hours}:
         {minutes < 10 ? "0" + minutes : minutes}:
         {seconds < 10 ? "0" + seconds : seconds}

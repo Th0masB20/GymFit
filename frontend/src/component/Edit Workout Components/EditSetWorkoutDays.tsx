@@ -135,10 +135,10 @@ export const EditSetWorkoutDays = ({
   };
   return (
     <div className="flex flex-col justify-center items-center w-80 h-20">
-      <div className="bg-main w-24 h-6 mb-2 rounded-lg text-center">
+      <div className="bg-main w-24 h-6 mb-2 rounded-lg text-center text-mainWhite">
         Set Days
       </div>
-      <div className="w-full h-9 bg-second rounded-lg flex items-center justify-center">
+      <div className="w-full h-9 bg-third rounded-lg flex items-center justify-center">
         <ul className="inline">
           <li className="inline-block">
             <button
@@ -153,7 +153,7 @@ export const EditSetWorkoutDays = ({
               onClick={() => setRemoveDay(0)}
               disabled={Boolean(
                 weeklyCalendar["Monday"].workoutName &&
-                  weeklyCalendar["Monday"].workoutName != `${workoutName}`
+                weeklyCalendar["Monday"].workoutName != `${workoutName}`,
               )}
             >
               M
@@ -172,7 +172,7 @@ export const EditSetWorkoutDays = ({
               onClick={() => setRemoveDay(1)}
               disabled={Boolean(
                 weeklyCalendar["Tuesday"].workoutName &&
-                  weeklyCalendar["Tuesday"].workoutName != `${workoutName}`
+                weeklyCalendar["Tuesday"].workoutName != `${workoutName}`,
               )}
             >
               T
@@ -191,7 +191,7 @@ export const EditSetWorkoutDays = ({
               onClick={() => setRemoveDay(2)}
               disabled={Boolean(
                 weeklyCalendar["Wednesday"].workoutName &&
-                  weeklyCalendar["Wednesday"].workoutName != `${workoutName}`
+                weeklyCalendar["Wednesday"].workoutName != `${workoutName}`,
               )}
             >
               W
@@ -210,7 +210,7 @@ export const EditSetWorkoutDays = ({
               onClick={() => setRemoveDay(3)}
               disabled={Boolean(
                 weeklyCalendar["Thursday"].workoutName &&
-                  weeklyCalendar["Thursday"].workoutName != `${workoutName}`
+                weeklyCalendar["Thursday"].workoutName != `${workoutName}`,
               )}
             >
               TH
@@ -229,7 +229,7 @@ export const EditSetWorkoutDays = ({
               onClick={() => setRemoveDay(4)}
               disabled={Boolean(
                 weeklyCalendar["Friday"].workoutName &&
-                  weeklyCalendar["Friday"].workoutName != `${workoutName}`
+                weeklyCalendar["Friday"].workoutName != `${workoutName}`,
               )}
             >
               F
@@ -248,7 +248,7 @@ export const EditSetWorkoutDays = ({
               onClick={() => setRemoveDay(5)}
               disabled={Boolean(
                 weeklyCalendar["Saturday"].workoutName &&
-                  weeklyCalendar["Saturday"].workoutName != `${workoutName}`
+                weeklyCalendar["Saturday"].workoutName != `${workoutName}`,
               )}
             >
               S
@@ -267,7 +267,7 @@ export const EditSetWorkoutDays = ({
               onClick={() => setRemoveDay(6)}
               disabled={Boolean(
                 weeklyCalendar["Sunday"].workoutName &&
-                  weeklyCalendar["Sunday"].workoutName != `${workoutName}`
+                weeklyCalendar["Sunday"].workoutName != `${workoutName}`,
               )}
             >
               S

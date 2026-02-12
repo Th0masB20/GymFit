@@ -3,7 +3,7 @@ function mouseDown(
   e: React.TouchEvent<HTMLDivElement>,
   sliderRef: React.RefObject<HTMLDivElement>,
   setStartY: React.Dispatch<React.SetStateAction<number>>,
-  setStartScrollY: React.Dispatch<React.SetStateAction<number>>
+  setStartScrollY: React.Dispatch<React.SetStateAction<number>>,
 ) {
   e.preventDefault();
   e.stopPropagation();
@@ -12,8 +12,8 @@ function mouseDown(
   const startScrollY = Number(
     sliderRef.current?.style.transform.substring(
       11,
-      sliderRef.current?.style.transform.length - 3
-    )
+      sliderRef.current?.style.transform.length - 3,
+    ),
   );
 
   setStartY(startY);
@@ -22,15 +22,15 @@ function mouseDown(
 function mouseUp(
   setIsDown: React.Dispatch<React.SetStateAction<boolean>>,
   setTranslate: React.Dispatch<React.SetStateAction<number>>,
-  calContainerRef: React.RefObject<HTMLDivElement>
+  calContainerRef: React.RefObject<HTMLDivElement>,
 ) {
   if (!calContainerRef.current) return;
   if (!calContainerRef.current.firstElementChild) return;
   const currentTranslate = Number(
     calContainerRef.current.style.transform.substring(
       11,
-      calContainerRef.current.style.transform.length - 3
-    )
+      calContainerRef.current.style.transform.length - 3,
+    ),
   );
   const calendarMonthHeight =
     calContainerRef.current.firstElementChild.getBoundingClientRect().height +
@@ -40,12 +40,10 @@ function mouseUp(
   if (!Number.isInteger(quotient)) {
     let roundedQuotient = Math.round(quotient);
 
-    console.log(roundedQuotient);
     if (roundedQuotient * calendarMonthHeight < -calendarMonthHeight * 11) {
       roundedQuotient = Math.ceil(quotient);
     }
 
-    console.log("quotient ", roundedQuotient);
     if (roundedQuotient * calendarMonthHeight >= 0) {
       roundedQuotient = 0;
     }
@@ -72,7 +70,7 @@ function mouseMove(
   e: React.TouchEvent<HTMLDivElement>,
   setTranslate: React.Dispatch<React.SetStateAction<number>>,
   setIsDown: React.Dispatch<React.SetStateAction<boolean>>,
-  calContainerRef: React.RefObject<HTMLDivElement>
+  calContainerRef: React.RefObject<HTMLDivElement>,
 ) {
   e.preventDefault();
   e.stopPropagation();

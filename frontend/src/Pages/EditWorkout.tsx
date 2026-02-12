@@ -31,7 +31,7 @@ const EditWorkout = (): React.ReactElement => {
           {
             withCredentials: true,
             headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-          }
+          },
         );
         setUser(userResponse.data as IUser);
       } catch (error) {
@@ -51,10 +51,9 @@ const EditWorkout = (): React.ReactElement => {
           {
             withCredentials: true,
             headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-          }
+          },
         );
 
-        console.log(response);
         populateCache(response.data);
       } catch (error) {
         console.error(error);
@@ -79,7 +78,7 @@ const EditWorkout = (): React.ReactElement => {
   useEffect(() => {
     if (user && workoutN) {
       const theWorkout: IWorkout | undefined = user.workouts.find(
-        (workout) => workout.workoutName == workoutN
+        (workout) => workout.workoutName == workoutN,
       );
       if (theWorkout == undefined) {
         return;
@@ -122,7 +121,7 @@ const EditWorkout = (): React.ReactElement => {
         import.meta.env.VITE_BACKEND_URL +
           `/workout/${workout.workoutName}/updateWorkout/`,
         exerciseJson,
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       if (response.status == 200) nav("/workouts");
@@ -137,7 +136,7 @@ const EditWorkout = (): React.ReactElement => {
     const response = await axios_instance.delete(
       import.meta.env.VITE_BACKEND_URL +
         `/workout/${startingWorkoutName}/deleteWorkout`,
-      { withCredentials: true }
+      { withCredentials: true },
     );
 
     if (response.status == 200) nav("/workouts");
@@ -146,7 +145,6 @@ const EditWorkout = (): React.ReactElement => {
   if (!exercises || !user) {
     return <div></div>;
   }
-  console.log(!workoutName || exercises.length == 0 || workoutDays.size == 0);
   return (
     <main
       className={
@@ -157,7 +155,7 @@ const EditWorkout = (): React.ReactElement => {
       }
     >
       <input
-        className="text-center text-2xl m-auto block focus:outline-none"
+        className="text-center text-2xl m-auto block focus:outline-none bg-mainDark text-mainWhite"
         placeholder={workoutName}
         onChange={changeWorkoutName}
         onFocus={(e) => (e.target.placeholder = "")}
@@ -167,7 +165,7 @@ const EditWorkout = (): React.ReactElement => {
       />
       <div className="w-full h-1 bg-main float-right" />
       <button
-        className="flex flex-col justify-center items-center w-80 tablet:w-72 mobile:w-52 h-10 bg-main rounded-lg mt-5 m-auto hover:scale-110 transition-all"
+        className="flex flex-col justify-center items-center w-80 tablet:w-72 mobile:w-52 h-10 bg-main rounded-lg mt-5 m-auto hover:scale-110 transition-all text-mainWhite"
         onClick={() => showSearch(true)}
       >
         Add Exercise
@@ -180,7 +178,7 @@ const EditWorkout = (): React.ReactElement => {
               currentExercise={currentExercise}
               exerciseIndex={i}
               setWorkoutExercises={setWorkoutExercises}
-              key={i + 1000}
+              key={i + 3500}
             />
           );
         })}
@@ -194,14 +192,14 @@ const EditWorkout = (): React.ReactElement => {
         />
         <div className="w-full h-20 flex justify-center items-center">
           <button
-            className="w-52 tablet:w-48 mobile:w-40 h-10 bg-second rounded-lg hover:scale-110 mr-2 transition-all duration-100"
+            className="w-52 tablet:w-48 mobile:w-40 h-10 bg-second text-mainWhite rounded-lg hover:scale-110 mr-2 transition-all duration-100 flex justify-center items-center active"
             onClick={deleteWorkout}
           >
             Delete Workout
           </button>
           <button
             className={
-              "w-52 tablet:w-48 mobile:w-40 h-10 bg-main rounded-lg ml-2 transition-all " +
+              "w-52 tablet:w-48 mobile:w-40 h-10 bg-main rounded-lg ml-2 transition-all text-mainWhite " +
               (!workoutName || exercises.length == 0 || workoutDays.size == 0
                 ? " opacity-30"
                 : "hover:scale-110")

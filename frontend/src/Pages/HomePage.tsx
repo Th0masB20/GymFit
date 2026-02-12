@@ -18,7 +18,7 @@ const HomePage = (): React.ReactElement => {
           {
             withCredentials: true,
             headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-          }
+          },
         );
         if (userResponse.status == 200) {
           setUser(userResponse.data as IUser);
@@ -42,7 +42,7 @@ const HomePage = (): React.ReactElement => {
   return (
     <main className="relative w-full h-screen overscroll-none">
       <MobileSideBar />
-      <h1 className="text-center text-2xl ml-20 tablet:ml-0 mobile:hidden">
+      <h1 className="text-center text-2xl ml-20 tablet:ml-0 mobile:hidden text-mainWhite mt-2 mb-1">
         Welcome, {user.name} {user.lastName}
       </h1>
       <div className="w-screen h-1 bg-main float-right" />
@@ -55,8 +55,8 @@ const HomePage = (): React.ReactElement => {
 const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
   if (user.workouts.length == 0) {
     return (
-      <div className="ml-10 tablet:ml-0 absolute flex flex-col justify-center items-center w-80 h-48 mobile:w-60 mobile:h-40 bg-gradient-to-r from-main to-fourth rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <p className="text-center text-xl w-44">
+      <div className="ml-10 tablet:ml-0 absolute flex flex-col justify-center items-center w-80 h-48 mobile:w-60 mobile:h-40 bg-third rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <p className="text-center text-xl w-44 text-mainWhite">
           Start By Creating Your Workout Routine
         </p>
 
@@ -71,7 +71,7 @@ const MainBody = ({ user }: { user: IUser }): React.ReactElement => {
   }
   return (
     <>
-      <div className="ml-20 tablet:ml-0">
+      <div className="ml-20 tablet:ml-0 xl:h-[70%]">
         <HomePageData user={user} />
       </div>
     </>

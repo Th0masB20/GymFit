@@ -24,24 +24,25 @@ export const StartWorkoutExerciseCard = ({
           currentWorkout={currentWorkout}
           updateCurrentWorkout={updateCurrentWorkout}
           key={i + 100000}
-        />
+        />,
       );
     }
     return setArray;
   };
 
   return (
-    <div className="w-80 min-h-72 h-auto bg-fourth m-10 pb-10 flex flex-col justify-around items-center rounded-3xl">
-      <p className="text-center text-xl mb-3 mt-3">
+    <div className="w-80 min-h-72 h-auto bg-third m-10 pb-10 flex flex-col items-center rounded-3xl">
+      <p className="text-center text-xl mb-3 mt-7 mobile:px-2 font-bold capitalize">
         {currentExercise.exerciseName}
       </p>
-      <div className="flex w-52 justify-around mb-2">
-        <p className="text-center">Set</p>
-        <p className="text-center w-14">Reps</p>
-        <p className="text-center w-14">Weight</p>
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-around gap-6 mb-1">
+          <p className="text-center w-6">Set</p>
+          <p className="text-center w-14">Reps</p>
+          <p className="text-center w-[72px]">Weight</p>
+        </div>
+        {createSets()}
       </div>
-      {createSets()}
     </div>
   );
-  return <div></div>;
 };

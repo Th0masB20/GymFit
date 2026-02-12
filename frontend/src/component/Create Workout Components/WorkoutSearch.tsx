@@ -26,7 +26,7 @@ export const WorkoutSearch = ({
             exercise={exercise}
             setWorkoutExercises={setWorkoutExercises}
             showSearch={showSearch}
-            key={i + 10000000}
+            key={i + 500}
           />
         );
       });
@@ -39,22 +39,29 @@ export const WorkoutSearch = ({
             exercise={exercise}
             setWorkoutExercises={setWorkoutExercises}
             showSearch={showSearch}
-            key={i + 100000000}
+            key={i + 1000}
           />
         );
       }
       return null;
     });
   };
+
   return (
     <div className="absolute top-0 w-full h-full bg-[rgba(0,0,0,0.6)] flex justify-center items-center">
-      <div className="w-[600px] h-[550px] tablet:w-[500px] tablet:h-[500px] mobile:w-[340px] mobile:h-[450px] bg-second rounded-3xl flex flex-col items-center">
+      <div className="relative w-[600px] h-[550px] tablet:w-[500px] tablet:h-[500px] mobile:w-[340px] mobile:h-[450px] bg-main rounded-3xl flex flex-col items-center">
+        <button
+          className="absolute top-4 right-6 bg-mainWhite rounded-full w-6 h-6 hover:scale-110 transition-transform duration-100"
+          onClick={() => showSearch(false)}
+        >
+          X
+        </button>
         <input
-          className="w-96 tablet:w-80 mobile:w-64 h-8 bg-gray-200 rounded-full focus:outline-none pl-2 mt-4"
+          className="w-96 tablet:w-80 mobile:w-64 h-8 bg-gray-200 rounded-full focus:outline-none pl-2 mt-10"
           onChange={onSearch}
           value={searchInput}
         />
-        <div className="h-8 w-auto px-2 mt-2 rounded-full bg-soft-2 hover:cursor-pointer flex justify-center items-center">
+        <div className="h-8 w-auto px-2 mt-2 rounded-full bg-soft-2 flex justify-center items-center">
           <p className="text-center">Target body Type</p>
         </div>
         <div

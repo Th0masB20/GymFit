@@ -38,7 +38,7 @@ export const WorkoutDays = ({
   }, []);
 
   return (
-    <div className="w-11/12 h-9 bg-second rounded-lg flex items-center justify-center">
+    <div className="w-11/12 h-9 bg-soft-1 rounded-lg flex items-center justify-center">
       <ul className="text-md text-nowrap md:text-sm">
         <li className="inline-block">
           <p

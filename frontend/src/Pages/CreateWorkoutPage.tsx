@@ -30,7 +30,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
       !workoutName ||
         exercises.length == 0 ||
         workoutDays.size == 0 ||
-        repsIsEmpty()
+        repsIsEmpty(),
     );
   }, [exercises, workoutDays.size, workoutName]);
   //gets user
@@ -41,7 +41,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
           import.meta.env.VITE_BACKEND_URL + "/home/user",
           {
             withCredentials: true,
-          }
+          },
         );
         setUser(userResponse.data as IUser);
       } catch (error) {
@@ -62,7 +62,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
           {
             withCredentials: true,
             headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-          }
+          },
         );
         populateCache(response.data);
       }
@@ -83,7 +83,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
       const response = await axios_instance.post(
         import.meta.env.VITE_BACKEND_URL + "/workout/saveWorkout",
         exerciseJson,
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       if (response.status == 200) nav("/workouts");
@@ -128,7 +128,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
       }
     >
       <input
-        className="text-center text-2xl m-auto block focus:outline-none"
+        className="text-center text-2xl m-auto block focus:outline-none bg-mainDark text-mainWhite"
         placeholder="Workout Name"
         onChange={changeWorkoutName}
         onFocus={(e) => (e.target.placeholder = "")}
@@ -138,7 +138,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
       />
       <div className="w-full h-1 bg-main float-right" />
       <button
-        className="flex flex-col justify-center items-center w-80 tablet:w-72 mobile:w-52 h-10 bg-main rounded-lg mt-5 m-auto hover:scale-110 transition-all"
+        className="flex flex-col justify-center items-center w-80 tablet:w-72 mobile:w-52 h-10 bg-main rounded-lg mt-5 m-auto hover:scale-110 transition-all text-mainWhite"
         onClick={() => showSearch(true)}
       >
         Add Exercise
@@ -151,7 +151,7 @@ const CreateWorkoutPage = (): React.ReactElement => {
               currentExercise={currentExercise}
               exerciseIndex={i}
               setWorkoutExercises={setWorkoutExercises}
-              key={i + 1000}
+              key={i + 3000}
             />
           );
         })}
@@ -165,13 +165,13 @@ const CreateWorkoutPage = (): React.ReactElement => {
         <div className="w-full h-20 flex justify-center items-center">
           <NavLink
             to="/workouts"
-            className="w-52 tablet:w-48 mobile:w-40 h-10 bg-second rounded-lg hover:scale-110 mr-2 transition-all duration-100 flex justify-center items-center"
+            className="w-52 tablet:w-48 mobile:w-40 h-10 bg-second text-mainWhite rounded-lg hover:scale-110 mr-2 transition-all duration-100 flex justify-center items-center"
           >
             Cancel
           </NavLink>
           <button
             className={
-              "w-52 tablet:w-48 mobile:w-40 h-10 bg-main rounded-lg ml-2 transition-all " +
+              "w-52 tablet:w-48 mobile:w-40 h-10 bg-main rounded-lg ml-2 transition-all text-mainWhite " +
               (disableButton ? " opacity-30" : "hover:scale-110")
             }
             onClick={saveWorkout}

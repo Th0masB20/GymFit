@@ -26,7 +26,7 @@ const StartWorkout = (): React.ReactElement => {
           {
             withCredentials: true,
             headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-          }
+          },
         );
         setUser(userResponse.data as IUser);
       } catch (error) {
@@ -40,7 +40,7 @@ const StartWorkout = (): React.ReactElement => {
   if (!user) return <div></div>;
 
   const workout = user.workouts.find(
-    (workout) => workout.workoutName == workoutName
+    (workout) => workout.workoutName == workoutName,
   );
   if (!workout) return <div></div>;
   const newWorkoutInstanse: IWorkout = { ...workout };
@@ -65,7 +65,7 @@ const StartWorkout = (): React.ReactElement => {
         finishedWorkoutJson,
         {
           withCredentials: true,
-        }
+        },
       );
 
       const updateUsersLastWorkout = await axios_instance.patch(
@@ -73,16 +73,14 @@ const StartWorkout = (): React.ReactElement => {
         finishedWorkoutJson,
         {
           withCredentials: true,
-        }
+        },
       );
       if (
         saveFinishedResponse.status == 200 &&
         updateUsersLastWorkout.status == 200
       ) {
-        console.log(user?.workoutHistory);
         nav("/workout");
       } else {
-        console.log(saveFinishedResponse.statusText);
         throw Error(saveFinishedResponse.statusText);
       }
     } catch (error) {
@@ -111,7 +109,7 @@ const StartWorkout = (): React.ReactElement => {
               exerciseIndex={i}
               currentWorkout={currentWorkout}
               updateCurrentWorkout={updateCurrentWorkout}
-              key={i + 1000}
+              key={i + 4000}
             />
           );
         })}

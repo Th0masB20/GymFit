@@ -13,6 +13,7 @@
 html,
 body {
   overscroll-behavior: none !important;
+  @apply bg-mainDark;
 }
 
 .header {
@@ -24,11 +25,11 @@ body {
 }
 
 .mainLoginButton {
-  @apply box-border bg-gradient-to-r from-third to-main w-auto h-auto p-1 px-4 rounded-full text-white font-bold z-10;
+  @apply box-border bg-main w-auto h-auto p-1 px-4 rounded-full text-white font-bold z-10;
 }
 
 .listItem {
-  @apply text-center text-accent text-xl md:text-lg mobile:text-base;
+  @apply text-center text-soft-2 text-xl md:text-lg mobile:text-base font-bold;
 }
 
 .LoginInput {
@@ -44,7 +45,7 @@ body {
 }
 
 .calendarText {
-  @apply text-center w-6 h-6 mx-1;
+  @apply w-6 h-6 mx-1 flex items-center justify-center;
 }
 
 .calendarWorkoutCreationText {
@@ -52,7 +53,7 @@ body {
 }
 
 .calendarTextSelected {
-  @apply bg-main rounded-full;
+  @apply bg-main rounded-full text-mainWhite;
 }
 
 .calendarDayAvailable {

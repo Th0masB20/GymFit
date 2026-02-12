@@ -19,6 +19,7 @@ const ListOfWorkouts = ({
               index={i}
               selectedIndex={selectedIndex}
               setSelectedIndex={setSelectedIndex}
+              key={i}
             />
           );
         })}

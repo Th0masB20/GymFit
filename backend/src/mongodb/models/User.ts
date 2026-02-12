@@ -30,6 +30,10 @@ const UserSchema: Schema = new mongoose.Schema<IUserMongoose>(
             type: Number,
             require: true,
         },
+        weight: {
+            type: Number,
+            require: true,
+        },
         workouts: {
             type: [Object],
             require: true,

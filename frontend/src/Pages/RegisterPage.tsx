@@ -43,7 +43,7 @@ const RegisterForm = (): React.ReactElement => {
 
     const response = await axios_instance.post(
       import.meta.env.VITE_BACKEND_URL + "/register/submit",
-      rObject
+      rObject,
     );
 
     return response;
@@ -169,7 +169,7 @@ const RegisterFormContainer = (): React.ReactElement => {
 
 const RegisterPage = (): React.ReactElement => {
   return (
-    <main className="bg-purple-950 w-screen h-screen flex justify-center items-center overscroll-none">
+    <main className="bg-mainDark w-screen h-screen flex justify-center items-center overscroll-none">
       <RegisterFormContainer />
     </main>
   );

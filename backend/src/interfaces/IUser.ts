@@ -10,6 +10,7 @@ export interface IUser {
     password: string,
     age: number | undefined,
     height: number | undefined,
+    weight: number | undefined,
     workouts: IWorkout[],
     activityLog: number[],
     generalWeeklyCalendar: IWeeklyCalendar,
@@ -21,9 +22,10 @@ export interface IUser {
 }
 
 
-export interface IUserAgeWeight extends Request {
+export interface IUserAgeHeightWeight extends Request {
     age: number,
     height: number
+    weight: number
 }
 
 export interface IUserMongoose extends Document, IUser { }

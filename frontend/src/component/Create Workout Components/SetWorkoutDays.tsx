@@ -27,7 +27,7 @@ export const SetWorkoutDays = ({
       setWeeklyCalendar((currentWeeklyCalendar) => {
         const newCalendar = { ...currentWeeklyCalendar };
         newCalendar[key as IWeekDay] = Boolean(
-          user.generalWeeklyCalendar[key as IWeekDay]["workoutName"]
+          user.generalWeeklyCalendar[key as IWeekDay]["workoutName"],
         );
         return newCalendar;
       });
@@ -142,10 +142,10 @@ export const SetWorkoutDays = ({
 
   return (
     <div className="flex flex-col justify-center items-center w-80 h-20">
-      <div className="bg-main w-24 h-6 mb-2 rounded-lg text-center">
+      <div className="bg-main w-24 h-6 mb-2 rounded-lg text-center text-mainWhite">
         Set Days
       </div>
-      <div className="w-full h-9 bg-second rounded-lg flex items-center justify-center">
+      <div className="w-full h-9 bg-third rounded-lg flex items-center justify-center">
         <ul className="inline">
           <li className="inline-block">
             <button

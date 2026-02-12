@@ -26,12 +26,12 @@ const Header = (): React.ReactElement => {
     <header className="header overscroll-contain">
       <NavBar />
       <div className="headerWords">
-        <p className="box-border text-4xl xl:text-5xl text-center w-52 xl:w-64 z-10 text-white font-semibold">
+        <p className="box-border text-4xl xl:text-5xl text-center w-52 xl:w-64 z-10 text-mainWhite font-semibold">
           Easiest Way to track your Fitness Journey
         </p>
         <NavLink
           to="/register"
-          className="box-border bg-gradient-to-r from-third to-main w-auto h-auto p-2 xl:p-[10px] rounded-full text-white xl:text-lg font-bold z-10 hover:scale-105 transition-all"
+          className="box-border bg-main w-auto h-auto py-2 px-4 xl:p-[10px] rounded-full text-mainWhite xl:text-lg font-bold z-10 hover:scale-105 transition-all"
         >
           Start Up Today
         </NavLink>
@@ -42,7 +42,7 @@ const Header = (): React.ReactElement => {
 
 const About = (): React.ReactElement => {
   return (
-    <div className="flex flex-col items-center bg-soft-1 w-6/12 h-96 mx-auto mt-24 mb-24 p-8 rounded-3xl min-w-96 mobile:min-w-80 overscroll-contain">
+    <div className="flex flex-col items-center text-mainWhite bg-main w-6/12 h-96 mx-auto mt-24 mb-24 p-8 rounded-3xl min-w-96 mobile:min-w-80 overscroll-contain">
       <h2 className="text-3xl font-semibold pb-5 underline">About</h2>
       <p className="text-xl text-center md:text-lg mobile:text-base">
         We strive to make workout tracking as easy and seamless as possible
@@ -68,7 +68,7 @@ const MainPage = (): React.ReactElement => {
   return (
     <>
       <Header />
-      <main className="overscroll-none">
+      <main className="overscroll-none bg-mainDark">
         <About />
       </main>
     </>

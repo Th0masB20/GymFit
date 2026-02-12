@@ -18,7 +18,7 @@ const WorkoutsPage = (): React.ReactElement => {
           {
             withCredentials: true,
             headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-          }
+          },
         );
         if (userResponse.status != 200) throw userResponse;
         setUser(userResponse.data as IUser);
@@ -32,7 +32,7 @@ const WorkoutsPage = (): React.ReactElement => {
   }, [nav]);
   if (user == undefined) return <div></div>;
   return (
-    <main className="relative w-full h-full overscroll-none">
+    <main className="relative w-full h-full overscroll-none text-mainWhite">
       <MobileSideBar />
       <SideBar />
       <MainBody user={user} />

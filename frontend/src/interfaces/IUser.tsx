@@ -32,6 +32,7 @@ interface IUser {
   password: string;
   age: number | undefined;
   height: number | undefined;
+  weight: number | undefined;
   workouts: IWorkout[];
   activityLog: number[];
   generalWeeklyCalendar: IWeeklyCalendar;

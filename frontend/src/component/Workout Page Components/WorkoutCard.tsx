@@ -15,7 +15,7 @@ export const WorkoutCard = ({
   return (
     <div
       className={
-        "m-auto w-80 lg:w-72 md:w-64 tablet:w-60 h-80 bg-fourth rounded-3xl flex flex-col items-center hover:cursor-pointer hover:scale-105 transition-all " +
+        "m-auto w-80 lg:w-72 md:w-64 tablet:w-60 h-80 bg-third rounded-3xl flex flex-col items-center hover:cursor-pointer hover:scale-105 transition-all " +
         (selectedIndex == index ? "border-2   border-black" : "")
       }
       onClick={() => {
@@ -24,18 +24,20 @@ export const WorkoutCard = ({
           : setSelectedIndex(undefined);
       }}
     >
-      <p className="text-center underline text-2xl mt-10">
+      <p className="text-center text-2xl mt-4 mb-1 font-bold">
         {workout.workoutName}
       </p>
-      <div className="flex flex-col align-center my-5 h-36">
+      <div className="w-full h-1 bg-main" />
+
+      <div className="flex flex-col align-center mt-10 my-5 h-36">
         {workout.exercises.map((exercises, i) => {
           if (i >= 2) return;
           return (
-            <>
-              <p key={i} className="mt-1 w-52 text-lg text-left md:text-center">
+            <div key={i + 3500}>
+              <p className="mt-1 w-52 text-lg text-left md:text-center">
                 {exercises.numberOfSets} x {exercises.exerciseName}
               </p>
-            </>
+            </div>
           );
         })}
         {workout.exercises.length >= 3 ? (

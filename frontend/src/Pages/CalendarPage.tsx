@@ -40,11 +40,11 @@ const CalendarPage = (): React.ReactElement => {
     month: "",
   });
   const [currentTranslate, setTranslate] = useState<number>(
-    moment().month() * -shiftValue
+    moment().month() * -shiftValue,
   );
 
   const [currentMonthViewed, setViewedMonth] = useState<number>(
-    moment().month()
+    moment().month(),
   );
   const nav = useNavigate();
 
@@ -81,7 +81,7 @@ const CalendarPage = (): React.ReactElement => {
           {
             withCredentials: true,
             headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-          }
+          },
         );
         if (userResponse.status != 200) throw userResponse;
 
@@ -135,7 +135,8 @@ const CalendarPage = (): React.ReactElement => {
           monthNumber={i}
           setEditCalDay={setEditCalDay}
           getDateMonth={getDateMonth}
-        />
+          key={i + 10000}
+        />,
       );
     }
 
@@ -153,7 +154,7 @@ const CalendarPage = (): React.ReactElement => {
       <MobileSideBar />
       <SideBar />
       <section className="w-screen h-screen flex-auto flex-col overscroll-y-contain">
-        <h1 className="text-center text-2xl pl-20 tablet:pl-0 mobile:hidden">
+        <h1 className="text-center text-2xl pl-20 tablet:pl-0 mobile:hidden text-mainWhite">
           Calendar
         </h1>
         <div className="w-screen h-1 bg-main float-right overscroll-y-contain" />
@@ -166,7 +167,7 @@ const CalendarPage = (): React.ReactElement => {
               e,
               calContainerRef,
               setStartY,
-              setStartTranslate
+              setStartTranslate,
             )
           }
           onTouchMove={(e: React.TouchEvent<HTMLDivElement>) => {
@@ -177,7 +178,7 @@ const CalendarPage = (): React.ReactElement => {
               e,
               setTranslate,
               setIsDown,
-              calContainerRef
+              calContainerRef,
             );
           }}
           onTouchEnd={() => {

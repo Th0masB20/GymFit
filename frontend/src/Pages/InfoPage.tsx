@@ -11,26 +11,35 @@ type setHeightProp = {
   setHeight: React.Dispatch<React.SetStateAction<string>>;
 };
 
+type setWeightProp = {
+  setWeight: React.Dispatch<React.SetStateAction<string>>;
+};
+
 type prop = {
   finished: React.Dispatch<React.SetStateAction<boolean>>;
   setHeight: React.Dispatch<React.SetStateAction<string>>;
   setAge: React.Dispatch<React.SetStateAction<string>>;
+  setWeight: React.Dispatch<React.SetStateAction<string>>;
   age: string;
   height: string;
+  weight: string;
   user: IUser;
 };
 
-interface ageHeightProp {
+interface ageHeightWeightProp {
   age: string;
   height: string;
+  weight: string;
 }
 
 const InfoForm = ({
   finished,
   age,
   height,
+  weight,
   setAge,
   setHeight,
+  setWeight,
   user,
 }: prop): React.ReactElement => {
   return (
@@ -41,6 +50,8 @@ const InfoForm = ({
           return <AgeForm setAge={setAge} />;
         } else if (height == "") {
           return <HeightForm setHeight={setHeight} />;
+        } else if (weight == "") {
+          return <WeightForm setWeight={setWeight} />;
         } else {
           finished(true);
           return;
@@ -56,6 +67,7 @@ const InfoFormPage = (): React.ReactElement => {
   const [user, setUser] = useState({} as IUser);
   const [age, setAge] = useState<string>("");
   const [height, setHeight] = useState<string>("");
+  const [weight, setWeight] = useState<string>("");
 
   const nav = useNavigate();
   useEffect(() => {
@@ -66,7 +78,7 @@ const InfoFormPage = (): React.ReactElement => {
           {
             withCredentials: true,
             headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-          }
+          },
         );
         setUser(userResponse.data as IUser);
       } catch (error) {
@@ -76,11 +88,10 @@ const InfoFormPage = (): React.ReactElement => {
     }
     getData();
   }, [nav]);
-  console.log(finishSetUp);
   if (finishSetUp) {
     return (
       <>
-        <FinishForm age={age} height={height} />
+        <FinishForm age={age} height={height} weight={weight} />
       </>
     );
   } else {
@@ -95,8 +106,10 @@ const InfoFormPage = (): React.ReactElement => {
             finished={finished}
             setAge={setAge}
             setHeight={setHeight}
+            setWeight={setWeight}
             age={age}
             height={height}
+            weight={weight}
             user={user}
           />
         </div>
@@ -149,7 +162,9 @@ const AgeForm = ({ setAge }: setAgeProp): React.ReactElement => {
 
 const HeightForm = ({ setHeight }: setHeightProp): React.ReactElement => {
   const [inputHeight, changeHeight] = useState<string>("");
-  const updateAge = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [inputHeightInch, changeHeightInch] = useState<string>("");
+
+  const updateHeight = (e: React.ChangeEvent<HTMLInputElement>) => {
     const height: number = Number(e.target.value);
     if (e.target.value == "") {
       changeHeight("");
@@ -163,22 +178,53 @@ const HeightForm = ({ setHeight }: setHeightProp): React.ReactElement => {
     changeHeight(height.toString());
   };
 
+  const updateHeightInch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const heightInch: number = Number(e.target.value);
+    if (e.target.value == "") {
+      changeHeightInch("");
+      return;
+    } else if (isNaN(heightInch)) {
+      console.log("not a valid height number");
+      e.target.value = "";
+      return;
+    }
+
+    changeHeightInch(heightInch.toString());
+  };
+
   const next = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setHeight(inputHeight);
+    let height = (
+      Number(inputHeight) * 30.48 +
+      Number(inputHeightInch) * 2.54
+    ).toString();
+    console.log(height);
+    setHeight(height);
   };
 
   return (
     <form className="flex flex-col justify-center items-center h-60">
       <label className="flex flex-col justify-center items-center text-lx font-bold">
         Height
-        <input
-          type="text"
-          onChange={updateAge}
-          value={inputHeight}
-          placeholder="0"
-          className="rounded-xl text-center mt-2 w-20"
-        />
+        <div className="flex items-center mt-2">
+          <input
+            type="text"
+            onChange={updateHeight}
+            value={inputHeight}
+            placeholder="0"
+            className="rounded-xl text-center w-20"
+          />
+          <p className="ml-1">'</p>
+
+          <input
+            type="text"
+            onChange={updateHeightInch}
+            value={inputHeightInch}
+            placeholder="0"
+            className="rounded-xl text-center w-20 ml-2"
+          />
+          <p className="ml-1">''</p>
+        </div>
       </label>
       <button className="nextButton" onClick={next}>
         Next
@@ -187,19 +233,65 @@ const HeightForm = ({ setHeight }: setHeightProp): React.ReactElement => {
   );
 };
 
-const FinishForm = ({ age, height }: ageHeightProp): React.ReactElement => {
+const WeightForm = ({ setWeight }: setWeightProp): React.ReactElement => {
+  const [inputWeight, changeWeight] = useState<string>("");
+  const updateWeight = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const weight: number = Number(e.target.value);
+    if (e.target.value == "") {
+      changeWeight("");
+      return;
+    } else if (isNaN(weight)) {
+      console.log("not a valid weight number");
+      e.target.value = "";
+      return;
+    }
+
+    changeWeight(weight.toString());
+  };
+
+  const next = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setWeight(inputWeight);
+  };
+
+  return (
+    <form className="flex flex-col justify-center items-center h-60">
+      <label className="flex flex-col justify-center items-center text-lx font-bold">
+        Weight
+        <div className="flex items-center mt-2">
+          <input
+            type="text"
+            onChange={updateWeight}
+            value={inputWeight}
+            placeholder="0"
+            className="rounded-xl text-center w-20"
+          />
+          <p className="ml-1">lb</p>
+        </div>
+      </label>
+      <button className="nextButton" onClick={next}>
+        Next
+      </button>
+    </form>
+  );
+};
+
+const FinishForm = ({
+  age,
+  height,
+  weight,
+}: ageHeightWeightProp): React.ReactElement => {
   const nav = useNavigate();
   useEffect(() => {
     async function update() {
       try {
         const response = await axios_instance.put(
           import.meta.env.VITE_BACKEND_URL + "/home/updateUser",
-          { age, height },
+          { age, height, weight },
           {
             withCredentials: true,
-          }
+          },
         );
-
         console.log(response);
       } catch (error) {
         const responsError = (error as errorResponse).response.data.error;
@@ -207,7 +299,7 @@ const FinishForm = ({ age, height }: ageHeightProp): React.ReactElement => {
       }
     }
     update();
-  }, [age, height, nav]);
+  }, [age, height, weight, nav]);
   const goToMainPage = () => {
     setTimeout(() => nav("/home"), 1500);
   };

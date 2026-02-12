@@ -18,9 +18,7 @@ const CalendarDay = ({
 }): React.ReactElement => {
   return (
     <div
-      className={`w-full h-full md:h-[60px] md:w-16 mobile:w-8 mobile:h-12 bg-soft-4 rounded-lg flex flex-col select-none ${gridStart} ${
-        window.innerWidth <= 1100 ? "active:bg-soft-1" : ""
-      }`}
+      className={`w-full h-full md:h-[60px] md:w-16 mobile:w-8 mobile:h-12 bg-soft-4 rounded-lg flex flex-col select-none lg:active:bg-soft-1 bg-soft-1 ${gridStart} `}
       onClick={() => {
         if (window.innerWidth <= 1100 && workoutName) {
           setEditCalDay(true);
@@ -32,7 +30,7 @@ const CalendarDay = ({
       {workoutName ? (
         <>
           <button
-            className=" md:hidden w-fit items-center m-auto bg-soft-5 p-2 text-center text-xs rounded-xl hover:scale-105 transition-all select-none"
+            className=" md:hidden w-fit items-center m-auto bg-soft-5 p-2 text-center text-xs rounded-xl hover:scale-105 transition-all select-none bg-third"
             onClick={() => {
               setEditCalDay(true);
               getDateMonth({ date, month });
@@ -44,15 +42,16 @@ const CalendarDay = ({
           <div className="invisible md:visible bg-soft-2 w-3 h-3 m-auto rounded-full select-none"></div>
         </>
       ) : (
-        <button
-          className="md:invisible w-fit items-center m-auto bg-soft-3 p-2 text-center text-xs rounded-xl hover:scale-105 transition-all select-none"
-          onClick={() => {
-            setEditCalDay(true);
-            getDateMonth({ date, month });
-          }}
-        >
-          Rest
-        </button>
+        <div></div>
+        // <button
+        //   className="md:invisible w-fit items-center m-auto bg-soft-3 p-2 text-center text-xs rounded-xl hover:scale-105 transition-all select-none"
+        //   onClick={() => {
+        //     setEditCalDay(true);
+        //     getDateMonth({ date, month });
+        //   }}
+        // >
+        //   Rest
+        // </button>
       )}
     </div>
   );

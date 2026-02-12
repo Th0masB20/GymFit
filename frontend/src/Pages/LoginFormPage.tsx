@@ -8,7 +8,7 @@ import animation from "../imagesTracker/Dumbbell_Loading.json";
 
 const SigninPage = (): React.ReactElement => {
   return (
-    <main className="bg-purple-950 w-screen h-screen flex justify-center items-center overscroll-none">
+    <main className="w-screen h-screen flex justify-center items-center overscroll-none">
       <CenterLogin />
     </main>
   );
@@ -46,18 +46,23 @@ const SignIn = (): React.ReactElement => {
       setError(error.response.data);
       throw Error(error.response.data.error);
     }
-    const response = await axios_instance.post(
-      import.meta.env.VITE_BACKEND_URL + "/login/loginUser",
-      {
-        email: emailInput,
-        password: passwordInput,
-      },
-      {
-        headers: { Accept: "application/json" },
-        withCredentials: true,
-      }
-    );
-    return response;
+    try {
+      const response = await axios_instance.post(
+        import.meta.env.VITE_BACKEND_URL + "/login/loginUser",
+        {
+          email: emailInput,
+          password: passwordInput,
+        },
+        {
+          headers: { Accept: "application/json" },
+          withCredentials: true,
+        },
+      );
+
+      return response;
+    } catch (error) {
+      throw error;
+    }
   };
 
   const logInRequest = async (e?: React.FormEvent<HTMLButtonElement>) => {
@@ -70,6 +75,8 @@ const SignIn = (): React.ReactElement => {
           setRegisterStatus(status.done);
           nav("/home");
         }, 1000);
+      } else {
+        // throw Error(response);
       }
     } catch (error) {
       let errorResponse: errorObject;
