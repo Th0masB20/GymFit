@@ -13,7 +13,9 @@ const ErrorPage = (): React.ReactElement => {
       <section className="w-80 h-80 bg-main rounded-xl flex justify-center items-center flex-col">
         <p className="text-center text-2xl text-white"> 404 Error</p>
         <p className="text-center text-2xl text-white">
-          {error == "Access Token Expired" ? "Log Back In" : error}
+          {error == "Access Token Expired" || error == "Refresh Token Expired"
+            ? "Log Back In"
+            : error}
         </p>
         {error == "Access Token Expired" ? (
           <NavLink

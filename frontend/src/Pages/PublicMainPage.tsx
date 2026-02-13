@@ -1,16 +1,15 @@
 import React from "react";
 import "../css/index.css";
 import { NavLink } from "react-router-dom";
+import createWorkoutImg from "../imagesTracker/createWorkout.png";
+import multipleWorkoutImg from "../imagesTracker/multipleWorkouts.png";
+import setScheduleImg from "../imagesTracker/setSchedule.png";
+import trackWorkout from "../imagesTracker/trackWorkout.png";
 
 const NavBar = (): React.ReactElement => {
   return (
     <nav className="absolute right-0 bg-[rgba(255,255,255,0.3)] h-10 flex flex-col justify-center w-auto mobile:w-full px-6">
-      <ul className="z-10 flex justify-end">
-        <li>
-          <NavLink to="/about" className="text-white font-semibold pr-8">
-            About
-          </NavLink>
-        </li>
+      <ul className="z-10 flex justify-end mobile:justify-center">
         <li className="hover:scale-110 transition-all">
           <NavLink to="/login" className="mainLoginButton">
             Log In
@@ -64,12 +63,60 @@ const About = (): React.ReactElement => {
   );
 };
 
+const MainPageBody = (): React.ReactElement => {
+  return (
+    <div className="mb-20">
+      <div className="flex justify-center items-center mt-20 gap-6 flex-col">
+        <div>
+          <ul className="pt-2 pb-2 flex flex-col gap-2 items-center text-center">
+            <li className="listItem">Create Custom Workouts</li>
+            <li className="listItem">Set workouts for specific days</li>
+          </ul>
+        </div>
+        <img src={multipleWorkoutImg} className="w-8/12" />
+      </div>
+
+      <div className="flex justify-center items-center mt-20 gap-6 flex-col">
+        <div>
+          <ul className="pt-2 pb-2 flex flex-col gap-2 items-center text-center">
+            <li className="listItem">Select from many excercises</li>
+            <li className="listItem">Customize rep, sets, and weight amount</li>
+          </ul>
+        </div>
+        <img src={createWorkoutImg} className="w-8/12" />
+      </div>
+
+      <div className="flex justify-center items-center mt-20 gap-6 flex-col">
+        <div>
+          <ul className="pt-2 pb-2 flex flex-col gap-2 items-center text-center">
+            <li className="listItem">Customize you workout schedule</li>
+            <li className="listItem">
+              Freely rearange workouts outside of preplaned days
+            </li>
+          </ul>
+        </div>
+        <img src={setScheduleImg} className="w-8/12" />
+      </div>
+
+      <div className="flex justify-center items-center mt-20 gap-6 flex-col">
+        <div>
+          <ul className="pt-2 pb-2 flex flex-col gap-2 items-center text-center">
+            <li className="listItem">Easily track your progress</li>
+            <li className="listItem">See upcoming workouts</li>
+          </ul>
+        </div>
+        <img src={trackWorkout} className="w-8/12" />
+      </div>
+    </div>
+  );
+};
+
 const MainPage = (): React.ReactElement => {
   return (
     <>
       <Header />
       <main className="overscroll-none bg-mainDark">
-        <About />
+        <MainPageBody />
       </main>
     </>
   );

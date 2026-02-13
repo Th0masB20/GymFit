@@ -71,7 +71,7 @@ export const WeeklySchedule = ({ user }: UserProp): React.ReactElement => {
     }
   }, [user.yearWeeklyCalendar, weekYearIndex]);
   return (
-    <div className="w-auto h-48 xs:h-52 rounded-2xl bg-cardBackground flex flex-col gap-10 items-center text-darkText md:w-full md:min-w-fit xs:w-auto">
+    <div className="w-auto h-48 xs:h-52 rounded-2xl bg-cardBackground flex flex-col gap-10 items-center text-darkText md:w-full md:min-w-fit xs:w-auto cardShadow">
       <div className="w-full text-lg flex flex-col items-center">
         <p className="font-bold mt-2 text-center text-lg md:text-base">
           Weekly Schedule

@@ -11,7 +11,7 @@ const HomePageData = ({ user }: UserProp): React.ReactElement => {
         <TodayWorkout user={user} />
         <WeeklySchedule user={user} />
       </div>
-      <div className="flex justify-center items-center mt-6 xs:flex-col mb-10 md:justify-between gap-10">
+      <div className="flex justify-center items-center mt-6 xs:flex-col mb-10 md:justify-between gap-10 xs:gap-6 xs:mt-12">
         <ActivityLog user={user} />
         <LastWorkoutStats user={user} />
       </div>

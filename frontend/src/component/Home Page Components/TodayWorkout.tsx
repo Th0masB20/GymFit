@@ -28,7 +28,7 @@ export const TodayWorkout = ({ user }: UserProp): React.ReactElement => {
     }
   }, [user]);
   return (
-    <div className="flex flex-col items-center gap-8 w-52 h-48 rounded-2xl bg-cardBackground lg:w-40 md:hidden shadow-sm">
+    <div className="cardShadow flex flex-col items-center gap-8 w-52 h-48 rounded-2xl bg-cardBackground lg:w-40 md:hidden shadow-sm">
       <div className="w-full flex flex-col items-center">
         <p className="text-center mt-2 text-lg md: text-md font-bold">
           Today's Exercise

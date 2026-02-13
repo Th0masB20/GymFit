@@ -10,7 +10,7 @@ const ListOfWorkouts = ({
   setSelectedIndex: React.Dispatch<React.SetStateAction<number | undefined>>;
 }): React.ReactElement => {
   return (
-    <div className="mt-8">
+    <div className="mt-8 max-h-24 overflow-y-scroll w-fit px-3 m-auto no-scrollbar">
       <ul>
         {workouts.map((workout, i) => {
           return (

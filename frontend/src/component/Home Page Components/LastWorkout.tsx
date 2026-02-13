@@ -4,17 +4,16 @@ import ExerciseDetails from "./ExerciseDetails";
 const LastWorkoutStats = ({ user }: UserProp): React.ReactElement => {
   return (
     <div
-      className="flex flex-col items-center w-64 h-80 bg-cardBackground rounded-3xl overflow-y-auto
+      className="cardShadow flex flex-col items-center w-64 h-80 bg-cardBackground rounded-3xl overflow-y-auto
       lg:w-80 
       md:w-72
       xs:h-60
-      xs:ml-0
+      xs:w-[305px]
       xs:mt-5"
     >
       <p className="text-lg md:text-base font-bold pt-4 text-center">
         Last Workout Stats
       </p>
-      {/* <div className="w-full h-[3px] bg-third mt-1 mb-2" /> */}
       <DisplayLastWorkout user={user} />
     </div>
   );
