@@ -39,29 +39,29 @@ const Header = (): React.ReactElement => {
   );
 };
 
-const About = (): React.ReactElement => {
-  return (
-    <div className="flex flex-col items-center text-mainWhite bg-main w-6/12 h-96 mx-auto mt-24 mb-24 p-8 rounded-3xl min-w-96 mobile:min-w-80 overscroll-contain">
-      <h2 className="text-3xl font-semibold pb-5 underline">About</h2>
-      <p className="text-xl text-center md:text-lg mobile:text-base">
-        We strive to make workout tracking as easy and seamless as possible
-      </p>
-      <p className="text-xl text-center md:text-lg mobile:text-sm">
-        We allow users to:
-      </p>
-      <ul className="inline-block pt-2 pb-2">
-        <li className="listItem">Create Custome Workouts</li>
-        <li className="listItem">Set a workout schedule</li>
-        <li className="listItem">
-          Set rerminders for days and time of workout
-        </li>
-      </ul>
-      <p className="text-2xl text-center mt-5 font-semibold md:text-lg md:mt-0 mobile:text-base">
-        Select From a huge list of exercises or create your own exercise.
-      </p>
-    </div>
-  );
-};
+// const About = (): React.ReactElement => {
+//   return (
+//     <div className="flex flex-col items-center text-mainWhite bg-main w-6/12 h-96 mx-auto mt-24 mb-24 p-8 rounded-3xl min-w-96 mobile:min-w-80 overscroll-contain">
+//       <h2 className="text-3xl font-semibold pb-5 underline">About</h2>
+//       <p className="text-xl text-center md:text-lg mobile:text-base">
+//         We strive to make workout tracking as easy and seamless as possible
+//       </p>
+//       <p className="text-xl text-center md:text-lg mobile:text-sm">
+//         We allow users to:
+//       </p>
+//       <ul className="inline-block pt-2 pb-2">
+//         <li className="listItem">Create Custome Workouts</li>
+//         <li className="listItem">Set a workout schedule</li>
+//         <li className="listItem">
+//           Set rerminders for days and time of workout
+//         </li>
+//       </ul>
+//       <p className="text-2xl text-center mt-5 font-semibold md:text-lg md:mt-0 mobile:text-base">
+//         Select From a huge list of exercises or create your own exercise.
+//       </p>
+//     </div>
+//   );
+// };
 
 const MainPageBody = (): React.ReactElement => {
   return (
